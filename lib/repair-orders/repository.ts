@@ -59,6 +59,42 @@ function normalizeCode(value: string): string {
     .toUpperCase();
 }
 
+/**
+ * Normalizează un id de status pentru comparații robuste, indiferent de forma
+ * sub care a fost salvat în baza de date:
+ *   - ignoră literele mari/mici,
+ *   - elimină diacriticele românești (ț -> t, ă -> a, ș -> s, î/â -> i/a),
+ *   - tratează identic separatoarele: '-', '_' sau spațiu.
+ * Exemple echivalente: 'masina_primita' == 'Masina-Primită' == 'masina-primita'.
+ */
+function normalizeStatusId(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    // Elimină semnele diacritice rezultate în urma decompoziției NFD (ă, ț, ș, î...).
+    .replace(/[\u0300-\u036f]/g, '')
+    // Unifică separatoarele ('-', '_', spațiu) într-o singură liniuță...
+    .replace(/[\s_-]+/g, '-')
+    // ...și scapă de eventualele separatoare rămase la margini (ex: 'deviz_pregătit_ ').
+    .replace(/^[\s_-]+|[\s_-]+$/g, '');
+}
+
+/**
+ * Mapare pe formă normalizată a statusurilor admin (snake_case) către cele
+ * canonice (kebab-case). Acceptă atât cheile standard din Panoul Admin
+ * (ex: 'in_lucru'), cât și variante de scriere ('in-lucru', 'IN LUCRU').
+ * 'noua' și 'anulata' sunt tratate separat mai jos, pentru texte dedicate.
+ */
+const NORMALIZED_ADMIN_TO_REPAIR_STATUS_MAP: Record<string, RepairStatusId> =
+  Object.entries(ADMIN_TO_REPAIR_STATUS_MAP).reduce<Record<string, RepairStatusId>>(
+    (acc, [adminId, canonicalId]) => {
+      acc[normalizeStatusId(adminId)] = canonicalId;
+      return acc;
+    },
+    {}
+  );
+
 function parseVehicle(carModel: string): { brand: string; model: string } {
   const normalized = carModel.trim();
 
@@ -74,21 +110,30 @@ function parseVehicle(carModel: string): { brand: string; model: string } {
 
 function buildStatusesForAppointment(
   currentStatus: RepairStatusId,
-  statusOverrides: Partial<
-    Record<RepairStatusId, { title?: string; description?: string }>
-  >
+  statusOverrides: StatusOverrides = {},
+  options: { markAllCompleted?: boolean; highlightCurrent?: boolean } = {}
 ): RepairStatus[] {
   const currentIndex = REPAIR_STATUS_CATALOG.findIndex((item) => item.id === currentStatus);
+  const { markAllCompleted = false, highlightCurrent = true } = options;
 
   return REPAIR_STATUS_CATALOG.map((definition, index) => {
     const override = statusOverrides[definition.id];
+
+    // Etapele evidențiate SE CALCULEAZĂ STRICT după poziția în catalog:
+    //  - pașii anteriori indicelui curent -> completed (check verde),
+    //  - pasul de pe indicele curent      -> current (activ, „în lucru"),
+    //  - pașii viitori                    -> inactive, fără highlight.
+    // Un pas NU POATE fi niciodată simultan completed ȘI current
+    // (ex: o comandă finalizată marchează totul parcurse, fără pas activ).
+    const completed = markAllCompleted ? true : index < currentIndex;
+    const current = !markAllCompleted && highlightCurrent && definition.id === currentStatus;
 
     return {
       id: definition.id,
       title: override?.title ?? definition.title,
       description: override?.description ?? definition.description,
-      completed: currentStatus === 'finalizata' ? true : index < currentIndex,
-      current: definition.id === currentStatus,
+      completed,
+      current,
     };
   });
 }
@@ -97,25 +142,36 @@ type StatusOverrides = Partial<
   Record<RepairStatusId, { title?: string; description?: string }>
 >;
 
+type StatusResolution = {
+  /** Statusul canonic (din REPAIR_STATUS_CATALOG) care reprezintă progresul curent. */
+  currentStatus: RepairStatusId;
+  overrides: StatusOverrides;
+  /** Când este true, TOATE etapele sunt marcate parcurse și niciuna nu e „în lucru". */
+  markAllCompleted?: boolean;
+  /** Când este false, niciun pas nu primește evidențierea „în lucru" (ex: anulată). */
+  highlightCurrent?: boolean;
+};
+
 /**
- * Traduce statusul unei programări (status ales din Panoul Admin sau status
+ * Traduce statusul unei programări (status ales din Panoul Admin sau un status
  * vechiu) în statusul canonic afișat pe pagina publică de tracking, împreună
  * cu eventualele texte personalizate pentru prim/ultimul pas.
+ *
+ * Comparația se face pe formă „normalizată" a statusului (fără diacritice,
+ * fără majuscule, separatoarele '-', '_' sau spațiu tratate identic), astfel
+ * încât orice variantă scrisă în baza de date (ex: 'deviz_pregătit',
+ * 'masina_primita', 'reparatie-in-lucru', 'gata_de_ridicare') se mapează exact
+ * la etapa canonică din catalog - niciodată la „toate etapele parcurse".
  */
 function appointmentStatusToRepairStatus(
   appointment: AppointmentRecord
-): { currentStatus: RepairStatusId; overrides: StatusOverrides } {
+): StatusResolution {
   const status = appointment.status;
+  const normalized = normalizeStatusId(status);
   const serviceDesc = `Serviciu: ${appointment.service}.`;
 
-  // ---- Statusuri noi granulare (admin, snake_case) -> mapare directă --------
-  const mapped = ADMIN_TO_REPAIR_STATUS_MAP[status];
-  if (mapped && status !== 'anulata' && status !== 'noua') {
-    return { currentStatus: mapped, overrides: {} };
-  }
-
-  // ---- Statusuri finale cu texte dedicate --------------------------------
-  if (status === 'noua') {
+  // ---- Statusuri vechi (fluxul de programare) cu texte dedicate -------------
+  if (normalized === 'noua') {
     return {
       currentStatus: 'programata',
       overrides: {
@@ -127,9 +183,11 @@ function appointmentStatusToRepairStatus(
     };
   }
 
-  if (status === 'anulata') {
+  if (normalized === 'anulata') {
     return {
       currentStatus: 'programata',
+      // O programare anulată nu prezintă niciun pas activ („în lucru").
+      highlightCurrent: false,
       overrides: {
         programata: {
           title: 'Programare anulată',
@@ -139,22 +197,22 @@ function appointmentStatusToRepairStatus(
     };
   }
 
-  // ---- Statusuri vechi (fluxul de programare) -> compatibilitate ------
-  if (status === 'reprogramare') {
+  if (normalized === 'reprogramare') {
     return {
       currentStatus: 'programata',
       overrides: {
         programata: {
           title: 'Reprogramare propusă',
-          description: appointment.proposedDate && appointment.proposedTime
-            ? `${serviceDesc} Am propus data ${appointment.proposedDate}, ora ${appointment.proposedTime}. Confirmă din această pagină dacă îți convine.`
-            : `${serviceDesc} Echipa MST Service ți-a propus o nouă oră pentru programare.`,
+          description:
+            appointment.proposedDate && appointment.proposedTime
+              ? `${serviceDesc} Am propus data ${appointment.proposedDate}, ora ${appointment.proposedTime}. Confirmă din această pagină dacă îți convine.`
+              : `${serviceDesc} Echipa MST Service ți-a propus o nouă oră pentru programare.`,
         },
       },
     };
   }
 
-  if (status === 'confirmata') {
+  if (normalized === 'confirmata') {
     return {
       currentStatus: 'programata',
       overrides: {
@@ -166,7 +224,7 @@ function appointmentStatusToRepairStatus(
     };
   }
 
-  if (status === 'aprobata') {
+  if (normalized === 'aprobata') {
     return {
       currentStatus: 'programata',
       overrides: {
@@ -178,9 +236,11 @@ function appointmentStatusToRepairStatus(
     };
   }
 
-  if (status === 'finalizata') {
+  // ---- Comandă finalizată: toate etapele parcurse, fără pas activ ------------
+  if (normalized === 'finalizata') {
     return {
       currentStatus: 'finalizata',
+      markAllCompleted: true,
       overrides: {
         finalizata: {
           description: `${serviceDesc} Lucrarea a fost finalizată.`,
@@ -189,8 +249,24 @@ function appointmentStatusToRepairStatus(
     };
   }
 
-  // Fallback sigur: orice status vechiu rămas necunoscut -> pornește de la început.
-  const legacyFallback = LEGACY_TO_REPAIR_STATUS_MAP[status];
+  // ---- Statusuri granulare (Panoul Admin, snake_case) -> status canonic ------
+  // Forma normalizată a cheii acoperă și variantele de scriere din baza de date
+  // (ex: 'in_lucru', 'in-lucru', 'IN LUCRU', 'deviz pregătit').
+  const adminMapped = NORMALIZED_ADMIN_TO_REPAIR_STATUS_MAP[normalized];
+  if (adminMapped) {
+    return { currentStatus: adminMapped, overrides: {} };
+  }
+
+  // ---- Statusuri deja canonice sau variante (ex: 'gata_de_ridicare') ---------
+  const canonical = REPAIR_STATUS_CATALOG.find(
+    (item) => normalizeStatusId(item.id) === normalized
+  );
+  if (canonical) {
+    return { currentStatus: canonical.id, overrides: {} };
+  }
+
+  // ---- Fallback sigur: status necunoscut -> pornește de la început. ---------
+  const legacyFallback = LEGACY_TO_REPAIR_STATUS_MAP[normalized];
   return {
     currentStatus: legacyFallback ?? 'programata',
     overrides: {},
@@ -200,10 +276,14 @@ function appointmentStatusToRepairStatus(
 function appointmentToRepairOrder(appointment: AppointmentRecord): RepairOrder {
   const shortCode = getShortCode(appointment.id);
   const vehicle = parseVehicle(appointment.carModel);
-  const { currentStatus, overrides } = appointmentStatusToRepairStatus(appointment);
+  const { currentStatus, overrides, markAllCompleted, highlightCurrent } =
+    appointmentStatusToRepairStatus(appointment);
   const lastUpdatedAt = appointment.updatedAt || appointment.createdAt;
 
-  const statuses = buildStatusesForAppointment(currentStatus, overrides).map((status) =>
+  const statuses = buildStatusesForAppointment(currentStatus, overrides, {
+    markAllCompleted,
+    highlightCurrent,
+  }).map((status) =>
     status.id === currentStatus ? { ...status, timestamp: lastUpdatedAt } : status
   );
   return {
