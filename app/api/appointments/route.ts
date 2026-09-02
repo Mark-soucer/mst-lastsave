@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import {
   getAppointments,
   saveAppointment,
@@ -11,6 +12,15 @@ import {
 } from '@/lib/db';
 import { APPOINTMENT_STATUSES, type AppointmentState } from '@/lib/repair-orders/types';
 export const dynamic = 'force-dynamic';
+
+/**
+ * Calea publică pe care clientul urmărește statusul comenzii sale:
+ * `/status/<cod>`, unde codul = ultimele 6 caractere ale ID-ului, uppercase.
+ * (Aceeași regulă ca `getShortCode` din lib/repair-orders/repository.ts.)
+ */
+function getClientStatusPath(id: string): string {
+  return `/status/${id.slice(-6).toUpperCase()}`;
+}
 
 // GET - Listează toate programările
 export async function GET() {
@@ -82,6 +92,7 @@ export async function PATCH(req: NextRequest) {
           { status: 404 }
         );
       }
+      revalidatePath(getClientStatusPath(id));
       return NextResponse.json({ success: true, message: 'Programare aprobată. Se așteaptă confirmarea clientului.' });
     }
 
@@ -93,6 +104,7 @@ export async function PATCH(req: NextRequest) {
           { status: 404 }
         );
       }
+      revalidatePath(getClientStatusPath(id));
       return NextResponse.json({ success: true, message: 'Programare confirmată de client.' });
     }
 
@@ -111,6 +123,7 @@ export async function PATCH(req: NextRequest) {
           { status: 404 }
         );
       }
+      revalidatePath(getClientStatusPath(id));
       return NextResponse.json({ success: true, message: 'Reprogramare propusă cu succes.' });
     }
 
@@ -122,6 +135,7 @@ export async function PATCH(req: NextRequest) {
           { status: 404 }
         );
       }
+      revalidatePath(getClientStatusPath(id));
       return NextResponse.json({ success: true, message: 'Programare anulată.' });
     }
 

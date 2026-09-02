@@ -1,6 +1,4 @@
 {
-  "/status/[id]/page": "app/status/[id]/page.js",
-  "/admin/programari/page": "app/admin/programari/page.js",
-  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
-  "/api/appointments/route": "app/api/appointments/route.js"
+  "/page": "app/page.js",
+  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js"
 }
