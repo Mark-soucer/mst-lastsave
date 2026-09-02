@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f0f0f"/>
+      <stop offset="1" stop-color="#080808"/>
+    </linearGradient>
+    <radialGradient id="r" cx="0.6" cy="0.5" r="0.6">
+      <stop offset="0" stop-color="#d50000" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#d50000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <rect width="1200" height="800" fill="url(#r)"/>
+  <text x="75" y="120" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="700" fill="#fff" opacity="0.9">GEOMETRIE ROȚI</text>
+  <text x="75" y="170" font-family="Inter, Arial, sans-serif" font-size="26" fill="#a0a0a0">MST SERVICE — 08</text>
+  <g transform="translate(600,430)">
+    <circle r="150" fill="none" stroke="#3a3a3a" stroke-width="6"/>
+    <path d="M-150 0 L-260 0 M150 0 L260 0 M0 -150 L0 -260 M0 150 L0 260" stroke="#d50000" stroke-width="5" opacity="0.85"/>
+    <g stroke="#d50000" stroke-width="4" opacity="0.6">
+      <path d="M-60 -60 L-110 -110 M60 60 L110 110 M60 -60 L110 -110 M-60 60 L-110 110"/>
+    </g>
+    <circle r="36" fill="#111" stroke="#d50000" stroke-width="4"/>
+    <circle r="10" fill="#d50000"/>
+  </g>
+</svg>

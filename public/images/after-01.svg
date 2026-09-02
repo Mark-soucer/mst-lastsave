@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#161616"/>
+      <stop offset="1" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <radialGradient id="r" cx="0.5" cy="0.5" r="0.7">
+      <stop offset="0" stop-color="#444" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#444" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#g)"/>
+  <rect width="1600" height="1000" fill="url(#r)"/>
+  <text x="80" y="120" font-family="Inter, Arial, sans-serif" font-size="40" font-weight="700" fill="#fff" opacity="0.9">DUPĂ</text>
+  <g transform="translate(800,560)">
+    <path d="M-420 -40 Q-260 -160 120 -140 L380 -70 L420 130 L-460 130 Z" fill="#1c1c1c" stroke="#555" stroke-width="6"/>
+    <path d="M-90 -60 L-90 130 M-56 -70 L-56 130 M-25 -80 L-25 130" stroke="#555" stroke-width="10" opacity="0.8"/>
+    <path d="M-420 -40 Q-260 -160 120 -140" fill="none" stroke="#d50000" stroke-width="4" opacity="0.85"/>
+    <circle cx="-330" cy="90" r="70" fill="#101010" stroke="#555" stroke-width="8"/>
+    <circle cx="330" cy="90" r="70" fill="#101010" stroke="#555" stroke-width="8"/>
+    <path d="M120 -140 L340 -50 L340 130 L-250 130" fill="none" stroke="#d50000" stroke-width="3" opacity="0.55"/>
+    <path d="M340 -50 L420 130 L-30 130 L-160 60" fill="none" stroke="#555" stroke-width="3" opacity="0.6"/>
+    <path d="M-460 130 L-380 -20" stroke="#d50000" stroke-width="3" opacity="0.6"/>
+  </g>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#121212"/>
+      <stop offset="1" stop-color="#080808"/>
+    </linearGradient>
+    <radialGradient id="r" cx="0.3" cy="0.5" r="0.6">
+      <stop offset="0" stop-color="#d50000" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#d50000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <rect width="1200" height="800" fill="url(#r)"/>
+  <text x="75" y="120" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="700" fill="#fff" opacity="0.9">TINICHIGERIE</text>
+  <text x="75" y="170" font-family="Inter, Arial, sans-serif" font-size="26" fill="#a0a0a0">MST SERVICE — 03</text>
+  <g transform="translate(600,430)">
+    <path d="M-200 -20 Q-120 -80 60 -70 L180 -30 L200 30 L-220 30 Z" fill="#141414" stroke="#444" stroke-width="3"/>
+    <path d="M-120 -45 Q40 -80 120 -45" fill="none" stroke="#d50000" stroke-width="5" opacity="0.8"/>
+    <circle cx="-160" cy="20" r="34" fill="#0a0a0a" stroke="#333" stroke-width="4"/>
+    <circle cx="-160" cy="20" r="10" fill="#d50000"/>
+    <circle cx="170" cy="20" r="34" fill="#0a0a0a" stroke="#333" stroke-width="4"/>
+  </g>
+</svg>

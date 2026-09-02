@@ -1,0 +1,35 @@
+
+> mst-service@0.1.0 dev
+> next dev
+
+  [1m[38;2;173;127;168m▲ Next.js 14.2.35[39m[22m
+  - Local:        http://localhost:3001
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 2.9s
+ [37m[1m○[22m[39m Compiling / ...
+ [32m[1m✓[22m[39m Compiled / in 14.3s (2504 modules)
+ GET / [32m200[39m in 14928ms
+ [32m[1m✓[22m[39m Compiled in 855ms (1256 modules)
+ GET / [32m200[39m in 42ms
+ [32m[1m✓[22m[39m Compiled in 1641ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 373ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 4.2s (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 1011ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 863ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 970ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 853ms (2504 modules)
+ GET / [32m200[39m in 246ms
+ [32m[1m✓[22m[39m Compiled in 1504ms (2504 modules)
+ GET / [31m500[39m in 284ms
+ [37m[1m○[22m[39m Compiling /_not-found ...
+ [32m[1m✓[22m[39m Compiled /_not-found in 510ms (2493 modules)
+ GET /_next/static/chunks/main-app.js [33m404[39m in 690ms
+ GET /_next/static/chunks/app-pages-internals.js [33m404[39m in 675ms
+ [32m[1m✓[22m[39m Compiled in 988ms (2507 modules)
+ [32m[1m✓[22m[39m Compiled in 1202ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 708ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 884ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 847ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 1100ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 546ms (2504 modules)

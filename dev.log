@@ -1,0 +1,247 @@
+
+> mst-service@0.1.0 dev
+> next dev
+
+  [1m[38;2;173;127;168m▲ Next.js 14.2.35[39m[22m
+  - Local:        http://localhost:3000
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 1459ms
+ [37m[1m○[22m[39m Compiling / ...
+ [32m[1m✓[22m[39m Compiled / in 7s (2504 modules)
+ GET / [32m200[39m in 7408ms
+ [32m[1m✓[22m[39m Compiled in 411ms (1256 modules)
+ GET / [32m200[39m in 47ms
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/mechanic-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/mechanic-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/bodywork-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/bodywork-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/paint-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/paint-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/tire-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/alignment-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/mechanic-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/mechanic-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/bodywork-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/bodywork-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/mechanic-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/mechanic-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/mechanic-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/mechanic-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/bodywork-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/bodywork-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/paint-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/paint-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/alignment-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/tire-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/mechanic-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/mechanic-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/bodywork-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/bodywork-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/paint-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/paint-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/tire-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/alignment-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/paint-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/mechanic-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/paint-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/mechanic-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/bodywork-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/bodywork-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/tire-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/alignment-01.svg received [1mnull[22m
+ [32m[1m✓[22m[39m Compiled in 922ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 319ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 3.8s (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 447ms (2504 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\logan\Desktop\proiecte\mst-service\.next\cache\webpack\server-development\1.pack.gz_' -> 'C:\Users\logan\Desktop\proiecte\mst-service\.next\cache\webpack\server-development\1.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\logan\Desktop\proiecte\mst-service\.next\cache\webpack\client-development\2.pack.gz_' -> 'C:\Users\logan\Desktop\proiecte\mst-service\.next\cache\webpack\client-development\2.pack.gz'
+ [37m[1m○[22m[39m Compiling /_not-found ...
+ [32m[1m✓[22m[39m Compiled /_not-found in 623ms (2493 modules)
+ GET / [33m404[39m in 1280ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\logan\Desktop\proiecte\mst-service\.next\server\vendor-chunks\motion-utils.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/motion-utils' in C:\Users\logan\Desktop\proiecte\mst-service\.next\server for build dependencies doesn't lead to expected result 'C:\Users\logan\Desktop\proiecte\mst-service\.next\server\vendor-chunks\motion-utils.js', but to 'Error: Can't resolve './vendor-chunks/motion-utils' in 'C:\Users\logan\Desktop\proiecte\mst-service\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/motion-utils (expected C:\Users\logan\Desktop\proiecte\mst-service\.next\server\vendor-chunks\motion-utils.js)
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\.next\server\webpack-runtime.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\.next\server\app\_not-found\page.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-app-loader.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-app-loader.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\swc\index.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\swc\index.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+<w>  at resolve commonjs C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/@swc' in C:\Users\logan\Desktop\proiecte\mst-service\.next\server for build dependencies doesn't lead to expected result 'C:\Users\logan\Desktop\proiecte\mst-service\.next\server\vendor-chunks\@swc.js', but to 'Error: Can't resolve './vendor-chunks/@swc' in 'C:\Users\logan\Desktop\proiecte\mst-service\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/@swc (expected C:\Users\logan\Desktop\proiecte\mst-service\.next\server\vendor-chunks\@swc.js)
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\.next\server\webpack-runtime.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\.next\server\app\_not-found\page.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-app-loader.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-app-loader.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\swc\index.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\swc\index.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+<w>  at resolve commonjs C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/lucide-react' in C:\Users\logan\Desktop\proiecte\mst-service\.next\server for build dependencies doesn't lead to expected result 'C:\Users\logan\Desktop\proiecte\mst-service\.next\server\vendor-chunks\lucide-react.js', but to 'Error: Can't resolve './vendor-chunks/lucide-react' in 'C:\Users\logan\Desktop\proiecte\mst-service\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/lucide-react (expected C:\Users\logan\Desktop\proiecte\mst-service\.next\server\vendor-chunks\lucide-react.js)
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\.next\server\webpack-runtime.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\.next\server\app\_not-found\page.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-app-loader.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-app-loader.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\swc\index.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\swc\index.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+<w>  at resolve commonjs C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/motion-dom' in C:\Users\logan\Desktop\proiecte\mst-service\.next\server for build dependencies doesn't lead to expected result 'C:\Users\logan\Desktop\proiecte\mst-service\.next\server\vendor-chunks\motion-dom.js', but to 'Error: Can't resolve './vendor-chunks/motion-dom' in 'C:\Users\logan\Desktop\proiecte\mst-service\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/motion-dom (expected C:\Users\logan\Desktop\proiecte\mst-service\.next\server\vendor-chunks\motion-dom.js)
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\.next\server\webpack-runtime.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\.next\server\app\_not-found\page.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-app-loader.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-app-loader.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\swc\index.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\swc\index.js
+<w>  at file dependencies C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+<w>  at file C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+<w>  at resolve commonjs C:\Users\logan\Desktop\proiecte\mst-service\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+ [32m[1m✓[22m[39m Compiled in 4s (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 837ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 793ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 931ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 1133ms (2504 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\logan\Desktop\proiecte\mst-service\.next\cache\webpack\server-development\0.pack.gz_' -> 'C:\Users\logan\Desktop\proiecte\mst-service\.next\cache\webpack\server-development\0.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\logan\Desktop\proiecte\mst-service\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\logan\Desktop\proiecte\mst-service\.next\cache\webpack\client-development\0.pack.gz'
+ GET / [32m200[39m in 179ms
+ [32m[1m✓[22m[39m Compiled in 1361ms (2504 modules)
+ [33m[1m⚠[22m[39m Fast Refresh had to perform a full reload due to a runtime error.
+ [31m[1m⨯[22m[39m components\Navbar.tsx (67:16) @ Wrench
+ [31m[1m⨯[22m[39m ReferenceError: Wrench is not defined
+    at Navbar (./components/Navbar.tsx:103:117)
+digest: "2119951431"
+[0m [90m 65 |[39m           [33m>[39m[0m
+[0m [90m 66 |[39m             [33m<[39m[33mspan[39m className[33m=[39m[32m"relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#FF1A1A] to-[#D50000] shadow-[0_0_20px_rgba(213,0,0,0.55)]"[39m[33m>[39m[0m
+[0m[31m[1m>[22m[39m[90m 67 |[39m               [33m<[39m[33mWrench[39m className[33m=[39m[32m"h-5 w-5 text-white"[39m strokeWidth[33m=[39m{[35m2.4[39m} aria[33m-[39mhidden[33m=[39m[32m"true"[39m [33m/[39m[33m>[39m[0m
+[0m [90m    |[39m                [31m[1m^[22m[39m[0m
+[0m [90m 68 |[39m               [33m<[39m[33mspan[39m className[33m=[39m[32m"absolute inset-0 rounded-xl ring-1 ring-inset ring-white/20"[39m aria[33m-[39mhidden[33m=[39m[32m"true"[39m [33m/[39m[33m>[39m[0m
+[0m [90m 69 |[39m             [33m<[39m[33m/[39m[33mspan[39m[33m>[39m[0m
+[0m [90m 70 |[39m             [33m<[39m[33mspan[39m className[33m=[39m[32m"flex flex-col leading-none"[39m[33m>[39m[0m
+ GET / [31m500[39m in 358ms
+ [37m[1m○[22m[39m Compiling /_not-found ...
+ [32m[1m✓[22m[39m Compiled /_not-found in 548ms (2493 modules)
+ [31m[1m⨯[22m[39m components\Navbar.tsx (67:16) @ Wrench
+ [31m[1m⨯[22m[39m ReferenceError: Wrench is not defined
+    at Navbar (./components/Navbar.tsx:103:117)
+digest: "2119951431"
+[0m [90m 65 |[39m           [33m>[39m[0m
+[0m [90m 66 |[39m             [33m<[39m[33mspan[39m className[33m=[39m[32m"relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#FF1A1A] to-[#D50000] shadow-[0_0_20px_rgba(213,0,0,0.55)]"[39m[33m>[39m[0m
+[0m[31m[1m>[22m[39m[90m 67 |[39m               [33m<[39m[33mWrench[39m className[33m=[39m[32m"h-5 w-5 text-white"[39m strokeWidth[33m=[39m{[35m2.4[39m} aria[33m-[39mhidden[33m=[39m[32m"true"[39m [33m/[39m[33m>[39m[0m
+[0m [90m    |[39m                [31m[1m^[22m[39m[0m
+[0m [90m 68 |[39m               [33m<[39m[33mspan[39m className[33m=[39m[32m"absolute inset-0 rounded-xl ring-1 ring-inset ring-white/20"[39m aria[33m-[39mhidden[33m=[39m[32m"true"[39m [33m/[39m[33m>[39m[0m
+[0m [90m 69 |[39m             [33m<[39m[33m/[39m[33mspan[39m[33m>[39m[0m
+[0m [90m 70 |[39m             [33m<[39m[33mspan[39m className[33m=[39m[32m"flex flex-col leading-none"[39m[33m>[39m[0m
+ [31m[1m⨯[22m[39m components\Navbar.tsx (67:16) @ Wrench
+ [31m[1m⨯[22m[39m ReferenceError: Wrench is not defined
+    at Navbar (./components/Navbar.tsx:103:117)
+digest: "2119951431"
+[0m [90m 65 |[39m           [33m>[39m[0m
+[0m [90m 66 |[39m             [33m<[39m[33mspan[39m className[33m=[39m[32m"relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#FF1A1A] to-[#D50000] shadow-[0_0_20px_rgba(213,0,0,0.55)]"[39m[33m>[39m[0m
+[0m[31m[1m>[22m[39m[90m 67 |[39m               [33m<[39m[33mWrench[39m className[33m=[39m[32m"h-5 w-5 text-white"[39m strokeWidth[33m=[39m{[35m2.4[39m} aria[33m-[39mhidden[33m=[39m[32m"true"[39m [33m/[39m[33m>[39m[0m
+[0m [90m    |[39m                [31m[1m^[22m[39m[0m
+[0m [90m 68 |[39m               [33m<[39m[33mspan[39m className[33m=[39m[32m"absolute inset-0 rounded-xl ring-1 ring-inset ring-white/20"[39m aria[33m-[39mhidden[33m=[39m[32m"true"[39m [33m/[39m[33m>[39m[0m
+[0m [90m 69 |[39m             [33m<[39m[33m/[39m[33mspan[39m[33m>[39m[0m
+[0m [90m 70 |[39m             [33m<[39m[33mspan[39m className[33m=[39m[32m"flex flex-col leading-none"[39m[33m>[39m[0m
+ GET /_next/static/chunks/main-app.js [33m404[39m in 786ms
+ GET /_next/static/chunks/app-pages-internals.js [33m404[39m in 769ms
+ [32m[1m✓[22m[39m Compiled in 899ms (2507 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\logan\Desktop\proiecte\mst-service\.next\cache\webpack\server-development\0.pack.gz_' -> 'C:\Users\logan\Desktop\proiecte\mst-service\.next\cache\webpack\server-development\0.pack.gz'
+ GET / [32m200[39m in 86ms
+ GET / [32m200[39m in 53ms
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/mechanic-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/mechanic-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/bodywork-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/bodywork-02.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/paint-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/alignment-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/tire-01.svg received [1mnull[22m
+ [31m[1m⨯[22m[39m The requested resource isn't a valid image for /images/paint-02.svg received [1mnull[22m
+ [32m[1m✓[22m[39m Compiled in 1230ms (2504 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\logan\Desktop\proiecte\mst-service\.next\cache\webpack\server-development\0.pack.gz_' -> 'C:\Users\logan\Desktop\proiecte\mst-service\.next\cache\webpack\server-development\0.pack.gz'
+ [32m[1m✓[22m[39m Compiled in 794ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 774ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 770ms (2504 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\logan\Desktop\proiecte\mst-service\.next\cache\webpack\server-development\0.pack.gz_' -> 'C:\Users\logan\Desktop\proiecte\mst-service\.next\cache\webpack\server-development\0.pack.gz'
+ GET / [32m200[39m in 90ms
+ GET / [32m200[39m in 28ms
+ GET / [32m200[39m in 33ms
+ [32m[1m✓[22m[39m Compiled in 962ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled in 535ms (2504 modules)
+ [32m[1m✓[22m[39m Compiled /_not-found in 321ms (2493 modules)
+ GET / [33m404[39m in 516ms
+ GET /_next/static/css/app/layout.css?v=1787856470669 [33m404[39m in 46ms
+ GET /_next/static/chunks/app-pages-internals.js [33m404[39m in 51ms
+ GET /_next/static/chunks/main-app.js?v=1787856470669 [33m404[39m in 50ms
+ GET /_next/static/chunks/app/layout.js [33m404[39m in 49ms
