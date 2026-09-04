@@ -21,9 +21,6 @@ export const BEFORE_AFTER_FILTERS = [
   'Toate',
   'Tinichigerie',
   'Vopsitorie',
-  'Polish',
-  'Detailing',
-  'Mecanică',
 ] as const;
 
 /**
@@ -51,17 +48,6 @@ export const BEFORE_AFTER_PROJECTS: BeforeAfterProject[] = [
       'Demo: Îndreptare ușă și prag, verificare geometrie caroserie și pregătire completă pentru vopsitorie.',
     beforeImage: '/images/bodywork-01.svg',
     afterImage: '/images/bodywork-02.svg',
-    demo: true,
-  },
-  {
-    id: 'audi-a4-polish-detailing',
-    title: 'Audi A4 — Polish & detailing',
-    category: 'Polish',
-    vehicle: 'Audi A4',
-    description:
-      'Demo: Corecție de vopsea în două trepte, polish fin și protecție ceramică pentru luciu profund.',
-    beforeImage: '/images/paint-01.svg',
-    afterImage: '/images/paint-02.svg',
     demo: true,
   },
   {
