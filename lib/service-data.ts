@@ -112,16 +112,6 @@ export const SERVICE_ADVANTAGES: ServiceFeature[] = [
   },
 ];
 
-const DIAGNOZA_GALLERY: ServiceGallery = {
-  type: 'images',
-  title: 'Diagnosticare auto',
-  subtitle: 'Identificăm rapid defecțiunile cu echipamente digitale.',
-  images: [
-    { src: '/images/mechanic-02.svg', alt: 'Diagnosticare electronică MST SERVICE' },
-    { src: '/images/mechanic-01.svg', alt: 'Verificare tehnică MST SERVICE' },
-  ],
-};
-
 const TINICHIGERIE_GALLERY: ServiceGallery = {
   type: 'before-after',
   title: 'Înainte și după — tinichigerie',
@@ -136,26 +126,6 @@ const VOPSITORIE_GALLERY: ServiceGallery = {
   projects: BEFORE_AFTER_PROJECTS.filter((project) => project.category === 'Vopsitorie').slice(0, 2),
 };
 
-const GEOMETRIE_GALLERY: ServiceGallery = {
-  type: 'images',
-  title: 'Geometrie roți',
-  subtitle: 'Măsurători digitale și reglaje de direcție.',
-  images: [
-    { src: '/images/alignment-01.svg', alt: 'Geometrie roți MST SERVICE' },
-    { src: '/images/tire-01.svg', alt: 'Echilibrare roți MST SERVICE' },
-  ],
-};
-
-const VULCANIZARE_GALLERY: ServiceGallery = {
-  type: 'images',
-  title: 'Vulcanizare și anvelope',
-  subtitle: 'Montaj, echilibrare și reparații anvelope.',
-  images: [
-    { src: '/images/tire-01.svg', alt: 'Vulcanizare MST SERVICE' },
-    { src: '/images/alignment-01.svg', alt: 'Echilibrare roți MST SERVICE' },
-  ],
-};
-
 const DAUNE_RCA_GALLERY: ServiceGallery = {
   type: 'before-after',
   title: 'Înainte și după — reparații accidente',
@@ -163,16 +133,6 @@ const DAUNE_RCA_GALLERY: ServiceGallery = {
   projects: BEFORE_AFTER_PROJECTS.filter((project) =>
     ['Tinichigerie', 'Vopsitorie'].includes(project.category),
   ).slice(0, 2),
-};
-
-const REPARATII_GALLERY: ServiceGallery = {
-  type: 'images',
-  title: 'Întreținere și reparații auto',
-  subtitle: 'Revizii și lucrări realizate în atelierul MST Service.',
-  images: [
-    { src: '/images/mechanic-01.svg', alt: 'Întreținere auto MST SERVICE' },
-    { src: '/images/mechanic-02.svg', alt: 'Verificare tehnică MST SERVICE' },
-  ],
 };
 
 export const SERVICE_PAGES: ServicePageData[] = [
@@ -298,7 +258,6 @@ export const SERVICE_PAGES: ServicePageData[] = [
           'Ștergerea unei erori fără remedierea cauzei duce adesea la reapariția acesteia. Îți recomandăm intervenția completă.',
       },
     ],
-    gallery: DIAGNOZA_GALLERY,
     cta: {
       title: 'A apărut un martor de bord?',
       subtitle: 'Programează-ți mașina pentru o diagnosticare completă.',
@@ -502,7 +461,6 @@ export const SERVICE_PAGES: ServicePageData[] = [
           'Prețul se stabilește în funcție de reglajele necesare și de componentele verificate.',
       },
     ],
-    gallery: GEOMETRIE_GALLERY,
     cta: {
       title: 'Mașina trage într-o parte?',
       subtitle: 'Programează-ți mașina la MST Service.',
@@ -570,7 +528,6 @@ export const SERVICE_PAGES: ServicePageData[] = [
           'Da, poți veni cu anvelopele tale; echipa noastră le poate monta și echilibra.',
       },
     ],
-    gallery: VULCANIZARE_GALLERY,
     cta: {
       title: 'Ai nevoie de anvelope sigure?',
       subtitle: 'Programează-ți mașina la MST Service.',
@@ -706,7 +663,6 @@ export const SERVICE_PAGES: ServicePageData[] = [
           'Include verificarea sistemelor principale, schimbul de ulei și filtre, plus inspecția finală.',
       },
     ],
-    gallery: REPARATII_GALLERY,
     cta: {
       title: 'Ai nevoie de o verificare completă?',
       subtitle: 'Programează-ți mașina la MST Service.',
