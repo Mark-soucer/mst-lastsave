@@ -106,9 +106,11 @@ export default function ServicePage({ service }: ServicePageProps) {
                 <Calendar className="h-4 w-4" aria-hidden="true" />
                 Programează-te
               </Button>
-              <Button href="#galerie" variant="outline" size="lg">
-                Vezi lucrările
-              </Button>
+              {service.gallery && (
+                <Button href="#galerie" variant="outline" size="lg">
+                  Vezi lucrările
+                </Button>
+              )}
             </div>
           </motion.div>
 
@@ -225,80 +227,82 @@ export default function ServicePage({ service }: ServicePageProps) {
       </section>
 
       {/* GALERIE */}
-      <section id="galerie" className="relative overflow-hidden bg-[#0A0A0A] py-24 md:py-32">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <SectionHeading
-            eyebrow="Galerie"
-            title={service.gallery.title}
-            subtitle={service.gallery.subtitle}
-            align="center"
-          />
+      {service.gallery && (
+        <section id="galerie" className="relative overflow-hidden bg-[#0A0A0A] py-24 md:py-32">
+          <div className="mx-auto max-w-7xl px-5 md:px-8">
+            <SectionHeading
+              eyebrow="Galerie"
+              title={service.gallery.title}
+              subtitle={service.gallery.subtitle}
+              align="center"
+            />
 
-          {service.gallery.type === 'before-after' ? (
-            <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2">
-              {service.gallery.projects.map((project, index) => (
-                <motion.figure
-                  key={project.id}
-                  initial={{ opacity: 0, y: 32 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-80px' }}
-                  transition={{ delay: (index % 2) * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                  className="group"
-                >
-                  <BeforeAfterSlider
-                    beforeImage={project.beforeImage}
-                    afterImage={project.afterImage}
-                    beforeAlt={`${project.vehicle} — înainte`}
-                    afterAlt={`${project.vehicle} — după`}
-                    aspectClassName="aspect-[4/3]"
-                  />
-                  <figcaption className="mt-4">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="rounded-full border border-[#FF1A1A]/40 bg-[#FF1A1A]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#FF1A1A]">
-                        {project.category}
-                      </span>
-                      {project.demo && (
-                        <span className="rounded-full border border-amber-300/40 bg-amber-300/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-300">
-                          DEMO
-                        </span>
-                      )}
-                    </div>
-                    <h3 className="mt-3 text-lg font-semibold leading-snug text-white">{project.title}</h3>
-                    <p className="mt-1 text-sm font-medium text-[#A0A0A0]">{project.vehicle}</p>
-                    <p className="mt-2 text-sm leading-relaxed text-[#A0A0A0]">{project.description}</p>
-                  </figcaption>
-                </motion.figure>
-              ))}
-            </div>
-          ) : (
-            <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2">
-              {service.gallery.images.map((image, index) => (
-                <motion.figure
-                  key={image.src}
-                  initial={{ opacity: 0, y: 32 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-80px' }}
-                  transition={{ delay: (index % 2) * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#111]"
-                >
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+            {service.gallery.type === 'before-after' ? (
+              <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2">
+                {service.gallery.projects.map((project, index) => (
+                  <motion.figure
+                    key={project.id}
+                    initial={{ opacity: 0, y: 32 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ delay: (index % 2) * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                    className="group"
+                  >
+                    <BeforeAfterSlider
+                      beforeImage={project.beforeImage}
+                      afterImage={project.afterImage}
+                      beforeAlt={`${project.vehicle} — înainte`}
+                      afterAlt={`${project.vehicle} — după`}
+                      aspectClassName="aspect-[4/3]"
                     />
-                  </div>
-                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5">
-                    <span className="text-sm font-medium text-white">{image.alt}</span>
-                  </figcaption>
-                </motion.figure>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
+                    <figcaption className="mt-4">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="rounded-full border border-[#FF1A1A]/40 bg-[#FF1A1A]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#FF1A1A]">
+                          {project.category}
+                        </span>
+                        {project.demo && (
+                          <span className="rounded-full border border-amber-300/40 bg-amber-300/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-300">
+                            DEMO
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="mt-3 text-lg font-semibold leading-snug text-white">{project.title}</h3>
+                      <p className="mt-1 text-sm font-medium text-[#A0A0A0]">{project.vehicle}</p>
+                      <p className="mt-2 text-sm leading-relaxed text-[#A0A0A0]">{project.description}</p>
+                    </figcaption>
+                  </motion.figure>
+                ))}
+              </div>
+            ) : (
+              <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2">
+                {service.gallery.images.map((image, index) => (
+                  <motion.figure
+                    key={image.src}
+                    initial={{ opacity: 0, y: 32 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ delay: (index % 2) * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                    className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#111]"
+                  >
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                    <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5">
+                      <span className="text-sm font-medium text-white">{image.alt}</span>
+                    </figcaption>
+                  </motion.figure>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* FAQ */}
       <section className="relative overflow-hidden bg-[#0B0B0B] py-24 md:py-32">
@@ -309,7 +313,6 @@ export default function ServicePage({ service }: ServicePageProps) {
             subtitle="Răspunsuri clare, ca la o discuție directă în atelier."
             align="center"
           />
-
           <div className="mt-14 space-y-4">
             {service.faq.map((item, index) => {
               const isOpen = openFaq === index;
@@ -385,3 +388,4 @@ export default function ServicePage({ service }: ServicePageProps) {
     </div>
   );
 }
+

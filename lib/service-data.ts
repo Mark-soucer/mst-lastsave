@@ -47,17 +47,17 @@ export type ServiceGalleryItem = {
 
 export type ServiceGallery =
   | {
-      type: 'before-after';
-      title: string;
-      subtitle: string;
-      projects: BeforeAfterProject[];
-    }
+    type: 'before-after';
+    title: string;
+    subtitle: string;
+    projects: BeforeAfterProject[];
+  }
   | {
-      type: 'images';
-      title: string;
-      subtitle: string;
-      images: ServiceGalleryItem[];
-    };
+    type: 'images';
+    title: string;
+    subtitle: string;
+    images: ServiceGalleryItem[];
+  };
 
 export type ServicePageData = {
   slug: string;
@@ -74,7 +74,7 @@ export type ServicePageData = {
   };
   includes: ServiceFeature[];
   faq: ServiceFaq[];
-  gallery: ServiceGallery;
+  gallery?: ServiceGallery;
   cta: {
     title: string;
     subtitle: string;
@@ -111,16 +111,6 @@ export const SERVICE_ADVANTAGES: ServiceFeature[] = [
     text: 'Fiecare intervenție este verificată înainte de predarea mașinii.',
   },
 ];
-
-const MECANICA_GALLERY: ServiceGallery = {
-  type: 'images',
-  title: 'Lucrări de mecanică auto',
-  subtitle: 'Echipamente și intervenții realizate în atelierul MST Service.',
-  images: [
-    { src: '/images/mechanic-01.svg', alt: 'Mecanică auto MST SERVICE' },
-    { src: '/images/mechanic-02.svg', alt: 'Diagnosticare auto MST SERVICE' },
-  ],
-};
 
 const DIAGNOZA_GALLERY: ServiceGallery = {
   type: 'images',
@@ -241,7 +231,6 @@ export const SERVICE_PAGES: ServicePageData[] = [
           'Lucrăm cu autoturisme de diferite mărci și modele, în funcție de specificul lucrării.',
       },
     ],
-    gallery: MECANICA_GALLERY,
     cta: {
       title: 'Ai nevoie de o verificare mecanică?',
       subtitle: 'Programează-ți mașina la MST Service.',
