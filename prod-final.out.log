@@ -1,0 +1,9 @@
+
+> mst-service@0.1.0 start
+> next start -p 3105
+
+  [1m[38;2;173;127;168m▲ Next.js 14.2.35[39m[22m
+  - Local:        http://localhost:3105
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 373ms

@@ -1,0 +1,43 @@
+
+> mst-service@0.1.0 dev
+> next dev -p 3100
+
+  [1m[38;2;173;127;168m▲ Next.js 14.2.35[39m[22m
+  - Local:        http://localhost:3100
+  - Environments: .env.local
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 6.1s
+ [37m[1m○[22m[39m Compiling /status/[id] ...
+ [32m[1m✓[22m[39m Compiled /status/[id] in 12.1s (1444 modules)
+ [32m[1m✓[22m[39m Compiled in 411ms (686 modules)
+ GET /status/5-YPUB [32m200[39m in 13554ms
+ GET /status/5-YPUB [32m200[39m in 44ms
+ [32m[1m✓[22m[39m Compiled in 277ms (686 modules)
+ [32m[1m✓[22m[39m Compiled /status/[id] in 194ms (758 modules)
+ GET /status/5-YPUB [32m200[39m in 716ms
+ [32m[1m✓[22m[39m Compiled in 607ms (1444 modules)
+ [32m[1m✓[22m[39m Compiled in 432ms (686 modules)
+ [32m[1m✓[22m[39m Compiled in 281ms (686 modules)
+ [32m[1m✓[22m[39m Compiled /status/[id] in 181ms (758 modules)
+[status-debug][found] id=mst-mtlwgsu5-ypub status=deviz_aprobat normalized=deviz-aprobat currentStatus=-
+[status-debug][mapped] id=mst-mtlwgsu5-ypub status=deviz_aprobat normalized=deviz-aprobat currentStatus=deviz-aprobat
+[status-debug][found] id=mst-mtlwgsu5-ypub status=deviz_aprobat normalized=deviz-aprobat currentStatus=-
+[status-debug][mapped] id=mst-mtlwgsu5-ypub status=deviz_aprobat normalized=deviz-aprobat currentStatus=deviz-aprobat
+ GET /status/5-YPUB [32m200[39m in 742ms
+[status-debug][found] id=mst-mtkkk6br-5qkz status=in_lucru normalized=in-lucru currentStatus=-
+[status-debug][mapped] id=mst-mtkkk6br-5qkz status=in_lucru normalized=in-lucru currentStatus=reparatie-in-lucru
+[status-debug][found] id=mst-mtkkk6br-5qkz status=in_lucru normalized=in-lucru currentStatus=-
+[status-debug][mapped] id=mst-mtkkk6br-5qkz status=in_lucru normalized=in-lucru currentStatus=reparatie-in-lucru
+ GET /status/5QKZ [32m200[39m in 786ms
+[status-debug][found] id=mst-mtk1h9ep-k8is status=gata normalized=gata currentStatus=-
+[status-debug][mapped] id=mst-mtk1h9ep-k8is status=gata normalized=gata currentStatus=gata-de-ridicare
+[status-debug][found] id=mst-mtk1h9ep-k8is status=gata normalized=gata currentStatus=-
+[status-debug][mapped] id=mst-mtk1h9ep-k8is status=gata normalized=gata currentStatus=gata-de-ridicare
+ GET /status/K8IS [32m200[39m in 116ms
+[status-debug][found] id=mst-mtlrrmfc-41ba status=noua normalized=noua currentStatus=-
+[status-debug][mapped] id=mst-mtlrrmfc-41ba status=noua normalized=noua currentStatus=programata
+[status-debug][found] id=mst-mtlrrmfc-41ba status=noua normalized=noua currentStatus=-
+[status-debug][mapped] id=mst-mtlrrmfc-41ba status=noua normalized=noua currentStatus=programata
+ GET /status/41BA [32m200[39m in 108ms
+[?25h

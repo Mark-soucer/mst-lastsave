@@ -15,28 +15,16 @@ export type AppointmentRecord = {
   notes?: string;
   status: AppointmentState;
   createdAt: string;
-  /** Ultima dată la care statusul a fost modificat. Setat automat. */
   updatedAt?: string;
   proposedDate?: string;
   proposedTime?: string;
   proposalMessage?: string;
+  carMake?: string;
+  problemDescription?: string;
 };
 
-// ===========================================================================
-// Supabase (bază de date cloud, gratuită)
-// ---------------------------------------------------------------------------
-// Toate funcțiile din acest fișier citesc/scriu într-un tabel `appointments`
-// din proiectul Supabase. Dacă variabilele de mediu lipsesc (dezvoltare locală
-// fără configurare), se folosește automat fișierul `data/appointments.json`
-// ca fallback, astfel încât aplicația continuă să funcționeze normal.
-// ===========================================================================
-
-const SUPABASE_URL =
-  process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
-const SUPABASE_KEY =
-  process.env.SUPABASE_SERVICE_ROLE_KEY ??
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
-  '';
+const SUPABASE_URL = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '';
 
 const APPOINTMENTS_TABLE = 'appointments';
 
@@ -46,9 +34,7 @@ let warnedMissingConfig = false;
 function getSupabaseClient(): SupabaseClient | null {
   if (!SUPABASE_URL || !SUPABASE_KEY) {
     if (!warnedMissingConfig) {
-      console.warn(
-        '[db] SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY lipsesc. Se folosește data/appointments.json (fallback local, doar pentru dezvoltare).'
-      );
+      console.warn('[db] SUPABASE_URL / SUPABASE_ANON_KEY lipsesc. Se folosește fallback local.');
       warnedMissingConfig = true;
     }
     return null;
@@ -57,12 +43,18 @@ function getSupabaseClient(): SupabaseClient | null {
   if (!supabaseClient) {
     supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY, {
       auth: { persistSession: false, autoRefreshToken: false },
+      // Forțează fiecare request să NU fie cache-uit (Next.js App Router
+      // cache-ui implicit fetch-urile în Server Components). Pagina /status/[id]
+      // trebuie să citească întotdeauna valoarea curentă din Supabase.
+      global: {
+        fetch: (url, options) =>
+          fetch(url, { ...options, cache: 'no-store' }),
+      },
     });
   }
   return supabaseClient;
 }
 
-// Structura unui rând în tabelul Supabase (coloane snake_case).
 type AppointmentRow = {
   id: string;
   service: string;
@@ -79,25 +71,33 @@ type AppointmentRow = {
   proposed_date: string | null;
   proposed_time: string | null;
   proposal_message: string | null;
+  car_make?: string | null;
+  problem_description?: string | null;
 };
 
+/**
+ * Fallback-uri de fier! Orice valoare lipsă (NULL) va fi înlocuită cu un text standard.
+ * Astfel, pagina clientului nu va mai „crăpa” niciodată, chiar dacă formularul dă rateuri.
+ */
 function rowToAppointment(row: AppointmentRow): AppointmentRecord {
   return {
-    id: row.id,
-    service: row.service,
-    carModel: row.car_model,
-    carYear: row.car_year,
-    date: row.date,
-    time: row.time,
-    name: row.name,
-    phone: row.phone,
-    notes: row.notes ?? undefined,
-    status: row.status,
-    createdAt: row.created_at,
-    updatedAt: row.updated_at ?? undefined,
-    proposedDate: row.proposed_date ?? undefined,
-    proposedTime: row.proposed_time ?? undefined,
-    proposalMessage: row.proposal_message ?? undefined,
+    id: row.id || 'id-necunoscut',
+    service: row.service || 'Serviciu Nespecificat',
+    carModel: row.car_model || 'Model Necunoscut',
+    carYear: row.car_year || '-',
+    date: row.date || '-',
+    time: row.time || '-',
+    name: row.name || 'Client',
+    phone: row.phone || '-',
+    notes: row.notes || undefined,
+    status: (row.status || 'noua') as AppointmentState,
+    createdAt: row.created_at || new Date().toISOString(),
+    updatedAt: row.updated_at || row.created_at || new Date().toISOString(),
+    proposedDate: row.proposed_date || undefined,
+    proposedTime: row.proposed_time || undefined,
+    proposalMessage: row.proposal_message || undefined,
+    carMake: row.car_make || 'Necunoscut',
+    problemDescription: row.problem_description || 'Fără descriere',
   };
 }
 
@@ -121,9 +121,6 @@ function appointmentToRow(appointment: AppointmentRecord): AppointmentRow {
   };
 }
 
-// ===========================================================================
-// Fallback local (doar pentru dezvoltare, când Supabase nu e configurat)
-// ===========================================================================
 const DB_DIR = path.join(process.cwd(), 'data');
 const DB_FILE = path.join(DB_DIR, 'appointments.json');
 
@@ -151,35 +148,58 @@ async function writeLocalAppointments(list: AppointmentRecord[]): Promise<void> 
   fs.writeFileSync(DB_FILE, JSON.stringify(list, null, 2), 'utf-8');
 }
 
-// ===========================================================================
-// Operațiuni CRUD
-// ===========================================================================
-
 export async function getAppointments(): Promise<AppointmentRecord[]> {
   const client = getSupabaseClient();
-
-  if (!client) {
-    return readLocalAppointments();
-  }
+  if (!client) return readLocalAppointments();
 
   const { data, error } = await client
     .from(APPOINTMENTS_TABLE)
     .select('*')
     .order('created_at', { ascending: false });
 
-  if (error) {
-    console.error('[db] Supabase: eroare la citirea programărilor:', error.message);
-    return [];
-  }
-
+  if (error) return [];
   return (data ?? []).map((row) => rowToAppointment(row as AppointmentRow));
 }
 
-export async function saveAppointment(
-  appointment: Omit<AppointmentRecord, 'id' | 'status' | 'createdAt'>
-): Promise<AppointmentRecord> {
+function normalizeLookupCode(value: string): string {
+  return value.trim().replace(/^(?:#+|%23)+/i, '').toLowerCase();
+}
+
+/**
+ * Căutare sigură: Caută codul scurt în tot ID-ul și previne eroarea PGRST116 prin folosirea `.limit(1)`
+ */
+export async function findAppointmentByCode(idOrCode: string): Promise<AppointmentRecord | null> {
+  const code = normalizeLookupCode(idOrCode);
+  if (!code) return null;
+
   const client = getSupabaseClient();
 
+  if (!client) {
+    const list = await readLocalAppointments();
+    const found = list.find((candidate) => candidate.id.toLowerCase().includes(code));
+    return found ?? null;
+  }
+
+  // Căutăm orice comandă al cărei ID conține codul nostru scurt.
+  // limit(1) ne asigură că returnăm exact un singur rând, fără a declanșa eroarea Supabase.
+  const { data, error } = await client
+    .from(APPOINTMENTS_TABLE)
+    .select('*')
+    .ilike('id', `%${code}%`)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) {
+    console.error('[db] Eroare căutare Supabase:', error.message);
+    return null;
+  }
+
+  return data ? rowToAppointment(data as AppointmentRow) : null;
+}
+
+export async function saveAppointment(appointment: Omit<AppointmentRecord, 'id' | 'status' | 'createdAt'>): Promise<AppointmentRecord> {
+  const client = getSupabaseClient();
   const newRecord: AppointmentRecord = {
     ...appointment,
     id: 'mst-' + Date.now().toString(36) + '-' + Math.random().toString(36).substring(2, 6),
@@ -189,37 +209,24 @@ export async function saveAppointment(
 
   if (!client) {
     const list = await readLocalAppointments();
-    list.unshift(newRecord); // newest first
+    list.unshift(newRecord);
     await writeLocalAppointments(list);
     return newRecord;
   }
 
-  const { error } = await client
-    .from(APPOINTMENTS_TABLE)
-    .insert(appointmentToRow(newRecord));
-
-  if (error) {
-    console.error('[db] Supabase: eroare la salvarea programării:', error.message);
-    throw new Error('Nu s-a putut salva programarea.');
-  }
-
+  const { error } = await client.from(APPOINTMENTS_TABLE).insert(appointmentToRow(newRecord));
+  if (error) throw new Error('Nu s-a putut salva programarea.');
   return newRecord;
 }
 
-export async function updateAppointmentStatus(
-  id: string,
-  status: AppointmentRecord['status']
-): Promise<boolean> {
-  // Validare defensivă: acceptăm doar statusuri din catalogul oficial.
+export async function updateAppointmentStatus(id: string, status: AppointmentRecord['status']): Promise<boolean> {
   if (!APPOINTMENT_STATUSES.includes(status as AppointmentState)) return false;
-
   const client = getSupabaseClient();
 
   if (!client) {
     const list = await readLocalAppointments();
     const idx = list.findIndex((a) => a.id === id);
     if (idx === -1) return false;
-
     list[idx].status = status;
     list[idx].updatedAt = new Date().toISOString();
     await writeLocalAppointments(list);
@@ -232,27 +239,16 @@ export async function updateAppointmentStatus(
     .eq('id', id)
     .select('id');
 
-  if (error) {
-    console.error('[db] Supabase: eroare la actualizarea statusului:', error.message);
-    return false;
-  }
-
-  return (data ?? []).length > 0;
+  return !error && (data ?? []).length > 0;
 }
 
-export async function proposeAppointmentReschedule(
-  id: string,
-  proposedDate: string,
-  proposedTime: string,
-  proposalMessage?: string
-): Promise<boolean> {
+export async function proposeAppointmentReschedule(id: string, proposedDate: string, proposedTime: string, proposalMessage?: string): Promise<boolean> {
   const client = getSupabaseClient();
 
   if (!client) {
     const list = await readLocalAppointments();
     const idx = list.findIndex((a) => a.id === id);
     if (idx === -1) return false;
-
     list[idx].status = 'reprogramare';
     list[idx].proposedDate = proposedDate;
     list[idx].proposedTime = proposedTime;
@@ -274,12 +270,7 @@ export async function proposeAppointmentReschedule(
     .eq('id', id)
     .select('id');
 
-  if (error) {
-    console.error('[db] Supabase: eroare la propunerea reprogramării:', error.message);
-    return false;
-  }
-
-  return (data ?? []).length > 0;
+  return !error && (data ?? []).length > 0;
 }
 
 export async function confirmAppointment(id: string): Promise<boolean> {
@@ -289,16 +280,11 @@ export async function confirmAppointment(id: string): Promise<boolean> {
     const list = await readLocalAppointments();
     const idx = list.findIndex((a) => a.id === id);
     if (idx === -1) return false;
-
     const appointment = list[idx];
-
-    // Dacă clientul confirmă o reprogramare propusă de admin,
-    // preluăm oficial data și ora propuse.
     if (appointment.status === 'reprogramare' && appointment.proposedDate && appointment.proposedTime) {
       appointment.date = appointment.proposedDate;
       appointment.time = appointment.proposedTime;
     }
-
     appointment.status = 'confirmata';
     appointment.proposedDate = undefined;
     appointment.proposedTime = undefined;
@@ -308,20 +294,13 @@ export async function confirmAppointment(id: string): Promise<boolean> {
     return true;
   }
 
-  const { data, error } = await client
-    .from(APPOINTMENTS_TABLE)
-    .select('*')
-    .eq('id', id)
-    .maybeSingle();
-
+  const { data, error } = await client.from(APPOINTMENTS_TABLE).select('*').eq('id', id).maybeSingle();
   if (error || !data) return false;
 
   const row = data as AppointmentRow;
   let date = row.date;
   let time = row.time;
 
-  // Dacă clientul confirmă o reprogramare propusă de admin,
-  // preluăm oficial data și ora propuse.
   if (row.status === 'reprogramare' && row.proposed_date && row.proposed_time) {
     date = row.proposed_date;
     time = row.proposed_time;
@@ -340,16 +319,9 @@ export async function confirmAppointment(id: string): Promise<boolean> {
     })
     .eq('id', id);
 
-  if (updateError) {
-    console.error('[db] Supabase: eroare la confirmarea programării:', updateError.message);
-    return false;
-  }
-
-  return true;
+  return !updateError;
 }
 
-// Confirmă programarea din partea clientului (ex: acceptă ora curentă
-// sau confirmă o reprogramare propusă de admin).
 export async function confirmByClient(id: string): Promise<boolean> {
   return confirmAppointment(id);
 }
@@ -369,16 +341,6 @@ export async function deleteAppointment(id: string): Promise<boolean> {
     return true;
   }
 
-  const { data, error } = await client
-    .from(APPOINTMENTS_TABLE)
-    .delete()
-    .eq('id', id)
-    .select('id');
-
-  if (error) {
-    console.error('[db] Supabase: eroare la ștergerea programării:', error.message);
-    return false;
-  }
-
-  return (data ?? []).length > 0;
+  const { data, error } = await client.from(APPOINTMENTS_TABLE).delete().eq('id', id).select('id');
+  return !error && (data ?? []).length > 0;
 }

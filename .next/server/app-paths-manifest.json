@@ -1,6 +1,15 @@
 {
-  "/page": "app/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/admin/page": "app/admin/page.js",
   "/admin/programari/page": "app/admin/programari/page.js",
+  "/page": "app/page.js",
+  "/admin/login/page": "app/admin/login/page.js",
   "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
-  "/status/[id]/page": "app/status/[id]/page.js"
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/api/appointments/route": "app/api/appointments/route.js",
+  "/api/admin-login/route": "app/api/admin-login/route.js",
+  "/status/[id]/page": "app/status/[id]/page.js",
+  "/status/page": "app/status/page.js",
+  "/servicii/[slug]/page": "app/servicii/[slug]/page.js"
 }

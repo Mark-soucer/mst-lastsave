@@ -1,7 +1,28 @@
-import { getAppointments, type AppointmentRecord } from '@/lib/db';
+import { findAppointmentByCode, type AppointmentRecord } from '@/lib/db';
 import { MOCK_REPAIR_ORDERS } from './mock-data';
 import { REPAIR_STATUS_CATALOG } from './statuses';
 import type { RepairOrder, RepairStatus, RepairStatusId } from './types';
+
+// TEMP: Instrumentație de diagnostic pentru a identifica cauza exactă a
+// statusului afișat greșit în /status/[cod]. Activă în development sau via
+// STATUS_DEBUG=1 (util pentru Vercel production). Se șterge după rezolvare.
+const STATUS_DEBUG =
+  process.env.NODE_ENV === 'development' || process.env.STATUS_DEBUG === '1';
+
+function logStatus(
+  appointment: AppointmentRecord | null,
+  stage: string,
+  currentStatus?: RepairStatusId
+): void {
+  if (!STATUS_DEBUG) return;
+  console.log(
+    `[status-debug][${stage}] id=%s status=%s normalized=%s currentStatus=%s`,
+    appointment?.id ?? '-',
+    appointment?.status ?? '-',
+    appointment ? normalizeStatusId(appointment.status ?? '') : '-',
+    currentStatus ?? '-'
+  );
+}
 
 /**
  * Mapare între statusurile granulare alese din Panoul Admin și statusurile
@@ -39,8 +60,8 @@ const LEGACY_TO_REPAIR_STATUS_MAP: Record<string, RepairStatusId> = {
  * înlocuită cu interogări SQL / ORM, fără a modifica componentele de UI.
  */
 
-function getShortCode(id: string): string {
-  return id.slice(-6).toUpperCase();
+function getShortCode(id: string | null | undefined): string {
+  return (id ?? '').slice(-6).toUpperCase();
 }
 
 /**
@@ -95,17 +116,27 @@ const NORMALIZED_ADMIN_TO_REPAIR_STATUS_MAP: Record<string, RepairStatusId> =
     {}
   );
 
-function parseVehicle(carModel: string): { brand: string; model: string } {
-  const normalized = carModel.trim();
+function parseVehicle(
+  carModel: string | null | undefined,
+  carMake?: string | null
+): { brand: string; model: string } {
+  const normalized = (carModel ?? '').trim();
 
-  if (!normalized || normalized.toLowerCase() === 'nespecificat') {
-    return { brand: 'Autoturism', model: 'Nespecificat' };
+  if (normalized && normalized.toLowerCase() !== 'nespecificat') {
+    const [brand, ...modelParts] = normalized.split(/\s+/);
+    const model = modelParts.length > 0 ? modelParts.join(' ') : brand;
+
+    return { brand, model };
   }
 
-  const [brand, ...modelParts] = normalized.split(/\s+/);
-  const model = modelParts.length > 0 ? modelParts.join(' ') : brand;
-
-  return { brand, model };
+  // carModel lipsește sau este „nespecificat": folosim marca suplimentară
+  // (coloana `car_make`) ca brand când există, altfel un fallback neutru.
+  // Funcția nu aruncă NICIODATĂ pentru valori NULL/empty.
+  const fallbackBrand = (carMake ?? '').trim();
+  return {
+    brand: fallbackBrand || 'Autoturism',
+    model: 'Nespecificat',
+  };
 }
 
 function buildStatusesForAppointment(
@@ -166,9 +197,11 @@ type StatusResolution = {
 function appointmentStatusToRepairStatus(
   appointment: AppointmentRecord
 ): StatusResolution {
-  const status = appointment.status;
+  // Fallback sigur: status/service pot ajunge NULL din baza de date; fără
+  // ele `normalizeStatusId(...)`/interpolarea de mai jos ar arunca eroare.
+  const status = appointment.status ?? 'noua';
   const normalized = normalizeStatusId(status);
-  const serviceDesc = `Serviciu: ${appointment.service}.`;
+  const serviceDesc = `Serviciu: ${appointment.service ?? ''}.`;
 
   // ---- Statusuri vechi (fluxul de programare) cu texte dedicate -------------
   if (normalized === 'noua') {
@@ -275,10 +308,18 @@ function appointmentStatusToRepairStatus(
 
 function appointmentToRepairOrder(appointment: AppointmentRecord): RepairOrder {
   const shortCode = getShortCode(appointment.id);
-  const vehicle = parseVehicle(appointment.carModel);
+  // `car_make` poate fi NULL în baza de date (coloană suplimentară) -> fallback
+  // sigur ÎNAINTE de machetare, ca să nu ajungă niciodată null/undefined în UI.
+  const safeCarMake = appointment.carMake?.trim() || 'Necunoscut';
+  const vehicle = parseVehicle(appointment.carModel, safeCarMake);
   const { currentStatus, overrides, markAllCompleted, highlightCurrent } =
     appointmentStatusToRepairStatus(appointment);
-  const lastUpdatedAt = appointment.updatedAt || appointment.createdAt;
+  // `updated_at` este NULL până la prima modificare de status -> cădem pe
+  // `created_at` (fallback există deja în baza de date și aici, defensiv),
+  // iar ultima instanță de siguranță este șirul gol.
+  const lastUpdatedAt = appointment.updatedAt || appointment.createdAt || '';
+  // `problem_description` poate fi NULL/empty -> fallback la șir gol.
+  const safeProblemDescription = appointment.problemDescription?.trim() || '';
 
   const statuses = buildStatusesForAppointment(currentStatus, overrides, {
     markAllCompleted,
@@ -287,10 +328,10 @@ function appointmentToRepairOrder(appointment: AppointmentRecord): RepairOrder {
     status.id === currentStatus ? { ...status, timestamp: lastUpdatedAt } : status
   );
   return {
-    id: appointment.id,
+    id: appointment.id ?? '',
     orderNumber: shortCode,
     accessCode: shortCode,
-    customerName: appointment.name,
+    customerName: appointment.name ?? '',
     vehicle: {
       brand: vehicle.brand,
       model: vehicle.model,
@@ -298,19 +339,22 @@ function appointmentToRepairOrder(appointment: AppointmentRecord): RepairOrder {
     },
     currentStatus,
     statuses,
-    createdAt: appointment.createdAt,
+    createdAt: appointment.createdAt ?? '',
     updatedAt: lastUpdatedAt,
     appointment: {
-      id: appointment.id,
-      status: appointment.status,
-      service: appointment.service,
-      name: appointment.name,
-      phone: appointment.phone,
-      date: appointment.date,
-      time: appointment.time,
+      id: appointment.id ?? '',
+      status: (appointment.status ?? 'noua') as AppointmentRecord['status'],
+      service: appointment.service ?? '',
+      name: appointment.name ?? '',
+      phone: appointment.phone ?? '',
+      date: appointment.date ?? '',
+      time: appointment.time ?? '',
       proposedDate: appointment.proposedDate,
       proposedTime: appointment.proposedTime,
       proposalMessage: appointment.proposalMessage,
+      // Valorile sigure sunt deja normalizate mai sus (nu pot fi null/empty).
+      carMake: safeCarMake,
+      problemDescription: safeProblemDescription,
     },
   };
 }
@@ -339,20 +383,21 @@ export async function getRepairOrder(idOrCode: string): Promise<RepairOrder | nu
     };
   }
 
-  // 3. Citește lista reală de programări din data/appointments.json.
-  const appointments = await getAppointments();
-
-  // 4. Potrivește codul scurt (ultimele 6 caractere din ID, ex: "mst-...-wft0" -> "L-WFT0")
-  //    sau ID-ul complet, ambele normalizate (fără '#', fără spații, uppercase).
-  const appointment = appointments.find((candidate) => {
-    const shortCode = normalizeCode(candidate.id.slice(-6));
-    const fullId = normalizeCode(candidate.id);
-    return shortCode === lookup || fullId === lookup;
-  });
+  // 3. Caută programarea reală (Supabase sau fallback local) după:
+  //    - ID-ul complet (ex: "mst-mtlrrmfc-41ba"),
+  //    - codul scurt = sufixul ID-ului (ex: "41BA" corespunde lui
+  //      "mst-mtlrrmfc-41ba"; acceptă și varianta cu liniuță precum "C-41BA").
+  //    Interogarea se face direct cu un filtru `.or()` pe id, nu mai listăm
+  //    toate programările ca să potrivim în JavaScript.
+  const appointment = await findAppointmentByCode(lookup);
 
   if (!appointment) return null;
 
-  // 5. Mapează programarea găsită într-o comandă de reparație pentru pagina de status.
-  return appointmentToRepairOrder(appointment);
+  logStatus(appointment, 'found');
+
+  // 4. Mapează programarea găsită într-o comandă de reparație pentru pagina de status.
+  const order = appointmentToRepairOrder(appointment);
+  logStatus(appointment, 'mapped', order.currentStatus);
+  return order;
 }
 

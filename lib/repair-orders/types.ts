@@ -63,6 +63,12 @@ export type AppointmentPublicInfo = {
   proposedDate?: string;
   proposedTime?: string;
   proposalMessage?: string;
+  /** Marca mașinii (coloana `car_make`). Valoare sigură — vine ca string
+   *  ne-gol ('Necunoscut' când coloana e NULL în bază). */
+  carMake?: string;
+  /** Descrierea problemei (coloana `problem_description`). Valoare sigură —
+   *  vine ca string ('' când coloana e NULL în bază). */
+  problemDescription?: string;
 };
 
 export type RepairStatus = {
