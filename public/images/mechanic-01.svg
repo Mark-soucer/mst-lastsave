@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset="1" stop-color="#080808"/>
+    </linearGradient>
+    <radialGradient id="r" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#d50000" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#d50000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <rect width="1200" height="800" fill="url(#r)"/>
+  <g stroke="#fff" stroke-opacity="0.05">
+    <path d="M0 200H1200 M0 400H1200 M0 600H1200 M300 0V800 M600 0V800 M900 0V800"/>
+  </g>
+  <text x="75" y="120" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="700" fill="#fff" opacity="0.9">MECANICĂ AUTO</text>
+  <text x="75" y="170" font-family="Inter, Arial, sans-serif" font-size="26" fill="#a0a0a0">MST SERVICE — 01</text>
+  <circle cx="600" cy="420" r="160" fill="none" stroke="#d50000" stroke-width="4" opacity="0.5"/>
+  <circle cx="600" cy="420" r="120" fill="none" stroke="#333" stroke-width="2" opacity="0.8"/>
+  <circle cx="600" cy="420" r="40" fill="#d50000" opacity="0.7"/>
+</svg>

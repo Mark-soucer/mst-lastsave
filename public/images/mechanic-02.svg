@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c0c0c"/>
+      <stop offset="1" stop-color="#080808"/>
+    </linearGradient>
+    <radialGradient id="r" cx="0.7" cy="0.35" r="0.55">
+      <stop offset="0" stop-color="#ff1a1a" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#ff1a1a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <rect width="1200" height="800" fill="url(#r)"/>
+  <g stroke="#fff" stroke-opacity="0.04">
+    <path d="M0 300H1200 M0 500H1200 M400 0V800 M800 0V800"/>
+  </g>
+  <text x="75" y="120" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="700" fill="#fff" opacity="0.9">DIAGNOSTICARE</text>
+  <text x="75" y="170" font-family="Inter, Arial, sans-serif" font-size="26" fill="#a0a0a0">MST SERVICE — 02</text>
+  <g transform="translate(600,380)">
+    <rect x="-140" y="-90" width="280" height="180" rx="14" fill="#111" stroke="#333" stroke-width="2"/>
+    <path d="M-90 -10H90 M-90 30H90 M-90 70H60" stroke="#d50000" stroke-width="4" opacity="0.85"/>
+    <circle cx="-70" cy="-45" r="12" fill="#d50000" opacity="0.9"/>
+    <circle cx="70" cy="-45" r="12" fill="#333"/>
+  </g>
+</svg>

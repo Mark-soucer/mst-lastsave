@@ -1,0 +1,17 @@
+{
+  "name": "MST SERVICE — Service auto premium în Galați",
+  "short_name": "MST SERVICE",
+  "description": "Service auto premium în Galați pentru mecanică, tinichigerie, vopsitorie, geometrie și vulcanizare.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#080808",
+  "icons": [
+    {
+      "src": "/images/logo-mst-transparent.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
