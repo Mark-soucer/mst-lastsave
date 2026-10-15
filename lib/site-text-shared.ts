@@ -9,6 +9,7 @@ export type ServiceIncludeText = { title: string; text: string };
 export type ServiceFaqText = { question: string; answer: string };
 
 export type ServicePageText = {
+  heroImage: { src: string; alt: string };
   heroSubtitle: string;
   intro: { what: string[]; when: string[]; problems: string[] };
   includes: ServiceIncludeText[];
@@ -33,6 +34,7 @@ export type HomeText = {
 
 function defaultServicePage(s: ServicePageData): ServicePageText {
   return {
+    heroImage: { src: s.heroImage, alt: s.heroImageAlt },
     heroSubtitle: s.heroSubtitle,
     intro: { what: [...s.intro.what], when: [...s.intro.when], problems: [...s.intro.problems] },
     includes: s.includes.map((f) => ({ title: f.title, text: f.text })),
@@ -104,6 +106,10 @@ function mergeServicePage(stored: any, d: ServicePageText): ServicePageText {
     : [];
 
   return {
+    heroImage: {
+      src: pick(stored?.heroImage?.src, d.heroImage.src),
+      alt: pick(stored?.heroImage?.alt, d.heroImage.alt),
+    },
     heroSubtitle: pick(stored?.heroSubtitle, d.heroSubtitle),
     intro: {
       what: strList(stored?.intro?.what, d.intro.what),
@@ -181,7 +187,7 @@ function validateServicePage(input: any, name: string): ServicePageText {
   const list = (v: unknown, label: string): string[] => {
     if (!Array.isArray(v) || v.length === 0) throw new Error(`${name} – „${label}” trebuie să aibă cel puțin un rând.`);
     if (v.length > MAX_LIST) throw new Error(`${name} – „${label}” poate avea cel mult ${MAX_LIST} rânduri.`);
-   return v.map((x, i) => req(x, `${label} – rândul ${i + 1}`, MAX_LONG));
+    return v.map((x, i) => req(x, `${label} – rândul ${i + 1}`, MAX_LONG));
   };
 
   const includes = Array.isArray(input?.includes) ? input.includes : [];
@@ -189,7 +195,11 @@ function validateServicePage(input: any, name: string): ServicePageText {
   const faq = Array.isArray(input?.faq) ? input.faq : [];
   if (faq.length === 0 || faq.length > MAX_LIST) throw new Error(`${name} – „Întrebări frecvente” trebuie să aibă între 1 și ${MAX_LIST} rânduri.`);
 
+  const src = req(input?.heroImage?.src, 'Poza principală', 500);
+  if (!/^(\/|https:\/\/)/.test(src)) throw new Error(`${name} – poza principală trebuie să fie un link valid.`);
+
   return {
+    heroImage: { src, alt: req(input?.heroImage?.alt, 'Poza principală – descriere', MAX_LEN) },
     heroSubtitle: req(input?.heroSubtitle, 'Subtitlul din pagină', MAX_LONG),
     intro: {
       what: list(input?.intro?.what, 'Ce presupune'),
@@ -282,6 +292,8 @@ export function applyServiceText(page: ServicePageData, text: HomeText): Service
     ...page,
     title: card?.title ?? page.title,
     short: card?.short ?? page.short,
+    heroImage: t.heroImage.src,
+    heroImageAlt: t.heroImage.alt,
     heroSubtitle: t.heroSubtitle,
     intro: t.intro,
     includes: t.includes.map((inc, i) => ({

@@ -140,15 +140,59 @@ function ServiceEditor({
   name,
   value,
   onChange,
+  onUpload,
 }: {
   name: string;
   value: ServicePageText;
   onChange: (v: ServicePageText) => void;
+  onUpload: (file: File) => Promise<string>;
 }) {
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  const handleFile = async (file: File | undefined) => {
+    if (!file) return;
+    setUploading(true);
+    setUploadError(null);
+    try {
+      const url = await onUpload(file);
+      onChange({ ...value, heroImage: { ...value.heroImage, src: url } });
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : 'Încărcarea a eșuat.');
+    } finally {
+      setUploading(false);
+    }
+  };
   return (
     <details className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6">
       <summary className="cursor-pointer text-lg font-bold">{name}</summary>
       <div className="mt-5 grid gap-4 md:grid-cols-2">
+        <div className="md:col-span-2 grid gap-4 rounded-xl border border-white/5 bg-black/20 p-4 md:grid-cols-[160px_1fr]">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-white/10 bg-black">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={value.heroImage.src} alt={value.heroImage.alt} className="h-full w-full object-contain p-2" />
+          </div>
+          <div className="space-y-3">
+            <span className="text-sm text-neutral-400">Poza principală</span>
+            <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-white/10 px-4 py-2 text-sm font-semibold text-neutral-200 hover:border-white/20">
+              {uploading ? 'Se încarcă...' : 'Schimbă poza'}
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/avif"
+                className="hidden"
+                disabled={uploading}
+                onChange={(e) => handleFile(e.target.files?.[0])}
+              />
+            </label>
+            {uploadError && <p className="text-sm text-red-300">{uploadError}</p>}
+            <Field
+              label="Descrierea pozei (pentru Google și persoanele cu deficiențe de vedere)"
+              value={value.heroImage.alt}
+              onChange={(v) => onChange({ ...value, heroImage: { ...value.heroImage, alt: v } })}
+            />
+          </div>
+        </div>
+
         <div className="md:col-span-2">
           <Field
             label="Subtitlul din pagină"
@@ -250,6 +294,15 @@ export default function AdminSitePage() {
         : f
     );
 
+  const uploadImage = async (file: File): Promise<string> => {
+    const fd = new FormData();
+    fd.append('file', file);
+    const res = await fetch('/api/site-content/upload', { method: 'POST', body: fd });
+    const json = await res.json();
+    if (!json.success) throw new Error(json.message || 'Încărcarea a eșuat.');
+    return json.url as string;
+  };
+
   const setServicePage = (slug: string, value: ServicePageText) =>
     setForm((f) => (f ? { ...f, servicePages: { ...f.servicePages, [slug]: value } } : f));
 
@@ -340,6 +393,7 @@ export default function AdminSitePage() {
                   name={card.title}
                   value={form.servicePages[card.slug]}
                   onChange={(v) => setServicePage(card.slug, v)}
+                  onUpload={uploadImage}
                 />
               ))}
             </div>

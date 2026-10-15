@@ -118,6 +118,7 @@ export default function ServicePage({ service }: ServicePageProps) {
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#0B0B0B]">
                 <Image
                   src={service.heroImage}
+                  unoptimized={service.heroImage.startsWith('http')}
                   alt={service.heroImageAlt}
                   fill
                   priority
