@@ -1,8 +1,20 @@
-// Textele principale ale paginii de start: valori implicite, tipuri și validare.
+// Textele editabile din admin: valori implicite, tipuri, îmbinare și validare.
 // Fără importuri de server, poate fi folosit și în componente client.
 import { WHY_ITEMS } from './data';
+import { SERVICE_PAGES, type ServicePageData } from './service-data';
 
 export type WhyItem = { title: string; text: string };
+export type ServiceCardText = { slug: string; title: string; short: string };
+export type ServiceIncludeText = { title: string; text: string };
+export type ServiceFaqText = { question: string; answer: string };
+
+export type ServicePageText = {
+  heroSubtitle: string;
+  intro: { what: string[]; when: string[]; problems: string[] };
+  includes: ServiceIncludeText[];
+  faq: ServiceFaqText[];
+  cta: { title: string; subtitle: string; buttonLabel: string };
+};
 
 export type HomeText = {
   hero: {
@@ -15,7 +27,23 @@ export type HomeText = {
   services: { eyebrow: string; title: string; subtitle: string };
   why: { eyebrow: string; title: string; subtitle: string; items: WhyItem[] };
   beforeAfter: { eyebrow: string; title: string; subtitle: string };
+  serviceCards: ServiceCardText[];
+  servicePages: Record<string, ServicePageText>;
 };
+
+function defaultServicePage(s: ServicePageData): ServicePageText {
+  return {
+    heroSubtitle: s.heroSubtitle,
+    intro: { what: [...s.intro.what], when: [...s.intro.when], problems: [...s.intro.problems] },
+    includes: s.includes.map((f) => ({ title: f.title, text: f.text })),
+    faq: s.faq.map((f) => ({ question: f.question, answer: f.answer })),
+    cta: { ...s.cta },
+  };
+}
+
+const DEFAULT_SERVICE_PAGES: Record<string, ServicePageText> = Object.fromEntries(
+  SERVICE_PAGES.map((s) => [s.slug, defaultServicePage(s)])
+);
 
 // Valorile actuale ale site-ului. Se folosesc dacă nu există nimic salvat în admin.
 export const DEFAULT_HOME_TEXT: HomeText = {
@@ -44,18 +72,65 @@ export const DEFAULT_HOME_TEXT: HomeText = {
     title: 'Lucrări care vorbesc de la sine',
     subtitle: 'Vezi transformările realizate de echipa MST Service.',
   },
+  serviceCards: SERVICE_PAGES.map((s) => ({ slug: s.slug, title: s.title, short: s.short })),
+  servicePages: DEFAULT_SERVICE_PAGES,
 };
 
 const MAX_LEN = 300;
+const MAX_LONG = 1000;
+const MAX_LIST = 15;
+
+const pick = (value: unknown, fallback: string): string =>
+  typeof value === 'string' && value.trim() ? value : fallback;
+
+function strList(v: unknown, fb: string[]): string[] {
+  if (!Array.isArray(v)) return fb;
+  const out = v
+    .filter((x): x is string => typeof x === 'string' && x.trim() !== '')
+    .map((x) => x.trim());
+  return out.length ? out : fb;
+}
+
+function mergeServicePage(stored: any, d: ServicePageText): ServicePageText {
+  const includes: ServiceIncludeText[] = Array.isArray(stored?.includes)
+    ? stored.includes
+        .filter((x: any) => typeof x?.title === 'string' && x.title.trim() && typeof x?.text === 'string' && x.text.trim())
+        .map((x: any) => ({ title: x.title.trim(), text: x.text.trim() }))
+    : [];
+  const faq: ServiceFaqText[] = Array.isArray(stored?.faq)
+    ? stored.faq
+        .filter((x: any) => typeof x?.question === 'string' && x.question.trim() && typeof x?.answer === 'string' && x.answer.trim())
+        .map((x: any) => ({ question: x.question.trim(), answer: x.answer.trim() }))
+    : [];
+
+  return {
+    heroSubtitle: pick(stored?.heroSubtitle, d.heroSubtitle),
+    intro: {
+      what: strList(stored?.intro?.what, d.intro.what),
+      when: strList(stored?.intro?.when, d.intro.when),
+      problems: strList(stored?.intro?.problems, d.intro.problems),
+    },
+    includes: includes.length ? includes : d.includes,
+    faq: faq.length ? faq : d.faq,
+    cta: {
+      title: pick(stored?.cta?.title, d.cta.title),
+      subtitle: pick(stored?.cta?.subtitle, d.cta.subtitle),
+      buttonLabel: pick(stored?.cta?.buttonLabel, d.cta.buttonLabel),
+    },
+  };
+}
 
 /** Combină ce e salvat cu valorile implicite. Câmpurile goale revin la valoarea din cod. */
 export function mergeHomeText(stored: unknown): HomeText {
   const s = (stored ?? {}) as Record<string, any>;
-  const pick = (value: unknown, fallback: string): string =>
-    typeof value === 'string' && value.trim() ? value : fallback;
-
   const d = DEFAULT_HOME_TEXT;
   const storedItems: any[] = Array.isArray(s.why?.items) ? s.why.items : [];
+  const storedCards: any[] = Array.isArray(s.serviceCards) ? s.serviceCards : [];
+
+  const servicePages: Record<string, ServicePageText> = {};
+  for (const slug of Object.keys(DEFAULT_SERVICE_PAGES)) {
+    servicePages[slug] = mergeServicePage(s.servicePages?.[slug], DEFAULT_SERVICE_PAGES[slug]);
+  }
 
   return {
     hero: {
@@ -84,6 +159,56 @@ export function mergeHomeText(stored: unknown): HomeText {
       title: pick(s.beforeAfter?.title, d.beforeAfter.title),
       subtitle: pick(s.beforeAfter?.subtitle, d.beforeAfter.subtitle),
     },
+    serviceCards: d.serviceCards.map((card, i) => {
+      const stored = storedCards.find((c) => c?.slug === card.slug) ?? storedCards[i];
+      return {
+        slug: card.slug,
+        title: pick(stored?.title, card.title),
+        short: pick(stored?.short, card.short),
+      };
+    }),
+    servicePages,
+  };
+}
+
+function validateServicePage(input: any, name: string): ServicePageText {
+  const req = (v: unknown, label: string, max = MAX_LEN): string => {
+    const t = typeof v === 'string' ? v.trim() : '';
+    if (!t) throw new Error(`${name} – „${label}” nu poate fi gol.`);
+    if (t.length > max) throw new Error(`${name} – „${label}” este prea lung.`);
+    return t;
+  };
+  const list = (v: unknown, label: string): string[] => {
+    if (!Array.isArray(v) || v.length === 0) throw new Error(`${name} – „${label}” trebuie să aibă cel puțin un rând.`);
+    if (v.length > MAX_LIST) throw new Error(`${name} – „${label}” poate avea cel mult ${MAX_LIST} rânduri.`);
+    return v.map((x, i) => req(x, `${label} – rândul ${i + 1}`));
+  };
+
+  const includes = Array.isArray(input?.includes) ? input.includes : [];
+  if (includes.length === 0 || includes.length > MAX_LIST) throw new Error(`${name} – „Ce include” trebuie să aibă între 1 și ${MAX_LIST} rânduri.`);
+  const faq = Array.isArray(input?.faq) ? input.faq : [];
+  if (faq.length === 0 || faq.length > MAX_LIST) throw new Error(`${name} – „Întrebări frecvente” trebuie să aibă între 1 și ${MAX_LIST} rânduri.`);
+
+  return {
+    heroSubtitle: req(input?.heroSubtitle, 'Subtitlul din pagină', MAX_LONG),
+    intro: {
+      what: list(input?.intro?.what, 'Ce presupune'),
+      when: list(input?.intro?.when, 'Când este necesar'),
+      problems: list(input?.intro?.problems, 'Ce probleme rezolvăm'),
+    },
+    includes: includes.map((x: any, i: number) => ({
+      title: req(x?.title, `Ce include ${i + 1} – titlu`),
+      text: req(x?.text, `Ce include ${i + 1} – text`, MAX_LONG),
+    })),
+    faq: faq.map((x: any, i: number) => ({
+      question: req(x?.question, `Întrebarea ${i + 1}`),
+      answer: req(x?.answer, `Răspunsul ${i + 1}`, MAX_LONG),
+    })),
+    cta: {
+      title: req(input?.cta?.title, 'Caseta finală – titlul'),
+      subtitle: req(input?.cta?.subtitle, 'Caseta finală – subtitlul', MAX_LONG),
+      buttonLabel: req(input?.cta?.buttonLabel, 'Caseta finală – butonul'),
+    },
   };
 }
 
@@ -102,6 +227,14 @@ export function validateHomeText(input: unknown): HomeText {
   const d = DEFAULT_HOME_TEXT;
   const items = Array.isArray(o.why?.items) ? o.why.items : [];
   if (items.length !== d.why.items.length) throw new Error('Lista „De ce noi” trebuie să aibă același număr de elemente.');
+  const cards = Array.isArray(o.serviceCards) ? o.serviceCards : [];
+  if (cards.length !== d.serviceCards.length) throw new Error('Lista de servicii trebuie să aibă același număr de carduri.');
+
+  const servicePages: Record<string, ServicePageText> = {};
+  for (const slug of Object.keys(DEFAULT_SERVICE_PAGES)) {
+    const name = SERVICE_PAGES.find((s) => s.slug === slug)?.title ?? slug;
+    servicePages[slug] = validateServicePage(o.servicePages?.[slug], name);
+  }
 
   return {
     hero: {
@@ -130,5 +263,33 @@ export function validateHomeText(input: unknown): HomeText {
       title: req(o.beforeAfter?.title, 'Înainte & După – titlul'),
       subtitle: req(o.beforeAfter?.subtitle, 'Înainte & După – subtitlul'),
     },
+    serviceCards: d.serviceCards.map((card, i) => ({
+      slug: card.slug,
+      title: req(cards[i]?.title, `Card serviciu ${i + 1} – titlu`),
+      short: req(cards[i]?.short, `Card serviciu ${i + 1} – descriere`),
+    })),
+    servicePages,
+  };
+}
+
+/** Aplică textele editate din admin peste datele din cod ale unei pagini de serviciu. */
+export function applyServiceText(page: ServicePageData, text: HomeText): ServicePageData {
+  const t = text.servicePages[page.slug];
+  const card = text.serviceCards.find((c) => c.slug === page.slug);
+  if (!t) return page;
+
+  return {
+    ...page,
+    title: card?.title ?? page.title,
+    short: card?.short ?? page.short,
+    heroSubtitle: t.heroSubtitle,
+    intro: t.intro,
+    includes: t.includes.map((inc, i) => ({
+      icon: page.includes[i]?.icon ?? 'wrench',
+      title: inc.title,
+      text: inc.text,
+    })),
+    faq: t.faq,
+    cta: t.cta,
   };
 }

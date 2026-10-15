@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import ServicePage from '@/components/ServicePage';
 import Footer from '@/components/Footer';
 import { getServicePage, SERVICE_PAGES } from '@/lib/service-data';
+import { getHomeText } from '@/lib/site-text';
+import { applyServiceText } from '@/lib/site-text-shared';
 import { SITE_URL } from '@/lib/constants';
 
 type ServicePageRouteProps = {
@@ -53,12 +55,15 @@ export function generateMetadata({ params }: ServicePageRouteProps): Metadata {
   };
 }
 
-export default function ServicePageRoute({ params }: ServicePageRouteProps) {
-  const service = getServicePage(params.slug);
+export default async function ServicePageRoute({ params }: ServicePageRouteProps) {
+  const base = getServicePage(params.slug);
 
-  if (!service) {
+  if (!base) {
     notFound();
   }
+
+  const text = await getHomeText();
+  const service = applyServiceText(base, text);
 
   return (
     <>

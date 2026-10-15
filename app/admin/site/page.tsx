@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Loader2, Save } from 'lucide-react';
+import { Loader2, Plus, Save, Trash2 } from 'lucide-react';
 import AdminTabs from '@/components/admin/AdminTabs';
-import type { HomeText } from '@/lib/site-text-shared';
+import type { HomeText, ServicePageText } from '@/lib/site-text-shared';
 
 type Feedback = { type: 'ok' | 'error'; text: string } | null;
 
@@ -43,6 +43,170 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
+/** Listă de rânduri simple (ex: „Ce presupune”). Poți adăuga și șterge rânduri. */
+function ListEditor({
+  label,
+  items,
+  onChange,
+}: {
+  label: string;
+  items: string[];
+  onChange: (items: string[]) => void;
+}) {
+  return (
+    <div className="md:col-span-2 space-y-2">
+      <div className="flex items-center justify-between">
+        <span className="text-sm text-neutral-400">{label}</span>
+        <button
+          type="button"
+          onClick={() => onChange([...items, ''])}
+          className="inline-flex items-center gap-1 rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-neutral-300 hover:border-white/20 hover:text-white"
+        >
+          <Plus className="h-3.5 w-3.5" /> Adaugă rând
+        </button>
+      </div>
+      {items.map((item, i) => (
+        <div key={i} className="flex gap-2">
+          <input
+            className={inputClass}
+            value={item}
+            onChange={(e) => onChange(items.map((x, j) => (j === i ? e.target.value : x)))}
+          />
+          <button
+            type="button"
+            onClick={() => onChange(items.filter((_, j) => j !== i))}
+            aria-label="Șterge rândul"
+            className="shrink-0 rounded-lg border border-white/10 px-3 text-neutral-400 hover:border-[#FF1A1A]/50 hover:text-[#FF1A1A]"
+          >
+            <Trash2 className="h-4 w-4" />
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Listă de perechi (titlu + text, sau întrebare + răspuns). */
+function PairEditor<T extends Record<string, string>>({
+  label,
+  items,
+  onChange,
+  fields,
+  empty,
+}: {
+  label: string;
+  items: T[];
+  onChange: (items: T[]) => void;
+  fields: { key: keyof T & string; label: string; multiline?: boolean }[];
+  empty: T;
+}) {
+  return (
+    <div className="md:col-span-2 space-y-3">
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-semibold text-neutral-300">{label}</span>
+        <button
+          type="button"
+          onClick={() => onChange([...items, { ...empty }])}
+          className="inline-flex items-center gap-1 rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-neutral-300 hover:border-white/20 hover:text-white"
+        >
+          <Plus className="h-3.5 w-3.5" /> Adaugă
+        </button>
+      </div>
+      {items.map((item, i) => (
+        <div key={i} className="grid gap-3 rounded-xl border border-white/5 bg-black/20 p-4">
+          {fields.map((f) => (
+            <Field
+              key={f.key}
+              label={f.label}
+              multiline={f.multiline}
+              value={item[f.key]}
+              onChange={(v) => onChange(items.map((x, j) => (j === i ? { ...x, [f.key]: v } : x)))}
+            />
+          ))}
+          <button
+            type="button"
+            onClick={() => onChange(items.filter((_, j) => j !== i))}
+            className="justify-self-end text-xs text-neutral-400 hover:text-[#FF1A1A]"
+          >
+            Șterge
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ServiceEditor({
+  name,
+  value,
+  onChange,
+}: {
+  name: string;
+  value: ServicePageText;
+  onChange: (v: ServicePageText) => void;
+}) {
+  return (
+    <details className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+      <summary className="cursor-pointer text-lg font-bold">{name}</summary>
+      <div className="mt-5 grid gap-4 md:grid-cols-2">
+        <div className="md:col-span-2">
+          <Field
+            label="Subtitlul din pagină"
+            multiline
+            value={value.heroSubtitle}
+            onChange={(v) => onChange({ ...value, heroSubtitle: v })}
+          />
+        </div>
+
+        <ListEditor
+          label="Ce presupune"
+          items={value.intro.what}
+          onChange={(items) => onChange({ ...value, intro: { ...value.intro, what: items } })}
+        />
+        <ListEditor
+          label="Când este necesar"
+          items={value.intro.when}
+          onChange={(items) => onChange({ ...value, intro: { ...value.intro, when: items } })}
+        />
+        <ListEditor
+          label="Ce probleme rezolvăm"
+          items={value.intro.problems}
+          onChange={(items) => onChange({ ...value, intro: { ...value.intro, problems: items } })}
+        />
+
+        <PairEditor
+          label="Ce include (cartonașele)"
+          items={value.includes}
+          onChange={(items) => onChange({ ...value, includes: items })}
+          fields={[
+            { key: 'title', label: 'Titlu' },
+            { key: 'text', label: 'Text', multiline: true },
+          ]}
+          empty={{ title: '', text: '' }}
+        />
+
+        <PairEditor
+          label="Întrebări frecvente"
+          items={value.faq}
+          onChange={(items) => onChange({ ...value, faq: items })}
+          fields={[
+            { key: 'question', label: 'Întrebarea' },
+            { key: 'answer', label: 'Răspunsul', multiline: true },
+          ]}
+          empty={{ question: '', answer: '' }}
+        />
+
+        <div className="md:col-span-2 text-sm font-semibold text-neutral-300">Caseta de la final</div>
+        <Field label="Titlu" value={value.cta.title} onChange={(v) => onChange({ ...value, cta: { ...value.cta, title: v } })} />
+        <Field label="Buton" value={value.cta.buttonLabel} onChange={(v) => onChange({ ...value, cta: { ...value.cta, buttonLabel: v } })} />
+        <div className="md:col-span-2">
+          <Field label="Subtitlu" multiline value={value.cta.subtitle} onChange={(v) => onChange({ ...value, cta: { ...value.cta, subtitle: v } })} />
+        </div>
+      </div>
+    </details>
+  );
+}
+
 export default function AdminSitePage() {
   const [form, setForm] = useState<HomeText | null>(null);
   const [loading, setLoading] = useState(true);
@@ -61,7 +225,7 @@ export default function AdminSitePage() {
   }, []);
 
   const set = <S extends keyof HomeText>(section: S, key: keyof HomeText[S], value: string) =>
-    setForm((f) => (f ? { ...f, [section]: { ...f[section], [key]: value } } : f));
+    setForm((f) => (f ? { ...f, [section]: { ...(f[section] as object), [key]: value } } : f));
 
   const setItem = (index: number, key: 'title' | 'text', value: string) =>
     setForm((f) =>
@@ -75,6 +239,19 @@ export default function AdminSitePage() {
           }
         : f
     );
+
+  const setCard = (index: number, key: 'title' | 'short', value: string) =>
+    setForm((f) =>
+      f
+        ? {
+            ...f,
+            serviceCards: f.serviceCards.map((c, i) => (i === index ? { ...c, [key]: value } : c)),
+          }
+        : f
+    );
+
+  const setServicePage = (slug: string, value: ServicePageText) =>
+    setForm((f) => (f ? { ...f, servicePages: { ...f.servicePages, [slug]: value } } : f));
 
   const handleSave = async () => {
     if (!form) return;
@@ -129,6 +306,15 @@ export default function AdminSitePage() {
               </div>
             </Section>
 
+            <Section title="Cardurile de servicii (grila de pe pagina de start)">
+              {form.serviceCards.map((card, i) => (
+                <div key={card.slug} className="md:col-span-2 grid gap-4 rounded-xl border border-white/5 bg-black/20 p-4 md:grid-cols-2">
+                  <Field label={`Serviciu ${i + 1} – titlu`} value={card.title} onChange={(v) => setCard(i, 'title', v)} />
+                  <Field label={`Serviciu ${i + 1} – descriere scurtă`} value={card.short} onChange={(v) => setCard(i, 'short', v)} multiline />
+                </div>
+              ))}
+            </Section>
+
             <Section title="Secțiunea De ce noi">
               <Field label="Eticheta" value={form.why.eyebrow} onChange={(v) => set('why', 'eyebrow', v)} />
               <Field label="Titlul" value={form.why.title} onChange={(v) => set('why', 'title', v)} />
@@ -142,6 +328,21 @@ export default function AdminSitePage() {
                 </div>
               ))}
             </Section>
+
+            <div className="space-y-3">
+              <h2 className="text-lg font-bold">Paginile serviciilor</h2>
+              <p className="text-sm text-neutral-400">
+                Apasă pe un serviciu ca să-i editezi conținutul. Același text apare și în fereastra care se deschide din card.
+              </p>
+              {form.serviceCards.map((card) => (
+                <ServiceEditor
+                  key={card.slug}
+                  name={card.title}
+                  value={form.servicePages[card.slug]}
+                  onChange={(v) => setServicePage(card.slug, v)}
+                />
+              ))}
+            </div>
 
             <Section title="Secțiunea Înainte & După">
               <Field label="Eticheta" value={form.beforeAfter.eyebrow} onChange={(v) => set('beforeAfter', 'eyebrow', v)} />

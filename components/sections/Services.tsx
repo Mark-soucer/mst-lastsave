@@ -11,7 +11,22 @@ import type { Service } from '@/lib/services';
 
 export default function Services() {
   const text = useSiteText().services;
+  const cardTexts = useSiteText().serviceCards;
+  const pages = useSiteText().servicePages;
   const [selected, setSelected] = useState<Service | null>(null);
+
+  const cards: Service[] = SERVICES.map((service) => {
+    const card = cardTexts.find((c) => c.slug === service.slug);
+    const page = pages[service.slug];
+    return {
+      ...service,
+      title: card?.title ?? service.title,
+      short: card?.short ?? service.short,
+      description: page ? page.intro.what.join(' ') : service.description,
+      problems: page ? page.intro.problems : service.problems,
+      includes: page ? page.includes.map((i) => i.title) : service.includes,
+    };
+  });
 
   return (
     <section
@@ -33,7 +48,7 @@ export default function Services() {
         />
 
         <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {SERVICES.map((service) => {
+          {cards.map((service) => {
             const Icon = service.icon;
             return (
               <article
