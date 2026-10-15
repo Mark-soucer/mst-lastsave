@@ -168,7 +168,7 @@ export default function AppointmentDatePicker({
       <button
         type="button"
         onClick={toggleOpen}
-        className="flex items-center gap-2 rounded-xl border border-neutral-800 bg-neutral-950/80 px-3 py-2.5 text-xs font-bold text-white outline-none transition-colors focus:border-[#FF1A1A] cursor-pointer hover:border-neutral-700"
+        className="flex items-center gap-2 rounded-xl border border-neutral-800 bg-neutral-950/80 px-3 py-2.5 text-xs font-bold text-white outline-none transition-colors focus:border-[#FF1A1A] cursor-pointer md:hover:border-neutral-700"
       >
         <Calendar className="h-3.5 w-3.5 text-neutral-400" />
         <span className={value ? 'text-white' : 'text-neutral-500'}>
@@ -191,7 +191,7 @@ export default function AppointmentDatePicker({
               <button
                 type="button"
                 onClick={goPrevMonth}
-                className="flex h-7 w-7 items-center justify-center rounded-lg border border-neutral-800 text-neutral-400 transition-colors hover:border-neutral-700 hover:text-white"
+                className="flex h-7 w-7 items-center justify-center rounded-lg border border-neutral-800 text-neutral-400 transition-colors md:hover:border-neutral-700 md:hover:text-white"
                 aria-label="Luna anterioară"
               >
                 <ChevronLeft className="h-4 w-4" />
@@ -202,7 +202,7 @@ export default function AppointmentDatePicker({
               <button
                 type="button"
                 onClick={goNextMonth}
-                className="flex h-7 w-7 items-center justify-center rounded-lg border border-neutral-800 text-neutral-400 transition-colors hover:border-neutral-700 hover:text-white"
+                className="flex h-7 w-7 items-center justify-center rounded-lg border border-neutral-800 text-neutral-400 transition-colors md:hover:border-neutral-700 md:hover:text-white"
                 aria-label="Luna următoare"
               >
                 <ChevronRight className="h-4 w-4" />
@@ -238,7 +238,7 @@ export default function AppointmentDatePicker({
                     onClick={() => selectDate(d)}
                     className={`relative flex h-8 items-center justify-center rounded-lg text-xs font-bold transition-all ${isSelected
                       ? 'bg-gradient-to-br from-[#D50000] to-[#FF1A1A] text-white shadow-[0_0_12px_rgba(255,26,26,0.5)]'
-                      : 'text-neutral-300 hover:bg-white/10'
+                      : 'text-neutral-300 md:hover:bg-white/10'
                       } ${!isCurrentMonth ? 'opacity-30' : ''} ${isToday && !isSelected ? 'ring-1 ring-neutral-600' : ''
                       }`}
                   >
@@ -270,7 +270,7 @@ export default function AppointmentDatePicker({
                     onChange('');
                     setOpen(false);
                   }}
-                  className="flex items-center gap-1 text-[10px] font-bold text-neutral-400 transition-colors hover:text-[#FF1A1A]"
+                  className="flex items-center gap-1 text-[10px] font-bold text-neutral-400 transition-colors md:hover:text-[#FF1A1A]"
                 >
                   <XCircle className="h-3 w-3" />
                   Șterge filtru

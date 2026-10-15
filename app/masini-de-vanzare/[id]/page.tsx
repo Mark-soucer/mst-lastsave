@@ -101,9 +101,9 @@ export default async function CarDetailPage({ params }: CarDetailRouteProps) {
               ].map(({ icon: Icon, label, value }) => (
                 <div
                   key={label}
-                  className="group rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#FF1A1A]/40 hover:shadow-[0_10px_30px_-10px_rgba(213,0,0,0.4)]"
+                  className="group rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-all duration-300 md:hover:-translate-y-1 md:hover:border-[#FF1A1A]/40 md:hover:shadow-[0_10px_30px_-10px_rgba(213,0,0,0.4)]"
                 >
-                  <Icon className="h-5 w-5 text-[#FF1A1A] transition-transform duration-300 group-hover:scale-110" aria-hidden="true" />
+                  <Icon className="h-5 w-5 text-[#FF1A1A] transition-transform duration-300 md:group-hover:scale-110" aria-hidden="true" />
                   <p className="mt-2 text-sm text-[#A0A0A0]">{label}</p>
                   <p className="font-semibold text-white">{value}</p>
                 </div>
@@ -154,9 +154,9 @@ export default async function CarDetailPage({ params }: CarDetailRouteProps) {
                 {car.features.map((feature) => (
                   <div
                     key={feature}
-                    className="group flex items-center gap-2.5 rounded-xl border border-white/10 bg-black/40 px-4 py-3 transition-all duration-300 hover:border-[#FF1A1A]/40 hover:bg-black/60"
+                    className="group flex items-center gap-2.5 rounded-xl border border-white/10 bg-black/40 px-4 py-3 transition-all duration-300 md:hover:border-[#FF1A1A]/40 md:hover:bg-black/60"
                   >
-                    <Check className="h-4 w-4 shrink-0 text-[#FF1A1A] transition-transform duration-300 group-hover:scale-125" aria-hidden="true" />
+                    <Check className="h-4 w-4 shrink-0 text-[#FF1A1A] transition-transform duration-300 md:group-hover:scale-125" aria-hidden="true" />
                     <span className="text-sm font-medium text-white">{feature}</span>
                   </div>
                 ))}

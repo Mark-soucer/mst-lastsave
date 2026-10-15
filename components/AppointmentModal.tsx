@@ -169,26 +169,19 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
       <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-5">
         {/* Backdrop */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
           onClick={closeAppointment}
-          className="absolute inset-0 bg-black/80 backdrop-blur-md"
+          className="absolute inset-0 bg-black/80"
         />
 
         {/* Modal Window */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.93, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 15 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           className="relative max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-white/15 bg-[#0e0e0e] shadow-[0_25px_70px_rgba(0,0,0,0.85),0_0_40px_rgba(213,0,0,0.2)]"
         >
           {/* Top accent glowing bar */}
           <div className="sticky top-0 z-20 h-1 w-full bg-gradient-to-r from-[#D50000] via-[#FF1A1A] to-[#D50000]" />
 
           {/* Header */}
-          <div className="sticky top-1 z-10 flex items-center justify-between border-b border-white/10 bg-[#0e0e0e]/95 px-6 py-4 backdrop-blur-md">
+          <div className="sticky top-1 z-10 flex items-center justify-between border-b border-white/10 bg-[#0e0e0e]/95 px-6 py-4">
             <div>
               <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.25em] text-[#FF1A1A]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#FF1A1A] animate-pulse" />
@@ -201,7 +194,7 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
 
             <button
               onClick={closeAppointment}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#A0A0A0] transition-colors hover:border-[#FF1A1A]/50 hover:bg-white/10 hover:text-white"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#A0A0A0] transition-colors md:hover:border-[#FF1A1A]/50 md:hover:bg-white/10 md:hover:text-white"
               aria-label="Închide"
             >
               <X className="h-5 w-5" />
@@ -213,8 +206,6 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
             {submitted ? (
               /* Success Screen */
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
                 className="flex flex-col items-center py-6 text-center"
               >
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#FF1A1A]/20 text-[#FF1A1A] ring-8 ring-[#FF1A1A]/10 shadow-[0_0_30px_rgba(255,26,26,0.5)]">
@@ -241,7 +232,7 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                     <Link
                       href={`/status/${appointmentId.slice(-6).toUpperCase()}`}
                       onClick={closeAppointment}
-                      className="flex items-center justify-center gap-2 rounded-full border border-[#FF1A1A]/40 bg-[#FF1A1A]/10 px-6 py-3 text-sm font-bold text-[#FF1A1A] transition-all hover:bg-[#FF1A1A]/20"
+                      className="flex items-center justify-center gap-2 rounded-full border border-[#FF1A1A]/40 bg-[#FF1A1A]/10 px-6 py-3 text-sm font-bold text-[#FF1A1A] transition-all md:hover:bg-[#FF1A1A]/20"
                     >
                       <Activity className="h-4 w-4" aria-hidden="true" />
                       Vezi & confirmă programarea
@@ -250,13 +241,13 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
 
                   <button
                     onClick={closeAppointment}
-                    className="w-full rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition-all hover:bg-white/90"
+                    className="w-full rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition-all md:hover:bg-white/90"
                   >
                     Gata, am înțeles
                   </button>
                   <button
                     onClick={handlePhoneCall}
-                    className="flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-all hover:border-[#FF1A1A] hover:bg-white/10"
+                    className="flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-all md:hover:border-[#FF1A1A] md:hover:bg-white/10"
                   >
                     <Phone className="h-4 w-4 text-[#FF1A1A]" />
                     Sună direct: {BUSINESS.phone}
@@ -305,9 +296,6 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                 {/* STEP 1: Select Service & Car details */}
                 {step === 1 && (
                   <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
                     className="space-y-6"
                   >
                     <div>
@@ -325,13 +313,13 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                               onClick={() => setService(item.name)}
                               className={`group relative flex items-center gap-3 rounded-xl border p-3 text-left transition-all ${isSelected
                                 ? 'border-[#FF1A1A] bg-white/[0.08] shadow-[0_0_20px_rgba(255,26,26,0.25)]'
-                                : 'border-white/10 bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.05]'
+                                : 'border-white/10 bg-white/[0.02] md:hover:border-white/25 md:hover:bg-white/[0.05]'
                                 }`}
                             >
                               <div
                                 className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${isSelected
                                   ? 'bg-[#FF1A1A] text-white'
-                                  : 'bg-white/5 text-[#A0A0A0] group-hover:text-white'
+                                  : 'bg-white/5 text-[#A0A0A0] md:group-hover:text-white'
                                   }`}
                               >
                                 <Icon className="h-4 w-4" />
@@ -386,7 +374,7 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                       <button
                         type="button"
                         onClick={() => setStep(2)}
-                        className="flex items-center gap-2 rounded-full bg-[#D50000] px-6 py-3 text-sm font-bold text-white shadow-[0_0_20px_rgba(213,0,0,0.5)] transition-all hover:bg-[#FF1A1A]"
+                        className="flex items-center gap-2 rounded-full bg-[#D50000] px-6 py-3 text-sm font-bold text-white shadow-[0_0_20px_rgba(213,0,0,0.5)] transition-all md:hover:bg-[#FF1A1A]"
                       >
                         Continuă la Dată & Oră
                         <ArrowRight className="h-4 w-4" />
@@ -398,9 +386,6 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                 {/* STEP 2: Date & Time */}
                 {step === 2 && (
                   <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
                     className="space-y-6"
                   >
                     <div>
@@ -435,7 +420,7 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                               onClick={() => setTime(slot)}
                               className={`rounded-xl border py-2.5 text-xs font-bold transition-all sm:text-sm ${isSelected
                                 ? 'border-[#FF1A1A] bg-[#D50000] text-white shadow-[0_0_15px_rgba(213,0,0,0.6)]'
-                                : 'border-white/10 bg-white/5 text-[#aaa] hover:border-white/30 hover:text-white'
+                                : 'border-white/10 bg-white/5 text-[#aaa] md:hover:border-white/30 md:hover:text-white'
                                 }`}
                             >
                               {slot}
@@ -449,7 +434,7 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                       <button
                         type="button"
                         onClick={() => setStep(1)}
-                        className="flex items-center gap-1.5 text-xs font-semibold text-[#A0A0A0] transition-colors hover:text-white"
+                        className="flex items-center gap-1.5 text-xs font-semibold text-[#A0A0A0] transition-colors md:hover:text-white"
                       >
                         <ArrowLeft className="h-4 w-4" />
                         Înapoi
@@ -458,7 +443,7 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                       <button
                         type="button"
                         onClick={() => setStep(3)}
-                        className="flex items-center gap-2 rounded-full bg-[#D50000] px-6 py-3 text-sm font-bold text-white shadow-[0_0_20px_rgba(213,0,0,0.5)] transition-all hover:bg-[#FF1A1A]"
+                        className="flex items-center gap-2 rounded-full bg-[#D50000] px-6 py-3 text-sm font-bold text-white shadow-[0_0_20px_rgba(213,0,0,0.5)] transition-all md:hover:bg-[#FF1A1A]"
                       >
                         Continuă la Contact
                         <ArrowRight className="h-4 w-4" />
@@ -470,9 +455,6 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                 {/* STEP 3: Contact Details & Submit */}
                 {step === 3 && (
                   <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
                     className="space-y-4"
                   >
                     <div>
@@ -532,7 +514,7 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                         type="button"
                         disabled={loading}
                         onClick={() => handleSubmitBooking(false)}
-                        className="flex w-full items-center justify-center gap-2 rounded-full bg-[#D50000] px-6 py-3.5 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.5)] transition-all hover:bg-[#FF1A1A] disabled:opacity-60"
+                        className="flex w-full items-center justify-center gap-2 rounded-full bg-[#D50000] px-6 py-3.5 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.5)] transition-all md:hover:bg-[#FF1A1A] disabled:opacity-60"
                       >
                         {loading ? (
                           <span>Se procesează...</span>
@@ -549,7 +531,7 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                         type="button"
                         disabled={loading}
                         onClick={() => handleSubmitBooking(true)}
-                        className="flex w-full items-center justify-center gap-2 rounded-full border border-emerald-500/30 bg-[#25D366]/10 px-6 py-3 text-xs font-bold text-emerald-400 transition-all hover:bg-[#25D366]/20"
+                        className="flex w-full items-center justify-center gap-2 rounded-full border border-emerald-500/30 bg-[#25D366]/10 px-6 py-3 text-xs font-bold text-emerald-400 transition-all md:hover:bg-[#25D366]/20"
                       >
                         Trimite și pe WhatsApp (Opțional)
                       </button>
@@ -559,7 +541,7 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                       <button
                         type="button"
                         onClick={() => setStep(2)}
-                        className="flex items-center gap-1.5 text-xs font-semibold text-[#A0A0A0] transition-colors hover:text-white"
+                        className="flex items-center gap-1.5 text-xs font-semibold text-[#A0A0A0] transition-colors md:hover:text-white"
                       >
                         <ArrowLeft className="h-4 w-4" />
                         Înapoi

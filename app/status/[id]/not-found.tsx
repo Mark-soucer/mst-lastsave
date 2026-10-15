@@ -30,7 +30,7 @@ export default function StatusNotFound() {
         <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
           <a
             href={BUSINESS.phoneHref}
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D50000] px-6 py-3 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.45)] transition-all hover:bg-[#FF1A1A]"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D50000] px-6 py-3 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.45)] transition-all md:hover:bg-[#FF1A1A]"
           >
             <Phone className="h-4 w-4" aria-hidden="true" />
             Contactează MST Service
@@ -40,7 +40,7 @@ export default function StatusNotFound() {
             href={whatsAppUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/30 bg-[#25D366]/10 px-6 py-3 text-sm font-bold text-emerald-400 transition-all hover:bg-[#25D366]/20"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/30 bg-[#25D366]/10 px-6 py-3 text-sm font-bold text-emerald-400 transition-all md:hover:bg-[#25D366]/20"
           >
             <MessageCircle className="h-4 w-4" aria-hidden="true" />
             WhatsApp
@@ -49,9 +49,9 @@ export default function StatusNotFound() {
 
         <Link
           href="/"
-          className="group mt-8 inline-flex items-center gap-2 text-xs font-semibold text-[#A0A0A0] transition-colors hover:text-white"
+          className="group mt-8 inline-flex items-center gap-2 text-xs font-semibold text-[#A0A0A0] transition-colors md:hover:text-white"
         >
-          <ArrowLeft className="h-4 w-4 text-[#FF1A1A] transition-transform group-hover:-translate-x-1" aria-hidden="true" />
+          <ArrowLeft className="h-4 w-4 text-[#FF1A1A] transition-transform md:group-hover:-translate-x-1" aria-hidden="true" />
           Înapoi la site-ul principal
         </Link>
       </div>

@@ -113,13 +113,13 @@ export default function BeforeAfterSlider({
 
       {/* Indicatori */}
       <span
-        className={`pointer-events-none absolute left-4 top-4 rounded-full border border-white/10 bg-black/45 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur transition-opacity duration-300 ${position < 50 ? 'opacity-100' : 'opacity-35'
+        className={`pointer-events-none absolute left-4 top-4 rounded-full border border-white/10 bg-black/45 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition-opacity duration-300 ${position < 50 ? 'opacity-100' : 'opacity-35'
           }`}
       >
         Înainte
       </span>
       <span
-        className={`pointer-events-none absolute right-4 top-4 rounded-full border border-white/10 bg-black/45 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur transition-opacity duration-300 ${position > 50 ? 'opacity-100' : 'opacity-35'
+        className={`pointer-events-none absolute right-4 top-4 rounded-full border border-white/10 bg-black/45 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition-opacity duration-300 ${position > 50 ? 'opacity-100' : 'opacity-35'
           }`}
       >
         După

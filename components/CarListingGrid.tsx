@@ -16,12 +16,12 @@ export default function CarListingGrid({ cars }: { cars: CarRecord[] }) {
       {cars.map((car, i) => (
         <motion.div
           key={car.id}
-          className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur transition-all duration-500 hover:-translate-y-2 hover:border-[#FF1A1A]/40 hover:shadow-[0_20px_60px_-15px_rgba(213,0,0,0.4)]"
+          className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition-all duration-500 md:hover:-translate-y-2 md:hover:border-[#FF1A1A]/40 md:hover:shadow-[0_20px_60px_-15px_rgba(213,0,0,0.4)]"
         >
           <Link href={`/masini-de-vanzare/${car.id}`} className="absolute inset-0 z-20" aria-label={`${car.make} ${car.model}`} />
 
           <div
-            className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 md:group-hover:opacity-100"
             style={{
               background: 'linear-gradient(135deg, rgba(255,26,26,0.25), transparent 40%, transparent 60%, rgba(255,26,26,0.25))',
             }}
@@ -35,7 +35,7 @@ export default function CarListingGrid({ cars }: { cars: CarRecord[] }) {
                 alt={`${car.make} ${car.model}`}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                className="object-cover transition-transform duration-700 ease-out md:group-hover:scale-110"
               />
             ) : (
               <div className="flex h-full items-center justify-center text-[#A0A0A0]">Fără poză</div>
@@ -56,7 +56,7 @@ export default function CarListingGrid({ cars }: { cars: CarRecord[] }) {
           </div>
 
           <div className="relative p-6">
-            <h3 className="text-xl font-bold text-white transition-colors duration-300 group-hover:text-[#FF1A1A]">
+            <h3 className="text-xl font-bold text-white transition-colors duration-300 md:group-hover:text-[#FF1A1A]">
               {car.make} {car.model}
             </h3>
             <p className="mt-1 text-2xl font-bold text-[#FF1A1A]">{formatPrice(car.price)}</p>
@@ -75,14 +75,14 @@ export default function CarListingGrid({ cars }: { cars: CarRecord[] }) {
               </span>
             </div>
 
-            <div className="mt-5 flex items-center gap-2 text-sm font-medium text-[#FF1A1A] opacity-0 transition-all duration-300 group-hover:opacity-100">
+            <div className="mt-5 flex items-center gap-2 text-sm font-medium text-[#FF1A1A] opacity-0 transition-all duration-300 md:group-hover:opacity-100">
               <span>Vezi detalii</span>
-              <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              <span className="transition-transform duration-300 md:group-hover:translate-x-1">→</span>
             </div>
           </div>
 
           <div
-            className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/0 transition-all duration-500 group-hover:ring-[#FF1A1A]/20"
+            className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/0 transition-all duration-500 md:group-hover:ring-[#FF1A1A]/20"
             aria-hidden="true"
           />
         </motion.div>

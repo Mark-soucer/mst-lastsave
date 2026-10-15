@@ -21,7 +21,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Col 1: Brand & Bio */}
           <div>
-            <Link href="#acasa" className="inline-block transition-transform hover:scale-105">
+            <Link href="#acasa" className="inline-block transition-transform md:hover:scale-105">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/logo-mst-transparent.png"
@@ -46,27 +46,27 @@ export default function Footer() {
             </h4>
             <ul className="mt-4 space-y-2 text-xs">
               <li>
-                <Link href="#servicii" className="transition-colors hover:text-white">
+                <Link href="#servicii" className="transition-colors md:hover:text-white">
                   Mecanică auto & Diagnoză
                 </Link>
               </li>
               <li>
-                <Link href="#servicii" className="transition-colors hover:text-white">
+                <Link href="#servicii" className="transition-colors md:hover:text-white">
                   Tinichigerie & Îndreptare
                 </Link>
               </li>
               <li>
-                <Link href="#servicii" className="transition-colors hover:text-white">
+                <Link href="#servicii" className="transition-colors md:hover:text-white">
                   Vopsitorie în cabină
                 </Link>
               </li>
               <li>
-                <Link href="#servicii" className="transition-colors hover:text-white">
+                <Link href="#servicii" className="transition-colors md:hover:text-white">
                   Geometrie roți 3D
                 </Link>
               </li>
               <li>
-                <Link href="#servicii" className="transition-colors hover:text-white">
+                <Link href="#servicii" className="transition-colors md:hover:text-white">
                   Dosare daune RCA
                 </Link>
               </li>
@@ -108,20 +108,20 @@ export default function Footer() {
                   href={BUSINESS.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors hover:text-white"
+                  className="transition-colors md:hover:text-white"
                 >
                   {BUSINESS.address.full}
                 </a>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 shrink-0 text-[#FF1A1A]" />
-                <a href={BUSINESS.phoneHref} className="font-bold text-white transition-colors hover:text-[#FF1A1A]">
+                <a href={BUSINESS.phoneHref} className="font-bold text-white transition-colors md:hover:text-[#FF1A1A]">
                   {BUSINESS.phone}
                 </a>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4 shrink-0 text-[#FF1A1A]" />
-                <a href={`mailto:${BUSINESS.email}`} className="transition-colors hover:text-white">
+                <a href={`mailto:${BUSINESS.email}`} className="transition-colors md:hover:text-white">
                   {BUSINESS.email}
                 </a>
               </div>
@@ -136,7 +136,7 @@ export default function Footer() {
           <div className="flex items-center gap-6">
             <button
               onClick={scrollToTop}
-              className="inline-flex items-center gap-1.5 text-xs text-[#A0A0A0] transition-colors hover:text-white"
+              className="inline-flex items-center gap-1.5 text-xs text-[#A0A0A0] transition-colors md:hover:text-white"
             >
               Sus
               <ArrowUp className="h-3.5 w-3.5" />

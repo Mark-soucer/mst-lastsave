@@ -7,8 +7,10 @@ import { ArrowUpRight, ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-re
 import SectionHeading from '@/components/SectionHeading';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import { BEFORE_AFTER_FILTERS, BEFORE_AFTER_PROJECTS } from '@/lib/projects';
+import { useSiteText } from '@/context/SiteTextContext';
 
 export default function BeforeAfter() {
+  const text = useSiteText().beforeAfter;
   const [filter, setFilter] = useState('Toate');
   const [lightbox, setLightbox] = useState<number | null>(null);
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
@@ -80,15 +82,15 @@ export default function BeforeAfter() {
       aria-label="Lucrări înainte și după"
     >
       <div
-        className="absolute -left-40 top-1/4 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(213,0,0,0.08),transparent_60%)] blur-2xl"
+        className="absolute -left-40 top-1/4 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(213,0,0,0.08),transparent_60%)]"
         aria-hidden="true"
       />
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8">
         <SectionHeading
-          eyebrow="Înainte & După"
-          title="Lucrări care vorbesc de la sine"
-          subtitle="Vezi transformările realizate de echipa MST Service."
+          eyebrow={text.eyebrow}
+          title={text.title}
+          subtitle={text.subtitle}
           align="center"
         />
 
@@ -106,7 +108,7 @@ export default function BeforeAfter() {
                 'rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300 ' +
                 (filter === category
                   ? 'border-[#D50000] bg-[#D50000] text-white shadow-[0_0_15px_rgba(213,0,0,0.5)]'
-                  : 'border-white/20 text-gray-300 hover:border-white/50 hover:text-white')
+                  : 'border-white/20 text-gray-300 md:hover:border-white/50 md:hover:text-white')
               }
             >
               {category}
@@ -117,16 +119,12 @@ export default function BeforeAfter() {
         {/* Grid proiecte */}
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((project, index) => (
-            <motion.article
+            <article
               key={project.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ delay: (index % 3) * 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               onPointerDown={handleCardPointerDown}
               onPointerUp={(event) => handleCardPointerUp(event, index)}
               onPointerCancel={handleCardPointerCancel}
-              className="group cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-[#111] transition-all duration-500 hover:-translate-y-1 hover:border-[#FF1A1A]/40 hover:shadow-[0_18px_50px_-20px_rgba(213,0,0,0.45)]"
+              className="group cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-[#111] transition-all duration-500 md:hover:-translate-y-1 md:hover:border-[#FF1A1A]/40 md:hover:shadow-[0_18px_50px_-20px_rgba(213,0,0,0.45)]"
             >
               <div className="relative">
                 <BeforeAfterSlider
@@ -136,7 +134,7 @@ export default function BeforeAfter() {
                   afterAlt={`${project.vehicle} — după`}
                 />
 
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/80 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/80 to-transparent p-4 opacity-0 transition-opacity duration-300 md:group-hover:opacity-100">
                   <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/90">
                     Compară înainte / după
                   </span>
@@ -172,16 +170,16 @@ export default function BeforeAfter() {
                   }}
                   onPointerDown={(event) => event.stopPropagation()}
                   onPointerUp={(event) => event.stopPropagation()}
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#FF1A1A] transition-colors hover:text-white"
+                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#FF1A1A] transition-colors md:hover:text-white"
                 >
                   Vezi lucrarea
                   <ArrowUpRight
-                    className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    className="h-4 w-4 transition-transform duration-300 md:group-hover:translate-x-0.5 md:group-hover:-translate-y-0.5"
                     aria-hidden="true"
                   />
                 </button>
               </div>
-            </motion.article>
+            </article>
           ))}
         </div>
       </div>
@@ -190,9 +188,6 @@ export default function BeforeAfter() {
       <AnimatePresence>
         {activeProject && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
             className="fixed inset-0 z-[95] flex items-center justify-center bg-black/90 p-4 md:p-8"
             onClick={closeLightbox}
             role="dialog"
@@ -203,7 +198,7 @@ export default function BeforeAfter() {
               type="button"
               onClick={closeLightbox}
               aria-label="Închide"
-              className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-colors hover:border-white/50 hover:bg-white/10"
+              className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-colors md:hover:border-white/50 md:hover:bg-white/10"
             >
               <X className="h-5 w-5" aria-hidden="true" />
             </button>
@@ -215,7 +210,7 @@ export default function BeforeAfter() {
                 prevProject();
               }}
               aria-label="Lucrarea anterioară"
-              className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-colors hover:border-white/50 hover:bg-white/10 md:left-6"
+              className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-colors md:hover:border-white/50 md:hover:bg-white/10 md:left-6"
             >
               <ChevronLeft className="h-6 w-6" aria-hidden="true" />
             </button>
@@ -227,16 +222,12 @@ export default function BeforeAfter() {
                 nextProject();
               }}
               aria-label="Lucrarea următoare"
-              className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-colors hover:border-white/50 hover:bg-white/10 md:right-6"
+              className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-colors md:hover:border-white/50 md:hover:bg-white/10 md:right-6"
             >
               <ChevronRight className="h-6 w-6" aria-hidden="true" />
             </button>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="max-h-[90vh] w-full max-w-5xl overflow-y-auto"
               onClick={(event) => event.stopPropagation()}
             >

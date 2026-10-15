@@ -84,14 +84,14 @@ export default function AdminLoginPage() {
         {/* Back link */}
         <Link
           href="/"
-          className="group mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-neutral-400 backdrop-blur-md transition-all hover:border-[#FF1A1A]/50 hover:bg-white/10 hover:text-white"
+          className="group mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-neutral-400 transition-all md:hover:border-[#FF1A1A]/50 md:hover:bg-white/10 md:hover:text-white"
         >
-          <ArrowLeft className="h-3.5 w-3.5 text-[#FF1A1A] transition-transform group-hover:-translate-x-1" />
+          <ArrowLeft className="h-3.5 w-3.5 text-[#FF1A1A] transition-transform md:group-hover:-translate-x-1" />
           Înapoi la site-ul principal
         </Link>
 
         {/* Login card */}
-        <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0B0B0B]/90 p-8 shadow-[0_20px_70px_rgba(0,0,0,0.7)] backdrop-blur-xl sm:p-10">
+        <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0B0B0B]/90 p-8 shadow-[0_20px_70px_rgba(0,0,0,0.7)] sm:p-10">
           {/* Top accent line */}
           <div
             className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FF1A1A] to-transparent"
@@ -99,7 +99,7 @@ export default function AdminLoginPage() {
           />
           {/* Hover glow */}
           <div
-            className="pointer-events-none absolute -top-24 left-1/2 h-48 w-72 -translate-x-1/2 rounded-full bg-[#D50000]/20 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            className="pointer-events-none absolute -top-24 left-1/2 h-48 w-72 -translate-x-1/2 rounded-full bg-[#D50000]/20 blur-3xl opacity-0 transition-opacity duration-500 md:group-hover:opacity-100"
             aria-hidden="true"
           />
 
@@ -108,7 +108,7 @@ export default function AdminLoginPage() {
             <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-[#FF1A1A]/30 bg-gradient-to-br from-[#D50000] to-[#8f0000] shadow-[0_0_35px_rgba(213,0,0,0.45)]">
               <Wrench className="h-7 w-7 text-white" />
               <div
-                className="pointer-events-none absolute -inset-1.5 rounded-2xl bg-[#FF1A1A]/20 blur-md opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                className="pointer-events-none absolute -inset-1.5 rounded-2xl bg-[#FF1A1A]/20 blur-md opacity-0 transition-opacity duration-500 md:group-hover:opacity-100"
                 aria-hidden="true"
               />
             </div>
@@ -180,7 +180,7 @@ export default function AdminLoginPage() {
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
                   aria-label={showPassword ? 'Ascunde parola' : 'Arată parola'}
-                  className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg text-neutral-500 transition-colors hover:text-white"
+                  className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg text-neutral-500 transition-colors md:hover:text-white"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -202,7 +202,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="btn-shine relative flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#D50000] to-[#FF1A1A] text-sm font-bold text-white shadow-[0_0_30px_rgba(213,0,0,0.35)] transition-all hover:shadow-[0_0_40px_rgba(255,26,26,0.55)] disabled:cursor-not-allowed disabled:opacity-70"
+              className="btn-shine relative flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#D50000] to-[#FF1A1A] text-sm font-bold text-white shadow-[0_0_30px_rgba(213,0,0,0.35)] transition-all md:hover:shadow-[0_0_40px_rgba(255,26,26,0.55)] disabled:cursor-not-allowed disabled:opacity-70"
             >
               {loading ? (
                 <>

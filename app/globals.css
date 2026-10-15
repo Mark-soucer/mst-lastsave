@@ -7,13 +7,12 @@
   --primary: #d50000;
 }
 
-*,
-*::before,
-*::after {
+* {
   box-sizing: border-box;
 }
 
 html {
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   scrollbar-width: thin;
   scrollbar-color: #333 #080808;
@@ -23,12 +22,13 @@ body {
   margin: 0;
   background-color: var(--bg);
   color: #ffffff;
-  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .main {
   width: 100%;
   max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* Custom scrollbar (webkit) */

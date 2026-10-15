@@ -75,9 +75,6 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: 'easeOut', delay: 0.4 }}
         className={
           'fixed inset-x-0 top-0 z-50 transition-all duration-500 ' +
           (scrolled
@@ -89,12 +86,12 @@ export default function Navbar() {
           {/* Brand Logo - Crisp & Transparent Seamless Integration */}
           <a
             href={getLinkHref('#acasa')}
-            className="group relative z-[60] flex items-center transition-transform duration-300 hover:scale-[1.03]"
+            className="group relative z-[60] flex items-center transition-transform duration-300 md:hover:scale-[1.03]"
             aria-label="MST SERVICE - Acasă"
           >
             {/* Ambient neon red backlight on hover */}
             <div
-              className="pointer-events-none absolute -inset-2 rounded-full bg-[#FF1A1A]/20 blur-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              className="pointer-events-none absolute -inset-2 rounded-full bg-[#FF1A1A]/20 blur-xl opacity-0 transition-opacity duration-500 md:group-hover:opacity-100"
               aria-hidden="true"
             />
 
@@ -103,7 +100,7 @@ export default function Navbar() {
             <img
               src="/images/logo-mst-transparent.png"
               alt="MST SERVICE"
-              className="h-10 w-auto object-contain drop-shadow-[0_2px_12px_rgba(255,26,26,0.3)] transition-all duration-300 group-hover:drop-shadow-[0_0_20px_rgba(255,26,26,0.7)] md:h-12"
+              className="h-10 w-auto object-contain drop-shadow-[0_2px_12px_rgba(255,26,26,0.3)] transition-all duration-300 md:group-hover:drop-shadow-[0_0_20px_rgba(255,26,26,0.7)] md:h-12"
             />
           </a>
 
@@ -115,7 +112,7 @@ export default function Navbar() {
                 href={getLinkHref(link.href)}
                 className={
                   'relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300 ' +
-                  (activeLink === link.href ? 'text-white' : 'text-[#A0A0A0] hover:text-white')
+                  (activeLink === link.href ? 'text-white' : 'text-[#A0A0A0] md:hover:text-white')
                 }
               >
                 {link.label}
@@ -144,26 +141,18 @@ export default function Navbar() {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? 'Închide meniul' : 'Deschide meniul'}
             aria-expanded={open}
-            className="relative z-[60] flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white backdrop-blur md:hidden"
+            className="relative z-[60] flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white md:hidden"
           >
             <AnimatePresence mode="wait" initial={false}>
               {open ? (
                 <motion.span
                   key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
                 >
                   <X className="h-5 w-5" aria-hidden="true" />
                 </motion.span>
               ) : (
                 <motion.span
                   key="open"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
                 >
                   <Menu className="h-5 w-5" aria-hidden="true" />
                 </motion.span>
@@ -177,11 +166,7 @@ export default function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ clipPath: 'circle(0% at top right)' }}
-            animate={{ clipPath: 'circle(140% at top right)' }}
-            exit={{ clipPath: 'circle(0% at top right)' }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-40 flex flex-col bg-[#080808]/95 backdrop-blur-2xl md:hidden"
+            className="fixed inset-0 z-40 flex flex-col bg-[#080808]/95 md:hidden"
           >
             <nav
               className="flex flex-1 flex-col items-center justify-center gap-2 px-6"
@@ -192,12 +177,9 @@ export default function Navbar() {
                   key={link.href}
                   href={getLinkHref(link.href)}
                   onClick={() => setOpen(false)}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.08, duration: 0.4 }}
                   className={
                     'py-3 text-3xl font-bold tracking-tight transition-colors ' +
-                    (activeLink === link.href ? 'text-white' : 'text-[#A0A0A0] hover:text-white')
+                    (activeLink === link.href ? 'text-white' : 'text-[#A0A0A0] md:hover:text-white')
                   }
                 >
                   {link.label}
@@ -206,9 +188,6 @@ export default function Navbar() {
             </nav>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.4 }}
               className="px-8 pb-12"
             >
               <button
@@ -217,7 +196,7 @@ export default function Navbar() {
                   setOpen(false);
                   openAppointment();
                 }}
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#D50000] px-6 py-4 text-sm font-bold text-white shadow-[0_0_24px_rgba(213,0,0,0.5)] transition hover:bg-[#FF1A1A]"
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#D50000] px-6 py-4 text-sm font-bold text-white shadow-[0_0_24px_rgba(213,0,0,0.5)] transition md:hover:bg-[#FF1A1A]"
               >
                 <Calendar className="h-4 w-4" aria-hidden="true" />
                 Programează-te Online

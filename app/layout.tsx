@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
-import ScrollProgress from '@/components/ScrollProgress';
 import AppointmentModal from '@/components/AppointmentModal';
 import FloatingBooking from '@/components/FloatingBooking';
 import { AppointmentProvider } from '@/context/AppointmentContext';
+import { SiteTextProvider } from '@/context/SiteTextContext';
+import { getHomeText } from '@/lib/site-text';
 
 const SITE_URL = 'https://mstservice.ro';
 
@@ -107,11 +108,13 @@ const localBusinessJsonLd = {
   sameAs: [SITE_URL],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const homeText = await getHomeText();
+
   return (
     <html lang="ro">
       <head>
@@ -121,17 +124,18 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
+        <SiteTextProvider value={homeText}>
         <AppointmentProvider>
-          <ScrollProgress />
-          <div className="relative flex min-h-screen w-full max-w-full flex-col overflow-x-hidden">
+          <div className="relative flex min-h-screen w-full max-w-full flex-col">
             <Navbar />
-            <main className="main relative w-full max-w-full flex-1 overflow-x-hidden">
+            <div className="relative w-full max-w-full flex-1">
               {children}
-            </main>
+            </div>
           </div>
           <FloatingBooking />
           <AppointmentModal />
         </AppointmentProvider>
+        </SiteTextProvider>
       </body>
     </html>
   );

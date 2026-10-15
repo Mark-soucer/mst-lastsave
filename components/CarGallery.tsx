@@ -30,10 +30,6 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
-            initial={{ opacity: 0, scale: 1.02 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-0"
           >
             <Image src={images[active]} alt={alt} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" priority />
@@ -45,7 +41,7 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
               type="button"
               onClick={prev}
               aria-label="Poza anterioară"
-              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-2 text-white transition hover:bg-black/80"
+              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-2 text-white transition md:hover:bg-black/80"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -53,7 +49,7 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
               type="button"
               onClick={next}
               aria-label="Poza următoare"
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-2 text-white transition hover:bg-black/80"
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-2 text-white transition md:hover:bg-black/80"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -68,8 +64,8 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
               key={img}
               type="button"
               onClick={() => setActive(i)}
-              className={`relative aspect-square overflow-hidden rounded-lg border transition-all duration-300 hover:scale-105 ${
-                i === active ? 'border-[#FF1A1A] shadow-[0_0_15px_rgba(255,26,26,0.4)]' : 'border-white/10 opacity-70 hover:opacity-100'
+              className={`relative aspect-square overflow-hidden rounded-lg border transition-all duration-300 md:hover:scale-105 ${
+                i === active ? 'border-[#FF1A1A] shadow-[0_0_15px_rgba(255,26,26,0.4)]' : 'border-white/10 opacity-70 md:hover:opacity-100'
               }`}
             >
               <Image src={img} alt={`${alt} - poza ${i + 1}`} fill sizes="80px" className="object-cover" />

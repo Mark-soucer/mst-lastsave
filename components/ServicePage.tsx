@@ -29,7 +29,7 @@ type IntroCardProps = {
 function IntroCard({ icon: Icon, title, items }: IntroCardProps) {
   return (
     <motion.article
-      className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur"
+      className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-7"
     >
       <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#D50000]/20 to-transparent text-[#FF1A1A] ring-1 ring-white/10">
         <Icon className="h-6 w-6" aria-hidden="true" />
@@ -75,11 +75,8 @@ export default function ServicePage({ service }: ServicePageProps) {
 
         <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 px-5 md:px-8 lg:grid-cols-[1.05fr_0.95fr]">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-[#A0A0A0] backdrop-blur">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-[#A0A0A0]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#FF1A1A] shadow-[0_0_8px_rgba(255,26,26,0.9)]" aria-hidden="true" />
               Servicii MST Service
             </span>
@@ -111,9 +108,6 @@ export default function ServicePage({ service }: ServicePageProps) {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="relative"
           >
             <div
@@ -170,10 +164,10 @@ export default function ServicePage({ service }: ServicePageProps) {
               return (
                 <motion.article
                   key={feature.title}
-                  className="group rounded-2xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:border-[#FF1A1A]/40 hover:bg-white/[0.05] hover:shadow-[0_20px_60px_-15px_rgba(213,0,0,0.4)]"
+                  className="group rounded-2xl border border-white/10 bg-white/[0.03] p-7 transition-all duration-500 md:hover:-translate-y-1 md:hover:border-[#FF1A1A]/40 md:hover:bg-white/[0.05] md:hover:shadow-[0_20px_60px_-15px_rgba(213,0,0,0.4)]"
                 >
-                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-[#D50000]/20 to-transparent text-[#FF1A1A] ring-1 ring-white/10 transition-transform duration-500 group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(255,26,26,0.4)]">
-                    <FeatureIcon className="h-7 w-7 transition-transform duration-500 group-hover:-rotate-6" aria-hidden="true" />
+                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-[#D50000]/20 to-transparent text-[#FF1A1A] ring-1 ring-white/10 transition-transform duration-500 md:group-hover:scale-110 md:group-hover:shadow-[0_0_25px_rgba(255,26,26,0.4)]">
+                    <FeatureIcon className="h-7 w-7 transition-transform duration-500 md:group-hover:-rotate-6" aria-hidden="true" />
                   </div>
                   <h3 className="mt-5 font-display text-lg font-semibold text-white">{feature.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-[#A0A0A0]">{feature.text}</p>
@@ -200,7 +194,7 @@ export default function ServicePage({ service }: ServicePageProps) {
               return (
                 <motion.article
                   key={advantage.title}
-                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:border-[#FF1A1A]/40"
+                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-all duration-500 md:hover:-translate-y-1 md:hover:border-[#FF1A1A]/40"
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#D50000]/20 to-transparent text-[#FF1A1A] ring-1 ring-white/10">
                     <AdvantageIcon className="h-6 w-6" aria-hidden="true" />
@@ -270,7 +264,7 @@ export default function ServicePage({ service }: ServicePageProps) {
                         alt={image.alt}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="object-cover transition-transform duration-700 md:group-hover:scale-105"
                       />
                     </div>
                     <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5">
@@ -318,10 +312,6 @@ export default function ServicePage({ service }: ServicePageProps) {
                   <AnimatePresence initial={false}>
                     {isOpen && (
                       <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                         className="overflow-hidden"
                       >
                         <p className="px-6 pb-5 text-sm leading-relaxed text-[#A0A0A0]">{item.answer}</p>

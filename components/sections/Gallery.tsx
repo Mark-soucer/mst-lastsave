@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -45,7 +45,7 @@ export default function Gallery() {
                 'rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 border ' +
                 (filter === cat
                   ? 'bg-[#D50000] border-[#D50000] text-white shadow-[0_0_15px_rgba(213,0,0,0.5)]'
-                  : 'border-white/20 text-gray-300 hover:border-white/50 hover:text-white')
+                  : 'border-white/20 text-gray-300 md:hover:border-white/50 md:hover:text-white')
               }
             >
               {cat}
@@ -59,9 +59,6 @@ export default function Gallery() {
             <motion.div
               key={`${filter}-${img.src}`}
               layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
               className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-xl border border-white/10"
               onClick={() => setLightbox(idx)}
             >
@@ -70,10 +67,10 @@ export default function Gallery() {
                 alt={img.alt}
                 fill
                 sizes="(max-width:768px) 100vw, 25vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                className="object-cover transition-transform duration-500 md:group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <span className="absolute bottom-3 left-3 text-sm font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 md:group-hover:opacity-100" />
+              <span className="absolute bottom-3 left-3 text-sm font-medium text-white opacity-0 transition-opacity duration-300 md:group-hover:opacity-100">
                 {img.alt}
               </span>
             </motion.div>
@@ -85,9 +82,6 @@ export default function Gallery() {
       <AnimatePresence>
         {lightbox !== null && filtered[lightbox] && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
             className="fixed inset-0 z-[90] flex items-center justify-center bg-black/90 p-4"
             onClick={() => setLightbox(null)}
             role="dialog"

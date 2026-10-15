@@ -285,9 +285,9 @@ export default function AdminMasiniPage() {
           <div className="space-y-2">
             <Link
               href="/"
-              className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-neutral-400 backdrop-blur-md transition-all hover:border-[#FF1A1A]/50 hover:bg-white/10 hover:text-white"
+              className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-neutral-400 transition-all md:hover:border-[#FF1A1A]/50 md:hover:bg-white/10 md:hover:text-white"
             >
-              <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1 text-[#FF1A1A]" />
+              <ArrowLeft className="h-3.5 w-3.5 transition-transform md:group-hover:-translate-x-1 text-[#FF1A1A]" />
               <span>Înapoi la site-ul principal</span>
             </Link>
             <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
@@ -300,7 +300,7 @@ export default function AdminMasiniPage() {
 
           <button
             onClick={openAddForm}
-            className="inline-flex items-center gap-2 rounded-xl bg-[#FF1A1A] px-5 py-2.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(255,26,26,0.35)] transition hover:bg-[#D50000]"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#FF1A1A] px-5 py-2.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(255,26,26,0.35)] transition md:hover:bg-[#D50000]"
           >
             <Plus className="h-4 w-4" />
             Adaugă mașină
@@ -348,13 +348,13 @@ export default function AdminMasiniPage() {
                   <div className="mt-4 flex gap-2">
                     <button
                       onClick={() => openEditForm(car)}
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-white hover:bg-white/10"
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-white md:hover:bg-white/10"
                     >
                       <Pencil className="h-3.5 w-3.5" /> Editează
                     </button>
                     <button
                       onClick={() => handleDelete(car.id)}
-                      className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs font-semibold text-red-400 hover:bg-red-500/20"
+                      className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs font-semibold text-red-400 md:hover:bg-red-500/20"
                     >
                       <Trash2 className="h-3.5 w-3.5" /> Șterge
                     </button>
@@ -367,13 +367,13 @@ export default function AdminMasiniPage() {
       </div>
 
       {formOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
           <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-white/10 bg-[#0c0c0c] p-6 sm:p-8">
             <div className="mb-6 flex items-center justify-between">
               <h2 className="text-xl font-bold text-white">
                 {editingId ? 'Editează mașina' : 'Adaugă mașină nouă'}
               </h2>
-              <button onClick={closeForm} className="rounded-full p-1.5 text-neutral-400 hover:bg-white/10 hover:text-white">
+              <button onClick={closeForm} className="rounded-full p-1.5 text-neutral-400 md:hover:bg-white/10 md:hover:text-white">
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -583,7 +583,7 @@ export default function AdminMasiniPage() {
                       className="inline-flex items-center gap-1.5 rounded-full border border-[#FF1A1A]/30 bg-[#FF1A1A]/10 px-3 py-1 text-xs font-medium text-white"
                     >
                       {feature}
-                      <button type="button" onClick={() => removeFeature(feature)} className="text-neutral-400 hover:text-white">
+                      <button type="button" onClick={() => removeFeature(feature)} className="text-neutral-400 md:hover:text-white">
                         <X className="h-3 w-3" />
                       </button>
                     </span>
@@ -605,7 +605,7 @@ export default function AdminMasiniPage() {
                   <button
                     type="button"
                     onClick={addFeature}
-                    className="rounded-lg border border-white/10 bg-white/5 px-4 text-sm font-semibold text-white hover:bg-white/10"
+                    className="rounded-lg border border-white/10 bg-white/5 px-4 text-sm font-semibold text-white md:hover:bg-white/10"
                   >
                     Adaugă
                   </button>
@@ -647,7 +647,7 @@ export default function AdminMasiniPage() {
                       <button
                         type="button"
                         onClick={() => removeImage(img)}
-                        className="absolute right-0.5 top-0.5 rounded-full bg-black/70 p-0.5 text-white hover:bg-red-600"
+                        className="absolute right-0.5 top-0.5 rounded-full bg-black/70 p-0.5 text-white md:hover:bg-red-600"
                       >
                         <X className="h-3 w-3" />
                       </button>
@@ -665,7 +665,7 @@ export default function AdminMasiniPage() {
                 />
                 <label
                   htmlFor="car-photo-upload"
-                  className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-dashed border-white/20 px-4 py-2.5 text-sm text-neutral-300 hover:border-[#FF1A1A]/50 hover:text-white"
+                  className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-dashed border-white/20 px-4 py-2.5 text-sm text-neutral-300 md:hover:border-[#FF1A1A]/50 md:hover:text-white"
                 >
                   {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
                   {uploading ? 'Se încarcă...' : 'Încarcă poze'}
@@ -676,14 +676,14 @@ export default function AdminMasiniPage() {
                 <button
                   type="button"
                   onClick={closeForm}
-                  className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white hover:bg-white/10"
+                  className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white md:hover:bg-white/10"
                 >
                   Anulează
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#FF1A1A] px-4 py-3 text-sm font-bold text-white hover:bg-[#D50000] disabled:opacity-50"
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#FF1A1A] px-4 py-3 text-sm font-bold text-white md:hover:bg-[#D50000] disabled:opacity-50"
                 >
                   {saving && <Loader2 className="h-4 w-4 animate-spin" />}
                   {editingId ? 'Salvează modificările' : 'Adaugă mașina'}

@@ -203,9 +203,6 @@ export default function StatusPage({ order }: StatusPageProps) {
       <div className="relative z-10 mx-auto w-full max-w-4xl px-5 md:px-8">
         {/* HEADER */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col items-center text-center"
         >
           <Image
@@ -216,7 +213,7 @@ export default function StatusPage({ order }: StatusPageProps) {
             priority
             className="h-12 w-auto object-contain drop-shadow-[0_10px_30px_rgba(255,26,26,0.35)] md:h-16"
           />
-          <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#A0A0A0] backdrop-blur">
+          <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#A0A0A0]">
             <span className="h-1.5 w-1.5 rounded-full bg-[#FF1A1A] shadow-[0_0_8px_rgba(255,26,26,0.9)]" />
             Status comandă
           </span>
@@ -230,9 +227,6 @@ export default function StatusPage({ order }: StatusPageProps) {
 
         {/* INFORMAȚII PRINCIPALE */}
         <motion.section
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3"
         >
           <InfoItem icon={Car} label="Marca" value={order.vehicle.brand} />
@@ -242,9 +236,6 @@ export default function StatusPage({ order }: StatusPageProps) {
 
         {/* STATUS ACTUAL */}
         <motion.section
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
           className="relative mt-6 overflow-hidden rounded-3xl border border-[#FF1A1A]/30 bg-gradient-to-br from-[#D50000]/15 via-white/[0.04] to-transparent p-6 shadow-[0_20px_70px_-25px_rgba(213,0,0,0.45)] md:p-8"
         >
           <div
@@ -277,9 +268,6 @@ export default function StatusPage({ order }: StatusPageProps) {
         {/* CONFIRMARE REPROGRAMARE PROGRAMARE ONLINE */}
         {appointment?.status === 'reprogramare' && appointment.proposedDate && appointment.proposedTime && (
           <motion.section
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
             className="mt-6 overflow-hidden rounded-3xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-white/[0.04] to-transparent p-6 shadow-[0_20px_70px_-25px_rgba(245,158,11,0.4)] md:p-8"
           >
             <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
@@ -324,7 +312,7 @@ export default function StatusPage({ order }: StatusPageProps) {
                           type="button"
                           onClick={handleConfirmProposal}
                           disabled={confirming}
-                          className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D50000] px-6 py-3 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.45)] transition-all hover:bg-[#FF1A1A] disabled:cursor-wait disabled:opacity-60"
+                          className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D50000] px-6 py-3 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.45)] transition-all md:hover:bg-[#FF1A1A] disabled:cursor-wait disabled:opacity-60"
                         >
                           {confirming ? (
                             <>
@@ -345,7 +333,7 @@ export default function StatusPage({ order }: StatusPageProps) {
                           )}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/30 bg-[#25D366]/10 px-6 py-3 text-sm font-bold text-emerald-400 transition-all hover:bg-[#25D366]/20"
+                          className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/30 bg-[#25D366]/10 px-6 py-3 text-sm font-bold text-emerald-400 transition-all md:hover:bg-[#25D366]/20"
                         >
                           <MessageCircle className="h-4 w-4" aria-hidden="true" />
                           Nu pot la acea oră
@@ -374,10 +362,7 @@ export default function StatusPage({ order }: StatusPageProps) {
 
         {/* TIMELINE */}
         <motion.section
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur md:p-8"
+          className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6 md:p-8"
         >
           <div className="flex items-center gap-2">
             <span className="h-px w-6 bg-gradient-to-r from-transparent to-[#FF1A1A]" aria-hidden="true" />
@@ -399,10 +384,7 @@ export default function StatusPage({ order }: StatusPageProps) {
 
         {/* CONTACT */}
         <motion.section
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-center backdrop-blur md:p-8"
+          className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-center md:p-8"
         >
           <h2 className="text-xl font-bold text-white md:text-2xl">Ai întrebări?</h2>
           <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-[#A0A0A0]">
@@ -412,7 +394,7 @@ export default function StatusPage({ order }: StatusPageProps) {
           <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
             <a
               href={BUSINESS.phoneHref}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D50000] px-6 py-3 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.45)] transition-all hover:bg-[#FF1A1A]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D50000] px-6 py-3 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.45)] transition-all md:hover:bg-[#FF1A1A]"
             >
               <Phone className="h-4 w-4" aria-hidden="true" />
               Contactează MST Service
@@ -422,7 +404,7 @@ export default function StatusPage({ order }: StatusPageProps) {
               href={whatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/30 bg-[#25D366]/10 px-6 py-3 text-sm font-bold text-emerald-400 transition-all hover:bg-[#25D366]/20"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/30 bg-[#25D366]/10 px-6 py-3 text-sm font-bold text-emerald-400 transition-all md:hover:bg-[#25D366]/20"
             >
               <MessageCircle className="h-4 w-4" aria-hidden="true" />
               Scrie-ne pe WhatsApp

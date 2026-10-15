@@ -5,9 +5,11 @@ import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { ArrowDown, ChevronRight, Calendar } from 'lucide-react';
 import Button from '@/components/Button';
 import { useAppointment } from '@/context/AppointmentContext';
+import { useSiteText } from '@/context/SiteTextContext';
 
 export default function Hero() {
   const { openAppointment } = useAppointment();
+  const text = useSiteText().hero;
   const sectionRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -59,25 +61,19 @@ export default function Hero() {
         className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-7xl flex-col items-center justify-center overflow-x-hidden px-5 pt-24 pb-16 text-center md:px-8"
       >
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.7 }}
-          className="mb-6 flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-[#A0A0A0] backdrop-blur"
+          className="mb-6 flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-[#A0A0A0]"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-[#FF1A1A] shadow-[0_0_8px_rgba(255,26,26,0.9)]" />
-          Service auto premium — Galați
+          {text.eyebrow}
         </motion.p>
 
         {/* Premium Brand Display with Clean Transparent Logo */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.85, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="group relative mb-8 flex flex-col items-center"
         >
           {/* Ambient red halo backglow behind the letters */}
           <div
-            className="pointer-events-none absolute left-1/2 top-1/2 h-44 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,26,26,0.35),transparent_70%)] blur-2xl transition-all duration-700 group-hover:scale-125 group-hover:bg-[radial-gradient(ellipse_at_center,rgba(255,26,26,0.5),transparent_70%)]"
+            className="pointer-events-none absolute left-1/2 top-1/2 h-44 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,26,26,0.35),transparent_70%)] blur-2xl transition-all duration-700 md:group-hover:scale-125 md:group-hover:bg-[radial-gradient(ellipse_at_center,rgba(255,26,26,0.5),transparent_70%)]"
             aria-hidden="true"
           />
 
@@ -86,7 +82,7 @@ export default function Hero() {
           <img
             src="/images/logo-mst-transparent.png"
             alt="MST SERVICE"
-            className="relative z-10 h-20 w-auto max-w-full object-contain drop-shadow-[0_10px_35px_rgba(255,26,26,0.4)] transition-transform duration-500 group-hover:scale-[1.03] sm:h-28 md:h-36"
+            className="relative z-10 h-20 w-auto max-w-full object-contain drop-shadow-[0_10px_35px_rgba(255,26,26,0.4)] transition-transform duration-500 md:group-hover:scale-[1.03] sm:h-28 md:h-36"
           />
         </motion.div>
 
@@ -94,37 +90,27 @@ export default function Hero() {
         <h1 className="sr-only">MST SERVICE Galați - Service Auto Premium</h1>
 
         <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.7 }}
           className="mt-5 text-base font-semibold uppercase tracking-[0.25em] text-white/90 sm:text-lg md:text-xl"
         >
-          Performanță. Precizie. Încredere.
+          {text.tagline}
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.05, duration: 0.7 }}
           className="mt-5 max-w-2xl text-sm leading-relaxed text-[#A0A0A0] sm:text-base md:text-lg"
         >
-          Service auto premium în Galați pentru mecanică, tinichigerie, vopsitorie,
-          geometrie și vulcanizare.
+          {text.description}
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.7 }}
           className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:gap-4"
         >
           <Button onClick={() => openAppointment()} size="lg" magnetic>
             <Calendar className="h-4 w-4" aria-hidden="true" />
-            Programează-te Online
-            <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
+            {text.primaryButton}
+            <ChevronRight className="h-4 w-4 transition-transform duration-300 md:group-hover:translate-x-0.5" aria-hidden="true" />
           </Button>
           <Button href="#servicii" variant="outline" size="lg">
-            Descoperă serviciile
+            {text.secondaryButton}
           </Button>
         </motion.div>
       </motion.div>
@@ -133,14 +119,9 @@ export default function Hero() {
       <motion.a
         href="#servicii"
         aria-label="Mergi la servicii"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.8 }}
         className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2"
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
           className="flex flex-col items-center gap-1 text-[#A0A0A0]"
         >
           <span className="text-[10px] uppercase tracking-[0.25em]">Scroll</span>

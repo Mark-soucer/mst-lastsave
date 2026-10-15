@@ -47,9 +47,6 @@ export default function StatusLookup() {
 
       <div className="relative z-10 mx-auto w-full max-w-2xl px-5 md:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col items-center text-center"
         >
           <Image
@@ -61,7 +58,7 @@ export default function StatusLookup() {
             className="h-12 w-auto object-contain drop-shadow-[0_10px_30px_rgba(255,26,26,0.35)] md:h-16"
           />
 
-          <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#A0A0A0] backdrop-blur">
+          <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#A0A0A0]">
             <span className="h-1.5 w-1.5 rounded-full bg-[#FF1A1A] shadow-[0_0_8px_rgba(255,26,26,0.9)]" />
             Status comandă
           </span>
@@ -77,10 +74,7 @@ export default function StatusLookup() {
 
         <motion.form
           onSubmit={handleSubmit}
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur md:p-8"
+          className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6 md:p-8"
         >
           <label
             htmlFor="status-code"
@@ -113,7 +107,7 @@ export default function StatusLookup() {
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D50000] px-7 py-3.5 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.45)] transition-all hover:bg-[#FF1A1A] disabled:cursor-wait disabled:opacity-60"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D50000] px-7 py-3.5 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.45)] transition-all md:hover:bg-[#FF1A1A] disabled:cursor-wait disabled:opacity-60"
             >
               {loading ? 'Se caută...' : 'Vezi statusul'}
               {!loading && <ArrowRight className="h-4 w-4" aria-hidden="true" />}

@@ -375,9 +375,9 @@ export default function AdminPage() {
           <div className="space-y-2">
             <Link
               href="/"
-              className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-neutral-400 backdrop-blur-md transition-all hover:border-[#FF1A1A]/50 hover:bg-white/10 hover:text-white"
+              className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-neutral-400 transition-all md:hover:border-[#FF1A1A]/50 md:hover:bg-white/10 md:hover:text-white"
             >
-              <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1 text-[#FF1A1A]" />
+              <ArrowLeft className="h-3.5 w-3.5 transition-transform md:group-hover:-translate-x-1 text-[#FF1A1A]" />
               <span>Înapoi la site-ul principal</span>
             </Link>
 
@@ -399,7 +399,7 @@ export default function AdminPage() {
           <div className="flex items-center gap-3">
             <button
               onClick={fetchAppointments}
-              className="flex items-center gap-2 rounded-xl border border-white/10 bg-neutral-900/80 px-4 py-2.5 text-xs font-bold text-white shadow-[0_4px_20px_rgba(0,0,0,0.5)] backdrop-blur-md transition-all hover:border-[#FF1A1A]/50 hover:bg-neutral-800 hover:shadow-[0_0_15px_rgba(255,26,26,0.25)]"
+              className="flex items-center gap-2 rounded-xl border border-white/10 bg-neutral-900/80 px-4 py-2.5 text-xs font-bold text-white shadow-[0_4px_20px_rgba(0,0,0,0.5)] transition-all md:hover:border-[#FF1A1A]/50 md:hover:bg-neutral-800 md:hover:shadow-[0_0_15px_rgba(255,26,26,0.25)]"
             >
               <RefreshCw className={`h-4 w-4 text-[#FF1A1A] ${loading ? 'animate-spin' : ''}`} />
               Reîmprospătează
@@ -410,12 +410,12 @@ export default function AdminPage() {
         {/* 4 KPI Statistics Cards */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-10">
           {/* Total */}
-          <div className="group relative overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 p-5 backdrop-blur-md transition-all duration-300 hover:border-neutral-700 hover:bg-neutral-900/80 shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+          <div className="group relative overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 p-5 transition-all duration-300 md:hover:border-neutral-700 md:hover:bg-neutral-900/80 shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
                 Total Programări
               </span>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition-colors group-hover:border-[#FF1A1A]/40 group-hover:text-[#FF1A1A]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition-colors md:group-hover:border-[#FF1A1A]/40 md:group-hover:text-[#FF1A1A]">
                 <Calendar className="h-5 w-5" />
               </div>
             </div>
@@ -424,7 +424,7 @@ export default function AdminPage() {
           </div>
 
           {/* Noi */}
-          <div className="group relative overflow-hidden rounded-2xl border border-amber-500/20 bg-amber-500/[0.04] p-5 backdrop-blur-md transition-all duration-300 hover:border-amber-500/40 hover:bg-amber-500/[0.08] shadow-[0_4px_20px_rgba(245,158,11,0.08)]">
+          <div className="group relative overflow-hidden rounded-2xl border border-amber-500/20 bg-amber-500/[0.04] p-5 transition-all duration-300 md:hover:border-amber-500/40 md:hover:bg-amber-500/[0.08] shadow-[0_4px_20px_rgba(245,158,11,0.08)]">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-amber-400">
                 Cereri Noi
@@ -440,7 +440,7 @@ export default function AdminPage() {
           </div>
 
           {/* În lucru */}
-          <div className="group relative overflow-hidden rounded-2xl border border-orange-500/20 bg-orange-500/[0.04] p-5 backdrop-blur-md transition-all duration-300 hover:border-orange-500/40 hover:bg-orange-500/[0.08] shadow-[0_4px_20px_rgba(249,115,22,0.08)]">
+          <div className="group relative overflow-hidden rounded-2xl border border-orange-500/20 bg-orange-500/[0.04] p-5 transition-all duration-300 md:hover:border-orange-500/40 md:hover:bg-orange-500/[0.08] shadow-[0_4px_20px_rgba(249,115,22,0.08)]">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-orange-400">
                 În lucru
@@ -456,7 +456,7 @@ export default function AdminPage() {
           </div>
 
           {/* Gata de ridicare */}
-          <div className="group relative overflow-hidden rounded-2xl border border-blue-500/20 bg-blue-500/[0.04] p-5 backdrop-blur-md transition-all duration-300 hover:border-blue-500/40 hover:bg-blue-500/[0.08] shadow-[0_4px_20px_rgba(59,130,246,0.08)]">
+          <div className="group relative overflow-hidden rounded-2xl border border-blue-500/20 bg-blue-500/[0.04] p-5 transition-all duration-300 md:hover:border-blue-500/40 md:hover:bg-blue-500/[0.08] shadow-[0_4px_20px_rgba(59,130,246,0.08)]">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">
                 Gata de ridicare
@@ -473,7 +473,7 @@ export default function AdminPage() {
         </div>
 
         {/* Search & Filter Toolbar */}
-        <div className="mb-8 flex flex-col gap-4 rounded-2xl border border-neutral-800 bg-neutral-900/50 p-4 backdrop-blur-md lg:flex-row lg:items-center lg:justify-between shadow-[0_4px_25px_rgba(0,0,0,0.5)]">
+        <div className="mb-8 flex flex-col gap-4 rounded-2xl border border-neutral-800 bg-neutral-900/50 p-4 lg:flex-row lg:items-center lg:justify-between shadow-[0_4px_25px_rgba(0,0,0,0.5)]">
           {/* Search Field */}
           <div className="relative flex-1 max-w-lg">
             <Search className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-500" />
@@ -513,7 +513,7 @@ export default function AdminPage() {
 
             <button
               onClick={() => setSortDir((prev) => (prev === 'asc' ? 'desc' : 'asc'))}
-              className="flex items-center gap-1.5 rounded-xl border border-neutral-800 bg-neutral-950/80 px-3 py-2.5 text-xs font-bold text-neutral-300 transition-all hover:border-neutral-700 hover:text-white"
+              className="flex items-center gap-1.5 rounded-xl border border-neutral-800 bg-neutral-950/80 px-3 py-2.5 text-xs font-bold text-neutral-300 transition-all md:hover:border-neutral-700 md:hover:text-white"
               title={sortDir === 'asc' ? 'Crescător' : 'Descrescător'}
             >
               {sortDir === 'asc' ? (
@@ -550,7 +550,7 @@ export default function AdminPage() {
                   onClick={() => setStatusFilter(tab.id)}
                   className={`flex items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition-all border ${active
                     ? 'border-[#FF1A1A] bg-gradient-to-r from-[#D50000] to-[#FF1A1A] text-white shadow-[0_0_18px_rgba(213,0,0,0.45)]'
-                    : 'border-neutral-800 bg-neutral-950/60 text-neutral-400 hover:border-neutral-700 hover:text-white'
+                    : 'border-neutral-800 bg-neutral-950/60 text-neutral-400 md:hover:border-neutral-700 md:hover:text-white'
                     }`}
                 >
                   <span>{tab.label}</span>
@@ -569,7 +569,7 @@ export default function AdminPage() {
         {/* Content Area */}
         {loading ? (
           /* Custom Premium Loading Spinner */
-          <div className="flex flex-col items-center justify-center py-28 rounded-2xl border border-neutral-800 bg-neutral-900/30 backdrop-blur-md">
+          <div className="flex flex-col items-center justify-center py-28 rounded-2xl border border-neutral-800 bg-neutral-900/30">
             <div className="relative flex h-14 w-14 items-center justify-center">
               <div className="absolute inset-0 rounded-full border-2 border-[#FF1A1A]/20" />
               <div className="absolute inset-0 rounded-full border-2 border-[#FF1A1A] border-t-transparent animate-spin" />
@@ -580,7 +580,7 @@ export default function AdminPage() {
           </div>
         ) : filtered.length === 0 ? (
           /* Empty State */
-          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/30 py-20 text-center backdrop-blur-md">
+          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/30 py-20 text-center">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-neutral-800 bg-white/[0.02] text-neutral-500">
               <AlertCircle className="h-8 w-8" />
             </div>
@@ -611,7 +611,7 @@ export default function AdminPage() {
               return (
                 <div
                   key={item.id}
-                  className="group relative overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 p-5 sm:p-6 backdrop-blur-md transition-all duration-300 hover:border-neutral-700 hover:bg-neutral-900/80 shadow-[0_4px_25px_rgba(0,0,0,0.5)]"
+                  className="group relative overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 p-5 sm:p-6 transition-all duration-300 md:hover:border-neutral-700 md:hover:bg-neutral-900/80 shadow-[0_4px_25px_rgba(0,0,0,0.5)]"
                 >
                   {/* Card Header Row */}
                   <div className="flex flex-col gap-3 border-b border-neutral-800/80 pb-4 sm:flex-row sm:items-center sm:justify-between">
@@ -648,7 +648,7 @@ export default function AdminPage() {
 
                       <button
                         onClick={() => handleDelete(item.id)}
-                        className="flex h-8 w-8 items-center justify-center rounded-xl border border-neutral-800 bg-neutral-950 text-neutral-400 transition-colors hover:border-red-500/40 hover:bg-red-500/10 hover:text-red-400"
+                        className="flex h-8 w-8 items-center justify-center rounded-xl border border-neutral-800 bg-neutral-950 text-neutral-400 transition-colors md:hover:border-red-500/40 md:hover:bg-red-500/10 md:hover:text-red-400"
                         title="Șterge din baza de date"
                         aria-label="Șterge programarea"
                       >
@@ -678,7 +678,7 @@ export default function AdminPage() {
                       <button
                         onClick={() => handleConfirmAppointment(item.id)}
                         disabled={savingId === item.id}
-                        className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-[11px] font-bold text-emerald-400 transition-all hover:bg-emerald-500/20 disabled:cursor-wait disabled:opacity-50"
+                        className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-[11px] font-bold text-emerald-400 transition-all md:hover:bg-emerald-500/20 disabled:cursor-wait disabled:opacity-50"
                       >
                         <Check className="h-3.5 w-3.5" />
                         Confirmă ora actuală
@@ -688,7 +688,7 @@ export default function AdminPage() {
                     {item.status !== 'finalizata' && item.status !== 'anulata' && (
                       <button
                         onClick={() => openProposal(item)}
-                        className="inline-flex items-center gap-1.5 rounded-xl border border-orange-500/30 bg-orange-500/10 px-3 py-1.5 text-[11px] font-bold text-orange-400 transition-all hover:bg-orange-500/20"
+                        className="inline-flex items-center gap-1.5 rounded-xl border border-orange-500/30 bg-orange-500/10 px-3 py-1.5 text-[11px] font-bold text-orange-400 transition-all md:hover:bg-orange-500/20"
                       >
                         <CalendarClock className="h-3.5 w-3.5" />
                         Propune reprogramare
@@ -699,7 +699,7 @@ export default function AdminPage() {
                       <button
                         onClick={() => handleCancelAppointment(item.id)}
                         disabled={savingId === item.id}
-                        className="inline-flex items-center gap-1.5 rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-[11px] font-bold text-red-400 transition-all hover:bg-red-500/20 disabled:cursor-wait disabled:opacity-50"
+                        className="inline-flex items-center gap-1.5 rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-[11px] font-bold text-red-400 transition-all md:hover:bg-red-500/20 disabled:cursor-wait disabled:opacity-50"
                       >
                         <XCircle className="h-3.5 w-3.5" />
                         Anulează
@@ -759,14 +759,14 @@ export default function AdminPage() {
                         <button
                           onClick={() => handleProposeReschedule(item.id)}
                           disabled={savingId === item.id}
-                          className="inline-flex items-center gap-1.5 rounded-xl bg-orange-500 px-4 py-2 text-[11px] font-bold text-black transition-all hover:bg-orange-400 disabled:cursor-wait disabled:opacity-50"
+                          className="inline-flex items-center gap-1.5 rounded-xl bg-orange-500 px-4 py-2 text-[11px] font-bold text-black transition-all md:hover:bg-orange-400 disabled:cursor-wait disabled:opacity-50"
                         >
                           <CalendarClock className="h-3.5 w-3.5" />
                           Trimite reprogramarea
                         </button>
                         <button
                           onClick={() => setProposalForId(null)}
-                          className="rounded-xl border border-neutral-700 bg-neutral-950 px-4 py-2 text-[11px] font-bold text-neutral-400 transition-colors hover:text-white"
+                          className="rounded-xl border border-neutral-700 bg-neutral-950 px-4 py-2 text-[11px] font-bold text-neutral-400 transition-colors md:hover:text-white"
                         >
                           Renunță
                         </button>
@@ -790,7 +790,7 @@ export default function AdminPage() {
                         <div className="mt-1 flex items-center gap-2">
                           <a
                             href={`tel:${item.phone}`}
-                            className="inline-flex items-center gap-1 text-xs font-bold text-[#FF1A1A] hover:underline"
+                            className="inline-flex items-center gap-1 text-xs font-bold text-[#FF1A1A] md:hover:underline"
                             title="Sună clientul"
                           >
                             <Phone className="h-3 w-3" />
@@ -801,7 +801,7 @@ export default function AdminPage() {
                             href={waUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 rounded-md bg-[#25D366]/10 px-1.5 py-0.5 text-[10px] font-bold text-emerald-400 hover:bg-[#25D366]/20"
+                            className="inline-flex items-center gap-1 rounded-md bg-[#25D366]/10 px-1.5 py-0.5 text-[10px] font-bold text-emerald-400 md:hover:bg-[#25D366]/20"
                             title="Deschide chat WhatsApp"
                           >
                             <MessageSquare className="h-2.5 w-2.5" />

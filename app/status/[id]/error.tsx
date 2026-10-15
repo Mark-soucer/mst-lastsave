@@ -36,7 +36,7 @@ export default function StatusError({ error, reset }: StatusErrorProps) {
         <button
           type="button"
           onClick={reset}
-          className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#D50000] px-6 py-3 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.45)] transition-all hover:bg-[#FF1A1A]"
+          className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#D50000] px-6 py-3 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.45)] transition-all md:hover:bg-[#FF1A1A]"
         >
           <RefreshCw className="h-4 w-4" aria-hidden="true" />
           Încearcă din nou

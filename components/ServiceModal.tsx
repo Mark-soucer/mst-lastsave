@@ -41,24 +41,17 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
       {service && (
         <motion.div
           className="fixed inset-0 z-[80] flex items-center justify-center p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
           aria-modal="true"
           role="dialog"
           aria-labelledby="service-modal-title"
         >
           <div
-            className="absolute inset-0 bg-black/70 backdrop-blur-md"
+            className="absolute inset-0 bg-black/70"
             onClick={onClose}
             aria-hidden="true"
           />
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 30 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="relative w-full max-w-2xl overflow-hidden rounded-2xl border border-white/15 bg-[#111111] shadow-2xl"
           >
             <div className="h-1 w-full bg-gradient-to-r from-[#D50000] via-[#FF1A1A] to-transparent" aria-hidden="true" />
@@ -66,7 +59,7 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
             <button
               onClick={onClose}
               aria-label="Închide"
-              className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#A0A0A0] transition-all hover:border-[#FF1A1A]/50 hover:text-white"
+              className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#A0A0A0] transition-all md:hover:border-[#FF1A1A]/50 md:hover:text-white"
             >
               <X className="h-5 w-5" aria-hidden="true" />
             </button>

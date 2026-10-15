@@ -52,10 +52,10 @@ const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
 
   const variants: Record<string, string> = {
     primary:
-      'bg-[#D50000] text-white hover:bg-[#FF1A1A] shadow-[0_0_24px_rgba(213,0,0,0.45),inset_0_0_0_1px_rgba(255,255,255,0.08)] hover:shadow-[0_0_40px_rgba(255,26,26,0.6)]',
-    secondary: 'bg-white text-[#080808] hover:bg-[#e5e5e5]',
+      'bg-[#D50000] text-white md:hover:bg-[#FF1A1A] shadow-[0_0_24px_rgba(213,0,0,0.45),inset_0_0_0_1px_rgba(255,255,255,0.08)] md:hover:shadow-[0_0_40px_rgba(255,26,26,0.6)]',
+    secondary: 'bg-white text-[#080808] md:hover:bg-[#e5e5e5]',
     outline:
-      'border border-white/25 text-white hover:border-white/60 hover:bg-white/5',
+      'border border-white/25 text-white md:hover:border-white/60 md:hover:bg-white/5',
   };
 
   const sizes: Record<string, string> = {
@@ -65,7 +65,7 @@ const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
 
   const shine =
     variant === 'primary'
-      ? 'before:absolute before:inset-0 before:-translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/25 before:to-transparent before:transition-transform before:duration-700 group-hover:before:translate-x-full'
+      ? 'before:absolute before:inset-0 before:-translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/25 before:to-transparent before:transition-transform before:duration-700 md:group-hover:before:translate-x-full'
       : '';
 
   const content = (
@@ -74,7 +74,7 @@ const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
       {arrow && (
         <ArrowRight
           aria-hidden="true"
-          className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+          className="relative z-10 h-4 w-4 transition-transform duration-300 md:group-hover:translate-x-1"
         />
       )}
     </>
