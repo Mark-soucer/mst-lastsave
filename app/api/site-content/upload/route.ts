@@ -19,6 +19,9 @@ function isAdmin(req: NextRequest): boolean {
 
 /** Citește rolul din cheia JWT (service_role, anon etc.) fără să afișeze cheia. */
 function keyRole(key: string): string {
+  // Chei noi de la Supabase (fără format JWT)
+  if (key.startsWith('sb_secret_')) return 'service_role';
+  if (key.startsWith('sb_publishable_')) return 'anon';
   try {
     const payload = key.split('.')[1];
     if (!payload) return 'necunoscut (cheia nu are formatul JWT)';
