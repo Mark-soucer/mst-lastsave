@@ -17,6 +17,18 @@ function isAdmin(req: NextRequest): boolean {
   return req.cookies.get('admin_token')?.value === 'authenticated';
 }
 
+/** Citește rolul din cheia JWT (service_role, anon etc.) fără să afișeze cheia. */
+function keyRole(key: string): string {
+  try {
+    const payload = key.split('.')[1];
+    if (!payload) return 'necunoscut (cheia nu are formatul JWT)';
+    const json = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'));
+    return typeof json.role === 'string' ? json.role : 'necunoscut';
+  } catch {
+    return 'necunoscut (cheia nu poate fi citită)';
+  }
+}
+
 async function ensureBucket(client: NonNullable<ReturnType<typeof getSupabaseClient>>) {
   try {
     const { data } = await client.storage.getBucket(BUCKET);
@@ -42,6 +54,17 @@ export async function POST(req: NextRequest) {
   }
   if (file.size > MAX_SIZE) {
     return NextResponse.json({ success: false, message: 'Poza este prea mare (max 5MB).' }, { status: 400 });
+  }
+
+  const role = keyRole(process.env.SUPABASE_SERVICE_ROLE_KEY ?? '');
+  if (role !== 'service_role') {
+    return NextResponse.json(
+      {
+        success: false,
+        message: `În Vercel, SUPABASE_SERVICE_ROLE_KEY are rolul „${role}”, nu „service_role”. Pune cheia service_role și fă redeploy.`,
+      },
+      { status: 500 }
+    );
   }
 
   const client = getSupabaseClient();
