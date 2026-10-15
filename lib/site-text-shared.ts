@@ -181,7 +181,7 @@ function validateServicePage(input: any, name: string): ServicePageText {
   const list = (v: unknown, label: string): string[] => {
     if (!Array.isArray(v) || v.length === 0) throw new Error(`${name} – „${label}” trebuie să aibă cel puțin un rând.`);
     if (v.length > MAX_LIST) throw new Error(`${name} – „${label}” poate avea cel mult ${MAX_LIST} rânduri.`);
-    return v.map((x, i) => req(x, `${label} – rândul ${i + 1}`));
+   return v.map((x, i) => req(x, `${label} – rândul ${i + 1}`, MAX_LONG));
   };
 
   const includes = Array.isArray(input?.includes) ? input.includes : [];
