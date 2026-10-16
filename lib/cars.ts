@@ -184,7 +184,7 @@ export async function saveCar(
   }
 
   const { error } = await client.from(CARS_TABLE).insert(carToRow(newRecord));
-  if (error) throw new Error('Nu s-a putut salva mașina.');
+  if (error) throw new Error(`Salvarea a eșuat: ${error.message}`);
   return newRecord;
 }
 

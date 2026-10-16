@@ -74,10 +74,8 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ success: true, data: saved }, { status: 201 });
-  } catch {
-    return NextResponse.json(
-      { success: false, message: 'Nu s-a putut salva mașina.' },
-      { status: 500 }
-    );
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Nu s-a putut salva mașina.';
+    return NextResponse.json({ success: false, message }, { status: 500 });
   }
 }
