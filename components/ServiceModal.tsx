@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useBodyScrollLock } from '@/lib/use-body-scroll-lock';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2, Calendar, ArrowRight } from 'lucide-react';
 import Button from '@/components/Button';
@@ -21,15 +22,15 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
     setMounted(true);
   }, []);
 
+  useBodyScrollLock(Boolean(service));
+
   useEffect(() => {
     if (!service) return;
-    document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     document.addEventListener('keydown', onKey);
     return () => {
-      document.body.style.overflow = '';
       document.removeEventListener('keydown', onKey);
     };
   }, [service, onClose]);

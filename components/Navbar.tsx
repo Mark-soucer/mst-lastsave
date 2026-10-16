@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useBodyScrollLock } from '@/lib/use-body-scroll-lock';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X, Calendar } from 'lucide-react';
 import { usePathname } from 'next/navigation';
@@ -53,12 +54,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, [pathname]);
 
-  useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [open]);
+  useBodyScrollLock(open);
 
   // Don't render the public site Navbar on Admin pages
   if (pathname?.startsWith('/admin')) {

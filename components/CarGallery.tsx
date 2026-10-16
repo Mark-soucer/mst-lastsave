@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useBodyScrollLock } from '@/lib/use-body-scroll-lock';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react';
@@ -15,6 +16,8 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
   const [active, setActive] = useState(0);
   const [zoomOpen, setZoomOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  useBodyScrollLock(zoomOpen);
 
   useEffect(() => {
     setMounted(true);
