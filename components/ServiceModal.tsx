@@ -61,7 +61,7 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
           />
 
           <motion.div
-            className="relative w-full max-w-2xl overflow-hidden rounded-2xl border border-white/15 bg-[#111111] shadow-2xl"
+            className="relative w-full max-w-2xl max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain rounded-2xl border border-white/15 bg-[#111111] shadow-2xl"
           >
             <div className="h-1 w-full bg-gradient-to-r from-[#D50000] via-[#FF1A1A] to-transparent" aria-hidden="true" />
 

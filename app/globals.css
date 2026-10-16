@@ -18,11 +18,17 @@ html {
   scrollbar-color: #333 #080808;
 }
 
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body {
   margin: 0;
   background-color: var(--bg);
   color: #ffffff;
   overflow-x: hidden;
+  max-width: 100%;
 }
 
 .main {
