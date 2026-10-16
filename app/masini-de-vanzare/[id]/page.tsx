@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Fuel, Gauge, Calendar, Cog, Check } from 'lucide-react';
+import { Fuel, Gauge, Calendar, Cog } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Button from '@/components/Button';
 import CarGallery from '@/components/CarGallery';
@@ -164,9 +164,7 @@ export default async function CarDetailPage({ params }: CarDetailRouteProps) {
                     key={feature}
                     className="group flex items-start gap-4 border-b border-white/10 py-4"
                   >
-                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#FF1A1A]/15 text-[#FF1A1A] transition-colors duration-300 md:group-hover:bg-[#FF1A1A] md:group-hover:text-white">
-                      <Check className="h-3.5 w-3.5" aria-hidden="true" />
-                    </span>
+                    <span className="mt-[9px] h-2 w-2 shrink-0 rounded-full bg-[#FF1A1A] shadow-[0_0_8px_rgba(255,26,26,0.7)]" aria-hidden="true" />
                     <span className="break-words text-[15px] leading-relaxed text-neutral-200">{feature}</span>
                   </li>
                 ))}
