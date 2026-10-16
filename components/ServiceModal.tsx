@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2, Calendar, ArrowRight } from 'lucide-react';
 import Button from '@/components/Button';
@@ -14,6 +15,11 @@ type ServiceModalProps = {
 
 export default function ServiceModal({ service, onClose }: ServiceModalProps) {
   const { openAppointment } = useAppointment();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!service) return;
@@ -36,7 +42,10 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
     }, 150);
   };
 
-  return (
+  if (!mounted) return null;
+
+  // Randat direct în <body>, ca să nu fie afectat de transform-uri ale secțiunilor (bug pe telefon).
+  return createPortal(
     <AnimatePresence>
       {service && (
         <motion.div
@@ -113,6 +122,7 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }

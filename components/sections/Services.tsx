@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Eye } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
@@ -14,6 +14,7 @@ export default function Services() {
   const cardTexts = useSiteText().serviceCards;
   const pages = useSiteText().servicePages;
   const [selected, setSelected] = useState<Service | null>(null);
+  const closeModal = useCallback(() => setSelected(null), []);
 
   const cards: Service[] = SERVICES.map((service) => {
     const card = cardTexts.find((c) => c.slug === service.slug);
@@ -86,7 +87,7 @@ export default function Services() {
                   <button
                     type="button"
                     onClick={() => setSelected(service)}
-                    className="relative z-20 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#A0A0A0] transition-all md:hover:border-[#FF1A1A]/50 md:hover:bg-white/10 md:hover:text-white"
+                    className="relative z-20 flex h-9 w-9 touch-manipulation items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#A0A0A0] transition-all md:hover:border-[#FF1A1A]/50 md:hover:bg-white/10 md:hover:text-white"
                     aria-label={`Deschide detalii rapide: ${service.title}`}
                   >
                     <Eye className="h-4 w-4" aria-hidden="true" />
@@ -98,7 +99,7 @@ export default function Services() {
         </div>
       </div>
 
-      <ServiceModal service={selected} onClose={() => setSelected(null)} />
+      <ServiceModal service={selected} onClose={closeModal} />
     </section>
   );
 }
