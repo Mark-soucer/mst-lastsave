@@ -60,7 +60,7 @@ const LEGACY_TO_REPAIR_STATUS_MAP: Record<string, RepairStatusId> = {
  * înlocuită cu interogări SQL / ORM, fără a modifica componentele de UI.
  */
 
-function getShortCode(id: string | null | undefined): string {
+export function getShortCode(id: string | null | undefined): string {
   return (id ?? '').slice(-6).toUpperCase();
 }
 

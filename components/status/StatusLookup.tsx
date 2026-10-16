@@ -12,6 +12,39 @@ export default function StatusLookup() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [phoneLoading, setPhoneLoading] = useState(false);
+  const [phoneError, setPhoneError] = useState('');
+  const [results, setResults] = useState<{ code: string; service: string; date: string }[]>([]);
+
+  const handlePhoneSearch = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setPhoneError('');
+    setResults([]);
+    setPhoneLoading(true);
+    try {
+      const res = await fetch('/api/status/lookup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone }),
+      });
+      const json = await res.json();
+      if (!json.success) {
+        setPhoneError(json.message || 'Nu am găsit nicio comandă.');
+      } else if (json.results.length === 1) {
+        router.push(`/status/${encodeURIComponent(json.results[0].code)}`);
+        return;
+      } else {
+        setResults(json.results);
+      }
+    } catch {
+      setPhoneError('Căutarea a eșuat. Verifică conexiunea și încearcă din nou.');
+    } finally {
+      setPhoneLoading(false);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -116,6 +149,61 @@ export default function StatusLookup() {
 
           {error && (
             <p className="mt-3 text-sm font-medium text-[#FF1A1A]">{error}</p>
+          )}
+        </motion.form>
+
+        <motion.form
+          onSubmit={handlePhoneSearch}
+          className="mt-6 rounded-3xl border border-white/10 bg-white/[0.03] p-6 md:p-8"
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#A0A0A0]">
+            Nu ai codul? Caută cu numele și telefonul
+          </p>
+
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Nume și prenume"
+              autoComplete="name"
+              className="w-full rounded-full border border-white/10 bg-[#0B0B0B] px-5 py-3.5 text-sm font-semibold text-white placeholder-[#555] outline-none transition-all focus:border-[#FF1A1A]/60 focus:ring-1 focus:ring-[#FF1A1A]/50"
+            />
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="Număr de telefon"
+              autoComplete="tel"
+              className="w-full rounded-full border border-white/10 bg-[#0B0B0B] px-5 py-3.5 text-sm font-semibold text-white placeholder-[#555] outline-none transition-all focus:border-[#FF1A1A]/60 focus:ring-1 focus:ring-[#FF1A1A]/50"
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={phoneLoading}
+            className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-sm font-bold text-white transition-all md:hover:border-[#FF1A1A]/60 disabled:cursor-wait disabled:opacity-60"
+          >
+            {phoneLoading ? 'Se caută...' : 'Caută comanda'}
+          </button>
+
+          {phoneError && <p className="mt-3 text-sm font-medium text-[#FF1A1A]">{phoneError}</p>}
+
+          {results.length > 1 && (
+            <div className="mt-4 space-y-2">
+              <p className="text-sm text-[#A0A0A0]">Am găsit mai multe comenzi. Alege una:</p>
+              {results.map((r) => (
+                <button
+                  key={r.code}
+                  type="button"
+                  onClick={() => router.push(`/status/${encodeURIComponent(r.code)}`)}
+                  className="flex w-full items-center justify-between rounded-xl border border-white/10 bg-[#0B0B0B] px-4 py-3 text-left text-sm text-white transition-all md:hover:border-[#FF1A1A]/60"
+                >
+                  <span className="font-semibold">{r.service}</span>
+                  <span className="text-[#A0A0A0]">{r.date} · {r.code}</span>
+                </button>
+              ))}
+            </div>
           )}
         </motion.form>
       </div>
