@@ -533,9 +533,6 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                         onClick={() => handleSubmitBooking(false)}
                         className="flex w-full items-center justify-center gap-2 rounded-full bg-[#D50000] px-6 py-3.5 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.5)] transition-all md:hover:bg-[#FF1A1A] disabled:opacity-60"
                       >
-                        onClick={() => handleSubmitBooking(false)}
-                        className="flex w-full items-center justify-center gap-2 rounded-full bg-[#D50000] px-6 py-3.5 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.5)] transition-all md:hover:bg-[#FF1A1A] disabled:opacity-60"
-                      >
                         {loading ? (
                           <span>Se procesează...</span>
                         ) : (
