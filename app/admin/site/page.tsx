@@ -34,6 +34,23 @@ function Field({
   );
 }
 
+/** Citește proporția (lățime / înălțime) a unei poze, ca să fie afișată întreagă. */
+function getImageRatio(file: File): Promise<number | undefined> {
+  return new Promise((resolve) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      resolve(img.naturalWidth && img.naturalHeight ? img.naturalWidth / img.naturalHeight : undefined);
+      URL.revokeObjectURL(url);
+    };
+    img.onerror = () => {
+      resolve(undefined);
+      URL.revokeObjectURL(url);
+    };
+    img.src = url;
+  });
+}
+
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
@@ -155,8 +172,9 @@ function ServiceEditor({
     setUploading(true);
     setUploadError(null);
     try {
+      const ratio = await getImageRatio(file);
       const url = await onUpload(file);
-      onChange({ ...value, heroImage: { ...value.heroImage, src: url } });
+      onChange({ ...value, heroImage: { ...value.heroImage, src: url, ratio } });
     } catch (err) {
       setUploadError(err instanceof Error ? err.message : 'Încărcarea a eșuat.');
     } finally {

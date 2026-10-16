@@ -9,7 +9,7 @@ export type ServiceIncludeText = { title: string; text: string };
 export type ServiceFaqText = { question: string; answer: string };
 
 export type ServicePageText = {
-  heroImage: { src: string; alt: string };
+  heroImage: { src: string; alt: string; ratio?: number };
   heroSubtitle: string;
   intro: { what: string[]; when: string[]; problems: string[] };
   includes: ServiceIncludeText[];
@@ -109,6 +109,7 @@ function mergeServicePage(stored: any, d: ServicePageText): ServicePageText {
     heroImage: {
       src: pick(stored?.heroImage?.src, d.heroImage.src),
       alt: pick(stored?.heroImage?.alt, d.heroImage.alt),
+      ratio: typeof stored?.heroImage?.ratio === 'number' && stored.heroImage.ratio > 0.2 && stored.heroImage.ratio < 5 ? stored.heroImage.ratio : d.heroImage.ratio,
     },
     heroSubtitle: pick(stored?.heroSubtitle, d.heroSubtitle),
     intro: {
@@ -199,7 +200,11 @@ function validateServicePage(input: any, name: string): ServicePageText {
   if (!/^(\/|https:\/\/)/.test(src)) throw new Error(`${name} – poza principală trebuie să fie un link valid.`);
 
   return {
-    heroImage: { src, alt: req(input?.heroImage?.alt, 'Poza principală – descriere', MAX_LEN) },
+    heroImage: {
+      src,
+      alt: req(input?.heroImage?.alt, 'Poza principală – descriere', MAX_LEN),
+      ratio: typeof input?.heroImage?.ratio === 'number' && input.heroImage.ratio > 0.2 && input.heroImage.ratio < 5 ? input.heroImage.ratio : undefined,
+    },
     heroSubtitle: req(input?.heroSubtitle, 'Subtitlul din pagină', MAX_LONG),
     intro: {
       what: list(input?.intro?.what, 'Ce presupune'),
@@ -294,6 +299,7 @@ export function applyServiceText(page: ServicePageData, text: HomeText): Service
     short: card?.short ?? page.short,
     heroImage: t.heroImage.src,
     heroImageAlt: t.heroImage.alt,
+    heroRatio: t.heroImage.ratio,
     heroSubtitle: t.heroSubtitle,
     intro: t.intro,
     includes: t.includes.map((inc, i) => ({

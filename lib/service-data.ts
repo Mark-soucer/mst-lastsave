@@ -66,6 +66,7 @@ export type ServicePageData = {
   short: string;
   heroImage: string;
   heroImageAlt: string;
+  heroRatio?: number;
   heroSubtitle: string;
   intro: {
     what: string[];

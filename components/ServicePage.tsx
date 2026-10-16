@@ -115,7 +115,10 @@ export default function ServicePage({ service }: ServicePageProps) {
               aria-hidden="true"
             />
             <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#111]">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-[#0B0B0B]">
+              <div
+                className="relative w-full overflow-hidden rounded-3xl bg-[#0B0B0B]"
+                style={{ aspectRatio: String(service.heroRatio ?? 4 / 3) }}
+              >
                 <Image
                   src={service.heroImage}
                   unoptimized={service.heroImage.startsWith('http')}
@@ -124,7 +127,7 @@ export default function ServicePage({ service }: ServicePageProps) {
                   priority
                   quality={95}
                   sizes="(max-width: 768px) 100vw, (max-width: 1280px) 60vw, 1000px"
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
             </div>
