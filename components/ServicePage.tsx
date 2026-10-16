@@ -114,16 +114,17 @@ export default function ServicePage({ service }: ServicePageProps) {
               className="absolute inset-0 -m-6 rounded-[2rem] bg-[radial-gradient(circle,rgba(213,0,0,0.22),transparent_65%)] blur-2xl"
               aria-hidden="true"
             />
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#111] p-3">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#0B0B0B]">
+            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#111]">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-[#0B0B0B]">
                 <Image
                   src={service.heroImage}
                   unoptimized={service.heroImage.startsWith('http')}
                   alt={service.heroImageAlt}
                   fill
                   priority
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-contain p-6"
+                  quality={95}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 60vw, 1000px"
+                  className="object-cover"
                 />
               </div>
             </div>
