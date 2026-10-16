@@ -3,79 +3,67 @@ import CookieSettingsButton from '@/components/cookies/CookieSettingsButton';
 
 export const metadata: Metadata = {
   title: 'Politica cookie-urilor | Automotive MST',
-  description: 'Ce cookie-uri și tehnologii de stocare folosește site-ul Automotive MST și cum le poți controla.',
+  description: 'Ce fișiere salvăm pe telefonul sau calculatorul tău când folosești site-ul Automotive MST și cum le poți controla.',
 };
 
 export default function CookiePolicyPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] px-5 pb-24 pt-32 text-white">
-      <div className="mx-auto max-w-3xl space-y-8 text-[15px] leading-relaxed text-neutral-300">
+      <div className="mx-auto max-w-3xl space-y-10 text-[15px] leading-relaxed text-neutral-300">
         <header>
           <h1 className="text-3xl font-black tracking-tight text-white">Politica cookie-urilor</h1>
           <p className="mt-3 text-sm text-neutral-500">Ultima actualizare: [completează data]</p>
         </header>
 
         <section className="space-y-3">
-          <h2 className="text-xl font-bold text-white">Ce sunt cookie-urile</h2>
+          <h2 className="text-xl font-bold text-white">Ce sunt cookie-urile?</h2>
           <p>
-            Cookie-urile sunt fișiere mici pe care site-ul le salvează în browserul tău. Aceeași regulă se aplică și
-            datelor salvate local (localStorage), care funcționează similar.
+            Cookie-urile sunt mici fișiere pe care site-ul le salvează în browserul tău, ca să țină minte anumite lucruri
+            despre vizita ta. De exemplu, ca să nu te întrebăm din nou ce alegeri ai făcut.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-white">Ce folosim</h2>
 
-          <div className="overflow-x-auto rounded-2xl border border-white/10">
-            <table className="w-full min-w-[560px] text-left text-sm">
-              <thead className="bg-white/[0.04] text-white">
-                <tr>
-                  <th className="px-4 py-3 font-semibold">Nume</th>
-                  <th className="px-4 py-3 font-semibold">Tip</th>
-                  <th className="px-4 py-3 font-semibold">Durată</th>
-                  <th className="px-4 py-3 font-semibold">Scop</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10">
-                <tr>
-                  <td className="px-4 py-3 font-mono text-xs">admin_token</td>
-                  <td className="px-4 py-3">Necesar</td>
-                  <td className="px-4 py-3">Până la deconectare sau expirarea sesiunii</td>
-                  <td className="px-4 py-3">Autentificarea în zona de administrare, folosită doar de echipa site-ului.</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 font-mono text-xs">mst_cookie_consent</td>
-                  <td className="px-4 py-3">Necesar</td>
-                  <td className="px-4 py-3">Până o ștergi din browser</td>
-                  <td className="px-4 py-3">Reține alegerile tale de cookie-uri, ca să nu te întrebăm din nou.</td>
-                </tr>
-                <tr>
-                  <td className="px-4 py-3 font-mono text-xs">_gcl_au și alte cookie-uri Google Ads</td>
-                  <td className="px-4 py-3">Marketing</td>
-                  <td className="px-4 py-3">Conform Google, până la 90 de zile</td>
-                  <td className="px-4 py-3">
-                    Măsurarea campaniilor Google Ads. Sunt setate doar dacă accepți cookie-urile de marketing.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+            <h3 className="font-semibold text-white">Cookie-uri necesare</h3>
+            <p className="mt-2">
+              Sunt necesare ca site-ul să funcționeze. Te ajută să rămâi conectat dacă ești din echipa noastră și țin
+              minte alegerile tale despre cookie-uri. Nu le poți dezactiva, deoarece fără ele site-ul nu merge bine.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+            <h3 className="font-semibold text-white">Cookie-uri de marketing</h3>
+            <p className="mt-2">
+              Sunt folosite de Google Ads, ca să vedem dacă reclamele noastre ajung la oameni potriviți și ca să îți
+              arătăm reclame relevante pe alte site-uri. Sunt activate doar dacă ești de acord. Dacă refuzi, nu se
+              încarcă nimic de la Google.
+            </p>
           </div>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-xl font-bold text-white">Cum îți controlezi alegerile</h2>
+          <h2 className="text-xl font-bold text-white">Cum îți schimbi alegerea</h2>
           <p>
-            Poți accepta sau refuza categoriile de cookie-uri din banner. Poți schimba oricând alegerea, cu butonul de
-            mai jos. Poți și să ștergi cookie-urile din setările browserului.
+            Poți accepta sau refuza cookie-urile de marketing oricând. Apasă butonul de mai jos, iar bannerul cu
+            alegerile apare din nou.
           </p>
           <CookieSettingsButton />
+          <p className="text-sm text-neutral-500">
+            Poți șterge cookie-urile și din setările browserului. Dacă faci asta, vei fi întrebat din nou despre alegerile tale.
+          </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-white">Mai multe informații</h2>
           <p>
-            Pentru cum prelucrăm datele tale personale, vezi politica de confidențialitate. Pentru întrebări, ne poți
-            scrie la adresa de email de pe site.
+            Pentru cum folosim datele tale personale, citește{' '}
+            <a href="/politica-confidentialitate" className="text-[#FF1A1A] underline underline-offset-2">
+              politica de confidențialitate
+            </a>
+            . Pentru întrebări, ne poți scrie la adresa de email de pe site.
           </p>
         </section>
       </div>
