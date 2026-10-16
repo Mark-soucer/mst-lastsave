@@ -5,6 +5,9 @@ import AppointmentModal from '@/components/AppointmentModal';
 import FloatingBooking from '@/components/FloatingBooking';
 import { AppointmentProvider } from '@/context/AppointmentContext';
 import { SiteTextProvider } from '@/context/SiteTextContext';
+import { CookieConsentProvider } from '@/context/CookieConsentContext';
+import CookieBanner from '@/components/CookieBanner';
+import GoogleAdsTag from '@/components/GoogleAdsTag';
 import { getHomeText } from '@/lib/site-text';
 
 const SITE_URL = 'https://mstservice.ro';
@@ -124,6 +127,7 @@ export default async function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
+        <CookieConsentProvider>
         <SiteTextProvider value={homeText}>
         <AppointmentProvider>
           <div className="relative flex min-h-screen w-full max-w-full flex-col">
@@ -135,7 +139,10 @@ export default async function RootLayout({
           <FloatingBooking />
           <AppointmentModal />
         </AppointmentProvider>
+        <CookieBanner />
+        <GoogleAdsTag />
         </SiteTextProvider>
+        </CookieConsentProvider>
       </body>
     </html>
   );

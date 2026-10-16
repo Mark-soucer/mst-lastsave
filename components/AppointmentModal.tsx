@@ -60,6 +60,7 @@ export default function AppointmentModal() {
   const [submitted, setSubmitted] = useState(false);
   const [appointmentId, setAppointmentId] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   // Sync selected service when prop updates
   useEffect(() => {
@@ -508,11 +509,30 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                       </div>
                     )}
 
+                    <label className="flex items-start gap-3 pt-2 text-xs leading-relaxed text-neutral-300">
+                      <input
+                        type="checkbox"
+                        checked={privacyAccepted}
+                        onChange={(e) => setPrivacyAccepted(e.target.checked)}
+                        className="mt-0.5 h-4 w-4 shrink-0 accent-[#D50000]"
+                      />
+                      <span>
+                        Sunt de acord cu prelucrarea datelor mele personale pentru programare, conform{' '}
+                        <a href="/politica-confidentialitate" target="_blank" rel="noopener noreferrer" className="text-[#FF1A1A] underline underline-offset-2">
+                          politicii de confidențialitate
+                        </a>
+                        .
+                      </span>
+                    </label>
+
                     <div className="space-y-2.5 pt-2">
                       {/* Database Direct Submit */}
                       <button
                         type="button"
-                        disabled={loading}
+                        disabled={loading || !privacyAccepted}
+                        onClick={() => handleSubmitBooking(false)}
+                        className="flex w-full items-center justify-center gap-2 rounded-full bg-[#D50000] px-6 py-3.5 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.5)] transition-all md:hover:bg-[#FF1A1A] disabled:opacity-60"
+                      >
                         onClick={() => handleSubmitBooking(false)}
                         className="flex w-full items-center justify-center gap-2 rounded-full bg-[#D50000] px-6 py-3.5 text-sm font-bold text-white shadow-[0_0_25px_rgba(213,0,0,0.5)] transition-all md:hover:bg-[#FF1A1A] disabled:opacity-60"
                       >
@@ -529,7 +549,7 @@ ${notes ? `📝 *Observații:* ${notes}` : ''}
                       {/* WhatsApp Option */}
                       <button
                         type="button"
-                        disabled={loading}
+                        disabled={loading || !privacyAccepted}
                         onClick={() => handleSubmitBooking(true)}
                         className="flex w-full items-center justify-center gap-2 rounded-full border border-emerald-500/30 bg-[#25D366]/10 px-6 py-3 text-xs font-bold text-emerald-400 transition-all md:hover:bg-[#25D366]/20"
                       >
