@@ -114,7 +114,7 @@ export default function ServicePage({ service }: ServicePageProps) {
               className="absolute inset-0 -m-6 rounded-[2rem] bg-[radial-gradient(circle,rgba(213,0,0,0.22),transparent_65%)] blur-2xl"
               aria-hidden="true"
             />
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#111]">
+            <div className="relative mx-auto w-full max-w-[480px] overflow-hidden rounded-3xl border border-white/10 bg-[#111]">
               <div
                 className="relative w-full overflow-hidden rounded-3xl bg-[#0B0B0B]"
                 style={{ aspectRatio: String(service.heroRatio ?? 4 / 3) }}
