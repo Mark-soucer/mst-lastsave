@@ -147,20 +147,30 @@ export default async function CarDetailPage({ params }: CarDetailRouteProps) {
         {car.features.length > 0 && (
           <Reveal delay={0.2}>
             <div className="mt-10 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-8 shadow-[0_20px_60px_-25px_rgba(0,0,0,0.8)] sm:p-10">
-              <h2 className="text-2xl font-bold text-white">Dotări</h2>
-              <div className="mt-2 h-1 w-14 rounded-full bg-gradient-to-r from-[#FF1A1A] to-orange-500" aria-hidden="true" />
-
-              <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {car.features.map((feature) => (
-                  <div
-                    key={feature}
-                    className="group flex items-center gap-2.5 rounded-xl border border-white/10 bg-black/40 px-4 py-3 transition-all duration-300 md:hover:border-[#FF1A1A]/40 md:hover:bg-black/60"
-                  >
-                    <Check className="h-4 w-4 shrink-0 text-[#FF1A1A] transition-transform duration-300 md:group-hover:scale-125" aria-hidden="true" />
-                    <span className="text-sm font-medium text-white">{feature}</span>
-                  </div>
-                ))}
+              <div className="flex items-end justify-between gap-4">
+                <div>
+                  <h2 className="text-2xl font-bold text-white">Dotări</h2>
+                  <div className="mt-2 h-1 w-14 rounded-full bg-gradient-to-r from-[#FF1A1A] to-orange-500" aria-hidden="true" />
+                </div>
+                <span className="text-sm font-semibold uppercase tracking-[0.2em] text-neutral-500">
+                  {car.features.length} dotări
+                </span>
               </div>
+
+              {/* Listă tip fișă tehnică: două coloane pe desktop, o coloană pe telefon */}
+              <ul className="mt-8 grid grid-cols-1 gap-x-10 md:grid-cols-2">
+                {car.features.map((feature) => (
+                  <li
+                    key={feature}
+                    className="group flex items-start gap-4 border-b border-white/10 py-4"
+                  >
+                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#FF1A1A]/15 text-[#FF1A1A] transition-colors duration-300 md:group-hover:bg-[#FF1A1A] md:group-hover:text-white">
+                      <Check className="h-3.5 w-3.5" aria-hidden="true" />
+                    </span>
+                    <span className="break-words text-[15px] leading-relaxed text-neutral-200">{feature}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </Reveal>
         )}

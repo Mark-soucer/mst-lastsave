@@ -11,6 +11,8 @@ import {
   Upload,
   Loader2,
   Pencil,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import AdminTabs from '@/components/admin/AdminTabs';
 import type { CarRecord, CarStatus, CarCondition } from '@/lib/cars';
@@ -146,7 +148,10 @@ export default function AdminMasiniPage() {
     setError(null);
     try {
       const formData = new FormData();
-      Array.from(files).forEach((file) => formData.append('files', file));
+      // Sortăm după nume (1, 2, 3... 10) ca să se încarce în ordinea în care le-ai numerotat.
+      Array.from(files)
+        .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
+        .forEach((file) => formData.append('files', file));
       const res = await fetch('/api/cars/upload', { method: 'POST', body: formData });
       const data = await res.json();
       if (!res.ok || !data.success) {
@@ -165,6 +170,16 @@ export default function AdminMasiniPage() {
 
   const removeImage = (url: string) => {
     setForm((prev) => ({ ...prev, images: prev.images.filter((img) => img !== url) }));
+  };
+
+  const moveImage = (index: number, direction: -1 | 1) => {
+    setForm((prev) => {
+      const target = index + direction;
+      if (target < 0 || target >= prev.images.length) return prev;
+      const next = [...prev.images];
+      [next[index], next[target]] = [next[target], next[index]];
+      return { ...prev, images: next };
+    });
   };
 
   const addFeature = () => {
@@ -599,8 +614,24 @@ export default function AdminMasiniPage() {
                         addFeature();
                       }
                     }}
+                    onPaste={(e) => {
+                      // Dacă lipești o listă separată prin virgulă, punct și virgulă sau rând nou, fiecare dotare devine separată.
+                      const text = e.clipboardData.getData('text');
+                      if (/[\n,;]/.test(text)) {
+                        e.preventDefault();
+                        const items = text
+                          .split(/[\n,;]+/)
+                          .map((s) => s.trim())
+                          .filter(Boolean);
+                        setForm((prev) => ({
+                          ...prev,
+                          features: [...prev.features, ...items.filter((i) => !prev.features.includes(i))],
+                        }));
+                        setFeatureInput('');
+                      }
+                    }}
                     className="flex-1 rounded-lg border border-white/10 bg-neutral-900 px-3 py-2.5 text-white"
-                    placeholder="ex: Scaune încălzite — Enter pentru a adăuga"
+                    placeholder="ex: Scaune încălzite — Enter pentru a adăuga, sau lipește o listă cu virgule"
                   />
                   <button
                     type="button"
@@ -640,17 +671,42 @@ export default function AdminMasiniPage() {
 
               <div>
                 <label className="mb-1.5 block text-xs font-semibold text-neutral-400">Poze</label>
+                <p className="mb-2 text-xs text-neutral-500">Numărul din colț arată ordinea. Poza 1 apare prima în listă. Folosește săgețile ca să schimbi ordinea.</p>
                 <div className="mb-3 flex flex-wrap gap-3">
-                  {form.images.map((img) => (
+                  {form.images.map((img, index) => (
                     <div key={img} className="relative h-20 w-20 overflow-hidden rounded-lg border border-white/10">
                       <Image src={img} alt="" fill className="object-cover" sizes="80px" />
+                      <span className="absolute left-0.5 top-0.5 rounded bg-black/70 px-1 text-[10px] font-bold text-white">
+                        {index + 1}
+                      </span>
                       <button
                         type="button"
                         onClick={() => removeImage(img)}
+                        aria-label="Șterge poza"
                         className="absolute right-0.5 top-0.5 rounded-full bg-black/70 p-0.5 text-white md:hover:bg-red-600"
                       >
                         <X className="h-3 w-3" />
                       </button>
+                      <div className="absolute inset-x-0 bottom-0 flex justify-between bg-black/60">
+                        <button
+                          type="button"
+                          onClick={() => moveImage(index, -1)}
+                          disabled={index === 0}
+                          aria-label="Mută poza mai la stânga"
+                          className="px-1 py-0.5 text-white disabled:opacity-30"
+                        >
+                          <ChevronLeft className="h-4 w-4" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => moveImage(index, 1)}
+                          disabled={index === form.images.length - 1}
+                          aria-label="Mută poza mai la dreapta"
+                          className="px-1 py-0.5 text-white disabled:opacity-30"
+                        >
+                          <ChevronRight className="h-4 w-4" />
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
