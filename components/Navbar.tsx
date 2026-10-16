@@ -82,7 +82,7 @@ export default function Navbar() {
             : 'border-b border-transparent bg-transparent')
         }
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-20 md:px-8">
+        <div className="mx-auto flex h-16 w-full items-center justify-between px-5 md:h-20 md:px-10 xl:px-16">
           {/* Brand Logo - Crisp & Transparent Seamless Integration */}
           <a
             href={getLinkHref('#acasa')}
